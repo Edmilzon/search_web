@@ -1,0 +1,67 @@
+Vamos a centralizar tu proyecto. Aquí tienes tu Stack Tecnológico definitivo, cómo funciona cada pieza y el paso a paso exacto que tienes que seguir desde hoy.1. Tu Stack Tecnológico (El Ecosistema)Tu proyecto ahora se compone de 3 piezas fundamentales:Los Datos: Tu archivo de la ontología (ej. mascotas.owl o mascotas.rdf). Actúa como tu base de datos.El Cerebro (Backend): Python + la librería rdflib. Esta librería es la encargada de abrir tu archivo OWL, entenderlo y ejecutar las consultas SPARQL que tú ya escribiste.La Cara (Frontend): Python + la librería streamlit. Esta librería crea la página web, dibuja el "buscador tipo Google", recoge lo que escribe el usuario y muestra los resultados en una tabla bonita.¿Cómo es el flujo de trabajo?El usuario entra a tu página web $\rightarrow$ Escribe "Perro" en el buscador de Streamlit $\rightarrow$ Python toma esa palabra y se la pasa a rdflib $\rightarrow$ rdflib mete "Perro" en tu consulta SPARQL y busca en el archivo OWL $\rightarrow$ rdflib devuelve los resultados a Streamlit $\rightarrow$ Streamlit pinta una tabla en pantalla.2. Lo que tienes que hacer (Paso a Paso)Paso 1: Preparar tu entorno y tu archivoAbre Protégé y asegúrate de guardar tu ontología. Te recomiendo ir a File > Save As... y guardarla en formato RDF/XML (es el que Python lee con mayor facilidad). Llámalo mascotas.owl.Crea una carpeta nueva en tu computadora para tu proyecto (ej. BuscadorMascotas).Mete tu archivo mascotas.owl dentro de esa carpeta.Paso 2: Instalar las herramientasAbre tu terminal (o símbolo del sistema) e instala las tres librerías mágicas ejecutando este comando:Bashpip install rdflib streamlit pandas
+(Nota: Instalamos pandas porque hace que las tablas de resultados se vean hermosas y ordenadas automáticamente en Streamlit).Paso 3: Crear el código (El archivo app.py)Dentro de la carpeta de tu proyecto, crea un archivo llamado app.py (puedes usar VS Code, PyCharm o el editor que prefieras).Copia y pega esta plantilla. He adaptado tu propia consulta SPARQL para que funcione con la barra de búsqueda:Pythonimport streamlit as st
+from rdflib import Graph
+import pandas as pd
+
+# 1. Configurar la página (El "Bootstrap" de Streamlit)
+st.set_page_config(page_title="Buscador de Mascotas", page_icon="🐾", layout="centered")
+
+st.title("🐾 Buscador Semántico de Mascotas")
+st.write("Escribe el nombre de una especie (ej. Perro, Gato) para ver las razas y mascotas registradas en nuestra Ontología.")
+
+# 2. Cargar la Ontología (Esto lo hace rdflib)
+# Usamos cache para que no vuelva a leer el archivo cada vez que buscas algo
+@st.cache_resource
+def cargar_ontologia():
+    g = Graph()
+    g.parse("mascotas.owl", format="xml") # Asegúrate que el nombre coincida
+    return g
+
+grafo = cargar_ontologia()
+
+# 3. La interfaz: El buscador tipo "Google"
+busqueda_usuario = st.text_input("🔍 Buscar por Especie (ej. Perro):")
+
+# 4. Cuando el usuario escriba algo y presione Enter o haga clic en buscar:
+if busqueda_usuario:
+    
+    # Preparamos tu consulta SPARQL, inyectando lo que el usuario escribió
+    query_sparql = f"""
+    PREFIX : <http://www.semanticweb.org/mascotas#>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+    SELECT ?nombresMascota ?nombresRaza
+    WHERE {{
+      ?mascota :tieneRaza ?raza .
+      ?raza :perteneceAEspecie ?especie .
+
+      ?mascota :nombre ?nombresMascota .
+      ?raza :nombre ?nombresRaza .
+      
+      # Aquí metemos la palabra que el usuario escribió en el buscador web
+      ?especie :nombre "{busqueda_usuario}"^^xsd:string .
+    }}
+    """
+    
+    # 5. Ejecutar la consulta
+    resultados = grafo.query(query_sparql)
+    
+    # 6. Transformar los resultados para mostrarlos bonito (Tu "migración a JSON/Tablas")
+    datos_para_tabla = []
+    for fila in resultados:
+        datos_para_tabla.append({
+            "Nombre de la Mascota": str(fila.nombresMascota),
+            "Raza": str(fila.nombresRaza)
+        })
+        
+    # 7. Mostrar resultados en la pantalla web
+    if len(datos_para_tabla) > 0:
+        st.success(f"¡Encontramos {len(datos_para_tabla)} resultados para '{busqueda_usuario}'!")
+        
+        # Streamlit + Pandas hacen magia aquí: dibujan una tabla estilo Bootstrap
+        df = pd.DataFrame(datos_para_tabla)
+        st.dataframe(df, use_container_width=True)
+    else:
+        st.warning("No se encontraron mascotas para esa especie. ¡Intenta con otra!")
+(Ojo: Fíjate que en la consulta SPARQL dejé :nombre en vez de :nombreMascota, siguiendo la corrección que hablamos antes. Ajusta las propiedades en el SPARQL para que coincidan exactamente con cómo las llamaste finalmente en Protégé).Paso 4: ¡Encender el servidor!Ve a tu terminal, asegúrate de estar dentro de la carpeta de tu proyecto y ejecuta este comando:Bashstreamlit run app.py
+Automáticamente se abrirá una pestaña en tu navegador (normalmente en http://localhost:8501) con tu buscador tipo Google funcionando.Resumen de tu trabajo ahora:Pule tu ontología en Protégé (asegúrate de tener algunas instancias de prueba creadas: un perro llamado Bobby que sea raza Labrador, etc.).Exporta el .owl.Copia este script y ajusta las URIs/Propiedades del PREFIX y del SELECT si las cambiaste.Ejecuta Streamlit.¡Con esto ya tienes el 90% del requerimiento de tus profesores cumplido y con una interfaz que se verá súper profesional! ¿Tienes dudas con alguna parte del código?

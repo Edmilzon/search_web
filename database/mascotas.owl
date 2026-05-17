@@ -1,0 +1,2955 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://www.semanticweb.org/mascotas"
+         xmlns="http://www.semanticweb.org/mascotas#">
+
+<owl:Ontology rdf:about="http://www.semanticweb.org/mascotas"/>
+
+<owl:ObjectProperty rdf:about="#consume">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="#Alimento"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#perteneceAEspecie">
+  <rdfs:domain rdf:resource="#Raza"/>
+  <rdfs:range rdf:resource="#Especie"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#requiereCuidado">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="#Cuidado"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#tieneDueño">
+  <owl:inverseOf rdf:resource="#tieneMacota"/>
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="#Dueño"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#tieneMacota">
+  <rdfs:domain rdf:resource="#Dueño"/>
+  <rdfs:range rdf:resource="#Mascota"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#tieneRaza">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="#Raza"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#usa">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="#Accesorio"/>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="#colorMascota">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#edadDueño">
+  <rdfs:domain rdf:resource="#Dueño"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#edadMascota">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#esperanzaVida">
+  <rdfs:domain rdf:resource="#Especie"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#esterilizado">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#frecuenciaCuidado">
+  <rdfs:domain rdf:resource="#Cuidado"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#marcaAccesorio">
+  <rdfs:domain rdf:resource="#Accesorio"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#marcaAlimento">
+  <rdfs:domain rdf:resource="#Alimento"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#nombreAccesorio">
+  <rdfs:domain rdf:resource="#Accesorio"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#nombreDueño">
+  <rdfs:domain rdf:resource="#Dueño"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#nombreEspecie">
+  <rdfs:domain rdf:resource="#Especie"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#nombreMascota">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#nombreRaza">
+  <rdfs:domain rdf:resource="#Raza"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#pesoMascota">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#requiereBozal">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#sexoMascota">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#temperamento">
+  <rdfs:domain rdf:resource="#Raza"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#tipoAlimento">
+  <rdfs:domain rdf:resource="#Alimento"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#tipoCuidado">
+  <rdfs:domain rdf:resource="#Cuidado"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#tipoPelaje">
+  <rdfs:domain rdf:resource="#Mascota"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="#Mascota"/>
+
+<owl:Class rdf:about="#Alimento"/>
+
+<owl:Class rdf:about="#Raza"/>
+
+<owl:Class rdf:about="#Especie"/>
+
+<owl:Class rdf:about="#Cuidado"/>
+
+<owl:Class rdf:about="#Dueño"/>
+
+<owl:Class rdf:about="#Accesorio"/>
+
+<owl:Class rdf:about="#Gato">
+  <rdfs:subClassOf rdf:resource="#Especie"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Perro">
+  <rdfs:subClassOf rdf:resource="#Especie"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#Accesorio1">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collar</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kong</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento1">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Purina</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Húmedo</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento2">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Royal Canin</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Seco</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento3">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pedigree</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Natural</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado1">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Baño</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño1">
+  <rdf:type rdf:resource="#Dueño"/>
+  <tieneMacota rdf:resource="#Mascota2"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Carlos</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota2">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneRaza rdf:resource="#Raza12"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asia</nombreDueño>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maya</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.85</pesoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño2">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ana</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño3">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Diego</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño4">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Elena</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño5">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fernando</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Especie1">
+  <rdf:type rdf:resource="#Especie"/>
+  <esperanzaVida rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</esperanzaVida>
+  <nombreEspecie rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gato</nombreEspecie>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Especie2">
+  <rdf:type rdf:resource="#Especie"/>
+  <esperanzaVida rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</esperanzaVida>
+  <nombreEspecie rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Perro</nombreEspecie>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota1">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño47"/>
+  <tieneRaza rdf:resource="#Raza5"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.57</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño47">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fernando</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza5">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Poodle</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento8">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Acana</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Natural</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio10">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cepillo</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nylabone</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado4">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Desparasitación</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza12">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Siamés</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento6">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Eukanuba</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Seco</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio2">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correa</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Trixie</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado2">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cepillado</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota3">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño47"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rocky</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">25.63</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza10">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Boxer</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio3">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cama</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ferplast</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota4">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño19"/>
+  <tieneRaza rdf:resource="#Raza12"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nala</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.55</pesoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño19">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fernando</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio6">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arnés</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hunter</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota5">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño17"/>
+  <tieneRaza rdf:resource="#Raza16"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Max</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.74</pesoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño17">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camila</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza16">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">British Shorthair</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza1">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Labrador Retriever</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza11">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Persa</nombreRaza>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza13">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maine Coon</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza14">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bengala</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza15">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ragdoll</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza17">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Esfinge</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza18">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Azul Ruso</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza19">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Abisinio</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza2">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bulldog Francés</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza20">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Scottish Fold</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza3">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pastor Alemán</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza4">
+  <rdf:type rdf:resource="#Raza"/>
+  <tieneDueño rdf:resource="#Dueño4"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Golden Retriever</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza6">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Chihuahua</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza7">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Beagle</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza8">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rottweiler</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza9">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yorkshire Terrier</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amigable</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento4">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hill's</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Natural</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento5">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Whiskas</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Húmedo</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento7">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Taste of the Wild</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Natural</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento9">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pro Plan</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Seco</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento10">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NutraGold</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Seco</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio4">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Juguete</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PetSafe</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio5">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transportadora</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dukier</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio7">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plato</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Flexi</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio8">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rascador</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Frisco</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio9">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pelota</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Outward Hound</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado3">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vacunación</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado5">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corte de uñas</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño6">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Andrés</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">37</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño7">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Isabel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño8">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sofía</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño9">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luis</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">41</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño10">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Paula</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">21</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño11">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lucía</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño12">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fernando</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño13">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Isabel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño14">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Carlos</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño15">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ana</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">42</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño16">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luis</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño18">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Andrés</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">27</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño20">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jorge</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño21">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lucía</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño22">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Laura</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño23">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fernando</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño24">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luis</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">31</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño25">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luis</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño26">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pedro</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño27">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Laura</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño28">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Elena</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño29">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">María</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño30">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Diego</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño31">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Laura</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño32">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Elena</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño33">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luis</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">52</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño34">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miguel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">46</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño35">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Carlos</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño36">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Laura</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">37</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño37">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camila</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">47</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño38">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Diego</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño39">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ricardo</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">28</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño40">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Valentina</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">33</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño41">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Isabel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">38</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño42">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jorge</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">42</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño43">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Valentina</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño44">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Isabel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño45">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Andrés</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño46">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luis</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño48">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ana</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño49">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Carlos</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño50">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Diego</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota6">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño46"/>
+  <tieneRaza rdf:resource="#Raza12"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio9"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rex</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.69</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota7">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño37"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Oreo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">28.18</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota8">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño27"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento10"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Milo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.73</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota9">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño40"/>
+  <tieneRaza rdf:resource="#Raza12"/>
+  <consume rdf:resource="#Alimento5"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Max</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.35</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota10">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño24"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento10"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">19.88</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota11">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño40"/>
+  <tieneRaza rdf:resource="#Raza18"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Simba</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.34</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota12">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño48"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lola</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.09</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota13">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño19"/>
+  <tieneRaza rdf:resource="#Raza3"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio8"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">28.16</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota14">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño20"/>
+  <tieneRaza rdf:resource="#Raza13"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coco</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16.15</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota15">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño43"/>
+  <tieneRaza rdf:resource="#Raza1"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.35</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota16">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño3"/>
+  <tieneRaza rdf:resource="#Raza11"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Milo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.3</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota17">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño22"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.22</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota18">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño27"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Thor</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">19.95</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota19">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño46"/>
+  <tieneRaza rdf:resource="#Raza16"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rex</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.24</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota20">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño47"/>
+  <tieneRaza rdf:resource="#Raza11"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coco</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.97</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota21">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño24"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio5"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lola</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7.43</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota22">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño9"/>
+  <tieneRaza rdf:resource="#Raza17"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bruno</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17.2</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota23">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño4"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kira</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">28.45</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota24">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño3"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coco</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.59</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota25">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza5"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luna</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22.14</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota26">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza6"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio9"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kira</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.82</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota27">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño39"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lola</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">29.24</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota28">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño24"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bella</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.81</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota29">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño17"/>
+  <tieneRaza rdf:resource="#Raza13"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lola</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">19.67</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota30">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño13"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio8"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kira</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.69</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota31">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño23"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Milo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7.45</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota32">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño19"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio8"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luna</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.24</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota33">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño26"/>
+  <tieneRaza rdf:resource="#Raza6"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daisy</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.33</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota34">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño32"/>
+  <tieneRaza rdf:resource="#Raza18"/>
+  <consume rdf:resource="#Alimento10"/>
+  <usa rdf:resource="#Accesorio8"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maya</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.36</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota35">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño45"/>
+  <tieneRaza rdf:resource="#Raza8"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bruno</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.84</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota36">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño45"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio9"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kira</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13.32</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota37">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño50"/>
+  <tieneRaza rdf:resource="#Raza16"/>
+  <consume rdf:resource="#Alimento5"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Oreo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.01</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota38">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño45"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.28</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota39">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño40"/>
+  <tieneRaza rdf:resource="#Raza18"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Oreo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.22</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota40">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño50"/>
+  <tieneRaza rdf:resource="#Raza9"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rex</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.87</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota41">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño41"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coco</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22.51</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota42">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño10"/>
+  <tieneRaza rdf:resource="#Raza13"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Leo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.83</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota43">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño34"/>
+  <tieneRaza rdf:resource="#Raza17"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maya</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11.95</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota44">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño36"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Milo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17.24</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota45">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño37"/>
+  <tieneRaza rdf:resource="#Raza16"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio8"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daisy</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">29.94</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota46">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño36"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio8"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kira</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.73</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota47">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño14"/>
+  <tieneRaza rdf:resource="#Raza1"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio5"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nala</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">19.7</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota48">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño20"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.64</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota49">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño32"/>
+  <tieneRaza rdf:resource="#Raza5"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daisy</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.05</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota50">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño44"/>
+  <tieneRaza rdf:resource="#Raza17"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio5"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">19.04</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota51">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño16"/>
+  <tieneRaza rdf:resource="#Raza13"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bella</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.21</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota52">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño50"/>
+  <tieneRaza rdf:resource="#Raza7"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Simba</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.87</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota53">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño27"/>
+  <tieneRaza rdf:resource="#Raza1"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bruno</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.6</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota54">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño39"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio5"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.81</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota55">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño1"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Milo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.43</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota56">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño49"/>
+  <tieneRaza rdf:resource="#Raza7"/>
+  <consume rdf:resource="#Alimento5"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luna</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13.95</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota57">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño14"/>
+  <tieneRaza rdf:resource="#Raza5"/>
+  <consume rdf:resource="#Alimento10"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Thor</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.8</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota58">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño24"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daisy</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16.08</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota59">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño50"/>
+  <tieneRaza rdf:resource="#Raza19"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zeus</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22.39</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota60">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza17"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zeus</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.07</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota61">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño43"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Leo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11.18</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota62">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño10"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.26</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota63">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño21"/>
+  <tieneRaza rdf:resource="#Raza15"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rex</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.6</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota64">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño21"/>
+  <tieneRaza rdf:resource="#Raza12"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Oreo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">28.19</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota65">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño17"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio5"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rex</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17.71</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota66">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño41"/>
+  <tieneRaza rdf:resource="#Raza15"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.07</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota67">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Simba</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.73</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota68">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño22"/>
+  <tieneRaza rdf:resource="#Raza13"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">23.97</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota69">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño17"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nala</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.29</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota70">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño1"/>
+  <tieneRaza rdf:resource="#Raza4"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.51</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota71">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño26"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.6</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota72">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño39"/>
+  <tieneRaza rdf:resource="#Raza4"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lola</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.11</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota73">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño21"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rocky</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13.36</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota74">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño44"/>
+  <tieneRaza rdf:resource="#Raza1"/>
+  <consume rdf:resource="#Alimento5"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado3"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daisy</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.77</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota75">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño41"/>
+  <tieneRaza rdf:resource="#Raza7"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Simba</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.39</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota76">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño1"/>
+  <tieneRaza rdf:resource="#Raza6"/>
+  <consume rdf:resource="#Alimento10"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rocky</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11.79</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota77">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño6"/>
+  <tieneRaza rdf:resource="#Raza15"/>
+  <consume rdf:resource="#Alimento5"/>
+  <usa rdf:resource="#Accesorio7"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nala</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.17</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota78">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño41"/>
+  <tieneRaza rdf:resource="#Raza11"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17.45</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota79">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño46"/>
+  <tieneRaza rdf:resource="#Raza12"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Leo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.58</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota80">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño50"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio8"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Leo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4.28</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota81">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño38"/>
+  <tieneRaza rdf:resource="#Raza15"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luna</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.99</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota82">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño43"/>
+  <tieneRaza rdf:resource="#Raza9"/>
+  <consume rdf:resource="#Alimento7"/>
+  <usa rdf:resource="#Accesorio5"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bella</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">29.66</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota83">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rocky</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13.22</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota84">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño29"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Max</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.61</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota85">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza11"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio9"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maya</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.88</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota86">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño20"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coco</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.85</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota87">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza5"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zeus</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.67</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota88">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño15"/>
+  <tieneRaza rdf:resource="#Raza19"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coco</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">23.16</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota89">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño31"/>
+  <tieneRaza rdf:resource="#Raza3"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Luna</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.59</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota90">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza7"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coco</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">25.53</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota91">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño15"/>
+  <tieneRaza rdf:resource="#Raza5"/>
+  <consume rdf:resource="#Alimento2"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Max</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">28.52</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota92">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño32"/>
+  <tieneRaza rdf:resource="#Raza18"/>
+  <consume rdf:resource="#Alimento5"/>
+  <usa rdf:resource="#Accesorio5"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Thor</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.85</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota93">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza7"/>
+  <consume rdf:resource="#Alimento10"/>
+  <usa rdf:resource="#Accesorio9"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota94">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño41"/>
+  <tieneRaza rdf:resource="#Raza14"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bruno</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">28.87</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota95">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño16"/>
+  <tieneRaza rdf:resource="#Raza7"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Leo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">23.72</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota96">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño32"/>
+  <tieneRaza rdf:resource="#Raza13"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio2"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Max</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.29</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota97">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño10"/>
+  <tieneRaza rdf:resource="#Raza17"/>
+  <consume rdf:resource="#Alimento4"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado1"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bobby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11.17</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota98">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño12"/>
+  <tieneRaza rdf:resource="#Raza11"/>
+  <consume rdf:resource="#Alimento10"/>
+  <usa rdf:resource="#Accesorio1"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Simba</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.8</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota99">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño12"/>
+  <tieneRaza rdf:resource="#Raza18"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado2"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Toby</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">29.94</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota100">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza10"/>
+  <consume rdf:resource="#Alimento1"/>
+  <usa rdf:resource="#Accesorio6"/>
+  <requiereCuidado rdf:resource="#Cuidado4"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bruno</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">28.71</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza21">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Doberman</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza22">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Husky Siberiano</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza23">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Shih Tzu</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza24">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Akita</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza25">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Border Collie</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza26">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Angora</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza27">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Savannah</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza28">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bombay</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza29">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie2"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Noruego del Bosque</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Raza30">
+  <rdf:type rdf:resource="#Raza"/>
+  <perteneceAEspecie rdf:resource="#Especie1"/>
+  <nombreRaza rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Birmano</nombreRaza>
+  <temperamento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activo</temperamento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento11">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Orijen</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento12">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Advance</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento13">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Brit Care</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento14">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Diamond</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento15">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Canidae</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento16">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wellness</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento17">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Applaws</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento18">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Iams</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento19">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blue Buffalo</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Alimento20">
+  <rdf:type rdf:resource="#Alimento"/>
+  <marcaAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Josera</marcaAlimento>
+  <tipoAlimento rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Premium</tipoAlimento>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio11">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bozal</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Petmate</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio12">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Comedero</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AmazonBasics</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio13">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bebedero</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MidWest</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio14">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manta</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PetFusion</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio15">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Casa</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">K&amp;H</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio16">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jaula</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IRIS</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio17">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arenero</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PawHut</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio18">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correa retráctil</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ruffwear</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio19">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hueso de juguete</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ZippyPaws</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Accesorio20">
+  <rdf:type rdf:resource="#Accesorio"/>
+  <nombreAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ropa</nombreAccesorio>
+  <marcaAccesorio rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Petstages</marcaAccesorio>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado6">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Limpieza dental</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado7">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Revisión veterinaria</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado8">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ejercicio</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado9">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Entrenamiento</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado10">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Higiene ocular</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado11">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Desinfección</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado12">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Control de peso</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado13">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Chequeo general</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado14">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vacuna anual</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Cuidado15">
+  <rdf:type rdf:resource="#Cuidado"/>
+  <tipoCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Baño medicado</tipoCuidado>
+  <frecuenciaCuidado rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mensual</frecuenciaCuidado>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño51">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sergio</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">27</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño52">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sergio</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño53">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Raúl</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño54">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daniel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">39</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño55">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gabriela</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">39</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño56">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daniel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño57">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Verónica</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">39</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño58">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Daniel</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño59">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Natalia</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Dueño60">
+  <rdf:type rdf:resource="#Dueño"/>
+  <nombreDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Patricia</nombreDueño>
+  <edadDueño rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</edadDueño>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota101">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño57"/>
+  <tieneRaza rdf:resource="#Raza21"/>
+  <consume rdf:resource="#Alimento15"/>
+  <usa rdf:resource="#Accesorio18"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nova</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negro</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">29.35</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota102">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño15"/>
+  <tieneRaza rdf:resource="#Raza8"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio19"/>
+  <requiereCuidado rdf:resource="#Cuidado6"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nova</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">34.59</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota103">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño11"/>
+  <tieneRaza rdf:resource="#Raza2"/>
+  <consume rdf:resource="#Alimento12"/>
+  <usa rdf:resource="#Accesorio13"/>
+  <requiereCuidado rdf:resource="#Cuidado11"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Otis</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.57</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota104">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño19"/>
+  <tieneRaza rdf:resource="#Raza9"/>
+  <consume rdf:resource="#Alimento11"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado11"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Chester</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.23</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota105">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño13"/>
+  <tieneRaza rdf:resource="#Raza6"/>
+  <consume rdf:resource="#Alimento8"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado13"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Otis</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.32</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota106">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño41"/>
+  <tieneRaza rdf:resource="#Raza11"/>
+  <consume rdf:resource="#Alimento9"/>
+  <usa rdf:resource="#Accesorio13"/>
+  <requiereCuidado rdf:resource="#Cuidado6"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Shadow</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dorado</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.78</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota107">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño24"/>
+  <tieneRaza rdf:resource="#Raza20"/>
+  <consume rdf:resource="#Alimento6"/>
+  <usa rdf:resource="#Accesorio12"/>
+  <requiereCuidado rdf:resource="#Cuidado11"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lucky</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gris</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17.75</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corto</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota108">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño41"/>
+  <tieneRaza rdf:resource="#Raza25"/>
+  <consume rdf:resource="#Alimento18"/>
+  <usa rdf:resource="#Accesorio3"/>
+  <requiereCuidado rdf:resource="#Cuidado6"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lucky</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">23.88</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota109">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño50"/>
+  <tieneRaza rdf:resource="#Raza5"/>
+  <consume rdf:resource="#Alimento3"/>
+  <usa rdf:resource="#Accesorio4"/>
+  <requiereCuidado rdf:resource="#Cuidado5"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Apollo</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blanco</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4.32</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hembra</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mascota110">
+  <rdf:type rdf:resource="#Mascota"/>
+  <tieneDueño rdf:resource="#Dueño10"/>
+  <tieneRaza rdf:resource="#Raza25"/>
+  <consume rdf:resource="#Alimento15"/>
+  <usa rdf:resource="#Accesorio10"/>
+  <requiereCuidado rdf:resource="#Cuidado11"/>
+  <nombreMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rocky</nombreMascota>
+  <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</edadMascota>
+  <colorMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marrón</colorMascota>
+  <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">29.86</pesoMascota>
+  <sexoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macho</sexoMascota>
+  <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
+  <tipoPelaje rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Largo</tipoPelaje>
+  <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</requiereBozal>
+</owl:NamedIndividual>
+
+
+</rdf:RDF>
