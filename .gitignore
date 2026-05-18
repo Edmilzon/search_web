@@ -1,6 +1,5 @@
 # Python
 __pycache__/
-AGENTS.md
 *.py[cod]
 *$py.class
 *.so
@@ -20,6 +19,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Docs (locales)
 AGENTS.md
 
 # Virtual Environment

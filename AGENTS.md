@@ -218,18 +218,3 @@ database/
 | **Accesorios** | 20 | Collar, Correa, etc. |
 | **Cuidados** | 15 | Baño, Vacunación, etc. |
 
----
-
-## Notas Importantes
-
-### Bugs corregidos durante desarrollo:
-- Queries de perros/gatos usaban `Mascota.perteneceAEspecie` incorrectamente → corregido a `Raza.perteneceAEspecie`
-- Función duplicada `buscar_por_especie` causaba recursión infinita → eliminada
-- Bug en `_mapear_resultados` con variable no definida → corregido
-- Archivo de ontología OWL/XML incompatible con rdflib 7.x → exportado como RDF/XML desde Protégé
-
-### Configuración:
-- **No test framework** configurado
-- **No lint/typecheck** configurado
-- **Puerto:** 8501 (Streamlit default)
-- **Caché:** rdflib Graph global + funciones con @lru_cache
