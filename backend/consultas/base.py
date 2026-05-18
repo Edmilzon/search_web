@@ -2,10 +2,10 @@ from rdflib import Graph
 import os
 
 _ONTOLOGY_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), 
-    "..", 
-    "database", 
-    "mascotas.owl"
+    os.path.dirname(os.path.dirname(__file__)),
+    "..",
+    "database",
+    "mascotas.rdf"
 )
 
 _grafo_cache = None

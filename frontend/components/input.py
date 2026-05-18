@@ -1,7 +1,7 @@
 import streamlit as st
 
 
-def render_search_input(placeholder: str = "Buscar...", label: str = "🔍 Buscar:"):
+def render_search_input(placeholder: str = "Buscar...", label: str = "Buscar:"):
     return st.text_input(
         label,
         placeholder=placeholder,
@@ -13,7 +13,7 @@ def render_search_with_filters():
     col1, col2 = st.columns([3, 1])
     with col1:
         busqueda = st.text_input(
-            "🔍 Buscar:",
+            "Buscar:",
             placeholder="Ej: Bobby, Labrador, Perro, Gato...",
             label_visibility="collapsed"
         )

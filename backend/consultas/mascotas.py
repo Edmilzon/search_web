@@ -280,8 +280,8 @@ def get_razas_con_mas_de_una_mascota():
 def _mapear_resultados(query: str, columnas: list) -> list:
     resultados = ejecutar_query(query)
     datos = []
-    for fila in resultado_to_dict(fila, columnas):
-        datos.append(fila)
+    for fila in resultados:
+        datos.append(resultado_to_dict(fila, columnas))
     return datos
 
 

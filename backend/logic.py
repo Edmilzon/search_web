@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from .consultas import (
     get_todas_las_mascotas,
     buscar_por_nombre_mascota,
@@ -16,6 +18,32 @@ from .consultas import (
     get_info_completa_perros,
     get_info_completa_gatos
 )
+
+
+@lru_cache(maxsize=1)
+def get_todas():
+    return get_todas_las_mascotas()
+
+
+@lru_cache(maxsize=1)
+def get_perros():
+    return get_todos_los_perros()
+
+
+@lru_cache(maxsize=1)
+def get_gatos():
+    return get_todos_los_gatos()
+
+
+@lru_cache(maxsize=1)
+def get_razas():
+    return get_todas_las_raza()
+
+
+def get_contar_duenos():
+    from .consultas.mascotas import get_mascotas_con_dueno
+    resultados = get_mascotas_con_dueno()
+    return len(resultados)
 
 
 def buscar(query: str) -> list:
@@ -85,10 +113,6 @@ def get_gatos():
 
 def get_razas():
     return get_todas_las_raza()
-
-
-def buscar_por_especie(especie: str):
-    return buscar(especie)
 
 
 def info_mascota(nombre: str):

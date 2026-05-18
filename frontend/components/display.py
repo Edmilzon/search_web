@@ -8,7 +8,7 @@ def inject_bootstrap():
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     """, unsafe_allow_html=True)
-    
+
     styles_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "styles", "main.css")
     if os.path.exists(styles_path):
         with open(styles_path, "r", encoding="utf-8") as f:
@@ -17,35 +17,52 @@ def inject_bootstrap():
 
 def render_results(resultados, titulo: str = "Resultados"):
     inject_bootstrap()
-    
+
+    if not resultados:
+        st.info("No se encontraron resultados")
+        return
+
     df = pd.DataFrame(resultados)
-    
-    # Agregar badges según contenido
+
+    # Agregar columna Tipo según raza
     if 'Raza' in df.columns:
-        df['Tipo'] = df['Raza'].apply(lambda x: 
-            '<span class="badge badge-perro">🐕 Perro</span>' if any(p in str(x).lower() for p in ['labrador', 'bulldog', 'pastor', 'golden', 'poodle', 'chihuahua', 'beagle', 'rottweiler', 'yorkshire', 'boxer', 'doberman', 'husky', 'shih tzu', 'border', 'collie']) 
-            else ('<span class="badge badge-gato">🐈 Gato</span>' if any(g in str(x).lower() for g in ['persa', 'siamés', 'maine', 'bengala', 'ragdoll', 'british', 'esfinge', 'azul', 'abisinio', 'scottish', 'angora', 'savannah', 'bombay', 'noruego', 'birmano', 'akita'])
+        df['Tipo'] = df['Raza'].apply(lambda x:
+            '🐕 Perro' if any(p in str(x).lower() for p in ['labrador', 'bulldog', 'pastor', 'golden', 'poodle', 'chihuahua', 'beagle', 'rottweiler', 'yorkshire', 'boxer', 'doberman', 'husky', 'shih tzu', 'border', 'collie'])
+            else ('🐈 Gato' if any(g in str(x).lower() for g in ['persa', 'siamés', 'maine', 'bengala', 'ragdoll', 'british', 'esfinge', 'azul', 'abisinio', 'scottish', 'angora', 'savannah', 'bombay', 'noruego', 'birmano', 'akita'])
             else '')
         )
-    
-    html = df.to_html(classes='table table-custom', index=False, escape=False)
-    st.markdown(html, unsafe_allow_html=True)
+
+    # Usar dataframe nativo de Streamlit
+    st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "Tipo": st.column_config.TextColumn("Tipo", width="small")
+        }
+    )
 
 
 def render_results_raza(resultados):
     inject_bootstrap()
-    
+
+    if not resultados:
+        st.info("No se encontraron resultados")
+        return
+
     df = pd.DataFrame(resultados)
-    
-    # Badge según especie
+
+    # Agregar badge según especie
     if 'Especie' in df.columns:
-        df['Badge'] = df['Especie'].apply(lambda x: 
-            '<span class="badge badge-perro">🐕</span>' if 'Perro' in str(x) 
-            else '<span class="badge badge-gato">🐈</span>'
+        df['Icono'] = df['Especie'].apply(lambda x:
+            '🐕' if 'Perro' in str(x) else '🐈'
         )
-    
-    html = df.to_html(classes='table table-custom', index=False, escape=False)
-    st.markdown(html, unsafe_allow_html=True)
+
+    st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True
+    )
 
 
 def render_error(mensaje: str):
@@ -78,34 +95,34 @@ def render_success(mensaje: str):
 def render_column_config(columnas: list):
     config = {}
     mapeo = {
-        "nombre": ("🐾 Mascota", "medium"),
-        "Nombre": ("🐾 Mascota", "medium"),
-        "raza": ("🐶 Raza", "medium"),
-        "Raza": ("🐶 Raza", "medium"),
-        "edad": ("🎂 Edad", "small"),
-        "Edad": ("🎂 Edad", "small"),
-        "peso": ("⚖️ Peso", "small"),
-        "Peso": ("⚖️ Peso", "small"),
-        "color": ("🎨 Color", "small"),
-        "Color": ("🎨 Color", "small"),
-        "sexo": ("♂️ Sexo", "small"),
-        "Sexo": ("♂️ Sexo", "small"),
-        "dueño": ("👤 Dueño", "medium"),
-        "Dueño": ("👤 Dueño", "medium"),
-        "alimento": ("🍖 Alimento", "medium"),
-        "Alimento": ("🍖 Alimento", "medium"),
-        "tipo_alimento": ("🍽️ Tipo", "small"),
-        "Tipo de Alimento": ("🍽️ Tipo", "small"),
-        "accesorio": ("🎾 Accesorio", "medium"),
-        "Accesorio": ("🎾 Accesorio", "medium"),
-        "tipo_pelaje": ("🧸 Pelaje", "small"),
-        "Tipo de Pelaje": ("🧸 Pelaje", "small"),
-        "tipo_cuidado": ("✂️ Cuidado", "small"),
-        "Tipo de Cuidado": ("✂️ Cuidado", "small"),
-        "especie": ("🐾 Especie", "medium"),
-        "Especie": ("🐾 Especie", "medium"),
-        "mascotas": ("🐾 Mascotas", "large"),
-        "Mascotas": ("🐾 Mascotas", "large")
+        "nombre": ("Mascota", "medium"),
+        "Nombre": ("Mascota", "medium"),
+        "raza": ("Raza", "medium"),
+        "Raza": ("Raza", "medium"),
+        "edad": ("Edad", "small"),
+        "Edad": ("Edad", "small"),
+        "peso": ("Peso", "small"),
+        "Peso": ("Peso", "small"),
+        "color": ("Color", "small"),
+        "Color": ("Color", "small"),
+        "sexo": ("Sexo", "small"),
+        "Sexo": ("Sexo", "small"),
+        "dueño": ("Dueño", "medium"),
+        "Dueño": ("Dueño", "medium"),
+        "alimento": ("Alimento", "medium"),
+        "Alimento": ("Alimento", "medium"),
+        "tipo_alimento": ("Tipo", "small"),
+        "Tipo de Alimento": ("Tipo", "small"),
+        "accesorio": ("Accesorio", "medium"),
+        "Accesorio": ("Accesorio", "medium"),
+        "tipo_pelaje": ("Pelaje", "small"),
+        "Tipo de Pelaje": ("Pelaje", "small"),
+        "tipo_cuidado": ("Cuidado", "small"),
+        "Tipo de Cuidado": ("Cuidado", "small"),
+        "especie": ("Especie", "medium"),
+        "Especie": ("Especie", "medium"),
+        "mascotas": ("Mascotas", "large"),
+        "Mascotas": ("Mascotas", "large")
     }
     for col in columnas:
         if col in mapeo:

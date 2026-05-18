@@ -7,10 +7,9 @@ def get_todos_los_perros():
     SELECT (STR(?nombreMascota) AS ?nombre) (STR(?nombreRaza) AS ?raza)
     WHERE {
       ?mascota :tieneRaza ?raza .
-      ?raza :perteneceAEspecie ?especie .
+      ?raza :perteneceAEspecie :Especie2 .
       ?mascota :nombreMascota ?nombreMascota .
       ?raza :nombreRaza ?nombreRaza .
-      ?especie :nombreEspecie "Perro"^^xsd:string .
     }
     ORDER BY ?nombre
     """
@@ -23,10 +22,10 @@ def get_perros_por_raza(raza: str):
     SELECT (STR(?nombreMascota) AS ?nombre) (STR(?nombreRaza) AS ?raza)
     WHERE {{
       ?mascota :tieneRaza ?razaObj .
-      ?razaObj :perteneceAEspecie ?especie .
+      ?mascota :perteneceAEspecie ?especie .
       ?mascota :nombreMascota ?nombreMascota .
       ?razaObj :nombreRaza ?nombreRaza .
-      ?especie :nombreEspecie "Perro"^^xsd:string .
+      ?especie :nombreEspecie "Perro" .
       FILTER(CONTAINS(LCASE(?nombreRaza), LCASE("{raza}")))
     }}
     ORDER BY ?nombre

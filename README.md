@@ -59,32 +59,29 @@ search_web/
 ├── requirements.txt           # Dependencias
 │
 ├── database/
-│   ├── mascotas.owl           # Ontología (RDF/XML)
-│   ├── mascotas.owx          # Ontología (OWL/XML - Protégé)
+│   ├── mascotas.owl           # Ontología (RDF/XML, ~10,965 líneas)
 │   └── ONTOLOGIA.md          # Documentación de la ontología
 │
 ├── backend/
 │   ├── logic.py               # Lógica principal de búsqueda
 │   ├── consultas_doc.txt      # Consultas SPARQL documentadas
 │   └── consultas/            # Módulo de consultas
-│       ├── __init__.py
-│       ├── base.py           # Conexión a ontología
+│       ├── __init__.py        # Expone 33 funciones
+│       ├── base.py           # Graph() singleton + ejecutar_query()
 │       ├── mascotas.py       # Consultas generales
-│       ├── perros.py        # Consultas de perros
+│       ├── perros.py          # Consultas de perros
 │       └── gatos.py          # Consultas de gatos
 │
 └── frontend/
-    ├── app.py                # Aplicación Streamlit
-    ├── components/           # Componentes UI
-    │   ├── __init__.py
-    │   ├── input.py          # Entrada de búsqueda
-    │   └── display.py        # Renderizado de resultados
-    └── pages/                # Páginas adicionales
+    ├── app.py                # Aplicación Streamlit (single-page)
+    ├── styles/
+    │   └── main.css          # Estilos CSS personalizados
+    └── components/           # Componentes UI (usados)
         ├── __init__.py
-        ├── mascotas.py
-        ├── perros.py
-        ├── gatos.py
-        └── buscar.py
+        ├── input.py          # Entrada de búsqueda
+        ├── display.py        # Renderizado de resultados
+        └── search.py         # Utilidades de búsqueda
+    └── pages/                # NO USADO (código legacy)
 ```
 
 ##  Instalación

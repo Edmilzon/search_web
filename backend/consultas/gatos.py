@@ -7,10 +7,9 @@ def get_todos_los_gatos():
     SELECT (STR(?nombreMascota) AS ?nombre) (STR(?nombreRaza) AS ?raza)
     WHERE {
       ?mascota :tieneRaza ?raza .
-      ?raza :perteneceAEspecie ?especie .
+      ?raza :perteneceAEspecie :Especie1 .
       ?mascota :nombreMascota ?nombreMascota .
       ?raza :nombreRaza ?nombreRaza .
-      ?especie :nombreEspecie "Gato"^^xsd:string .
     }
     ORDER BY ?nombre
     """

@@ -17,8 +17,9 @@ streamlit run main.py
 
 - **Entry chain**: `main.py` → imports → `frontend/app.py:main()` (NOT `app.py` directly)
 - **Backend layers**: `logic.py` (search orchestration) → `consultas/` (SPARQL execution)
-- **Search pattern**: `logic.buscar()` runs 5 parallel queries then deduplicates by `Nombre+Raza`
-- **Ontology**: Globally cached in `backend/consultas/base.py:cargar_ontologia()`
+- **Search pattern**: `logic.buscar()` runs 5 sequential queries (nombre→raza→especie→dueño→alimento) then deduplicates by `Nombre+Raza`
+- **Frontend**: Single-page Streamlit app with internal navigation (radio button switches views), not multi-page, uses Bootstrap 5 + custom CSS
+- **Ontology**: Globally cached in `backend/consultas/base.py:cargar_ontologia()` (rdflib Graph cached globally)
 
 ## SPARQL Convention
 
@@ -30,14 +31,20 @@ streamlit run main.py
 
 ```
 main.py                 → Entry point
-frontend/app.py         → Streamlit UI (pages: inicio, perros, gatos, búsqueda, razas)
+frontend/app.py         → Streamlit UI (single-page, radio nav)
+frontend/components/
+├── input.py            → Search input component
+├── display.py          → Results rendering (pandas tables)
+└── search.py           → Search utilities
+frontend/pages/         → UNUSED (dead code, not integrated)
 backend/logic.py        → Search orchestration
 backend/consultas/
 ├── base.py            → Graph() singleton + ejecutar_query()
+├── __init__.py        → Exports 33 query functions
 ├── mascotas.py        → General queries
-├── perros.py          → Dog-specific
-└── gatos.py           → Cat-specific
-database/mascotas.owl  → OWL ontology (110 pets, 30 breeds, 60 owners)
+├── perros.py          → Dog-specific queries
+└── gatos.py           → Cat-specific queries
+database/mascotas.owl → OWL ontology RDF/XML (110 pets, 30 breeds, 60 owners)
 ```
 
 ## Notes

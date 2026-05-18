@@ -1,14 +1,15 @@
-# Documentación de la Ontología `mascotas.owx`
+# Documentación de la Ontología `mascotas.rdf`
 
 ## 1. Información General
 
 | Campo | Valor |
 |-------|-------|
 | **IRI Base** | `http://www.semanticweb.org/mascotas` |
-| **Formato** | OWL/XML (Protégé) |
-| **Clases principales** | 10 |
-| **Propiedades** | 13 (6 objeto + 7 dato) |
-| **Individuos** | ~300+ |
+| **Formato** | RDF/XML (Protégé) |
+| **Clases** | 9 |
+| **Propiedades Objeto** | 6 |
+| **Propiedades Dato** | ~13 |
+| **Triples** | 2,370 |
 
 ---
 
@@ -172,11 +173,10 @@ Mascota (110) ──tieneRaza──> Raza
 
 ---
 
-## 9. Diferencia entre archivos
+## 9. Archivo actual
 
 | Archivo | Formato | Descripción |
 |---------|---------|-------------|
-| `mascotas.owx` | OWL/XML | Versión de Protégé |
-| `mascotas.owl` | RDF/XML | Versión compatible con rdflib |
+| `mascotas.rdf` | RDF/XML | Versión compatible con rdflib |
 
-**Nota:** Para usar con Python/rdflib, usar `mascotas.owl`.
+**Nota:** Para usar con Python/rdflib, usar `mascotas.rdf`.

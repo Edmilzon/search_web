@@ -4,9 +4,9 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from backend.logic import buscar, get_todas, get_perros, get_gatos, get_razas
+from backend.logic import buscar, get_todas, get_perros, get_gatos, get_razas, get_contar_duenos
 from backend.consultas import get_info_completa_perros, get_info_completa_gatos
-from frontend.components import render_results, render_results_raza, render_error, render_warning, render_success
+from frontend.components import render_results, render_results_raza
 
 
 def inject_bootstrap():
@@ -14,8 +14,7 @@ def inject_bootstrap():
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     """, unsafe_allow_html=True)
-    
-    import os
+
     css_path = os.path.join(os.path.dirname(__file__), "styles", "main.css")
     if os.path.exists(css_path):
         with open(css_path, "r", encoding="utf-8") as f:
@@ -24,64 +23,76 @@ def inject_bootstrap():
 
 def main():
     inject_bootstrap()
-    
+
     st.set_page_config(
-        page_title="🐾 Buscador de Mascotas",
-        page_icon="🐾",
+        page_title="Buscador de Mascotas",
+        page_icon=":dog:",
         layout="wide"
     )
 
-    # Navbar
+    # Header
     st.markdown("""
     <nav class="navbar-custom">
         <div class="container">
             <div class="d-flex align-items-center justify-content-between w-100">
                 <span class="navbar-brand">
-                    <i class="bi bi-paw"></i> Buscador Semántico de Mascotas
+                    <i class="bi bi-paw" style="color: #58a6ff;"></i> Buscador Semántico de Mascotas
                 </span>
                 <span class="navbar-text">
-                    🔍 Búsqueda Inteligente
+                    <i class="bi bi-diagram-3" style="color: #8b949e;"></i> Búsqueda Inteligente
                 </span>
             </div>
         </div>
     </nav>
     """, unsafe_allow_html=True)
 
-    # Menu de navegación
-    col_menu = st.columns([1, 1, 1, 1, 1])
-    with col_menu[0]:
-        st.markdown('<a class="menu-btn active" href="#">🏠 Inicio</a>', unsafe_allow_html=True)
-    with col_menu[1]:
-        st.markdown('<a class="menu-btn" href="#perros">🐕 Perros</a>', unsafe_allow_html=True)
-    with col_menu[2]:
-        st.markdown('<a class="menu-btn" href="#gatos">🐈 Gatos</a>', unsafe_allow_html=True)
-    with col_menu[3]:
-        st.markdown('<a class="menu-btn" href="#buscar">🔍 Búsqueda</a>', unsafe_allow_html=True)
-    with col_menu[4]:
-        st.markdown('<a class="menu-btn" href="#razas">📋 Razas</a>', unsafe_allow_html=True)
+    # Navigation with segmented control
+    st.markdown("""
+    <style>
+    .nav-container {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .nav-btn {
+        background: #21262d;
+        border: 1px solid #30363d;
+        color: #8b949e;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+    }
+    .nav-btn:hover {
+        background: #30363d;
+        color: #c9d1d9;
+    }
+    .nav-btn.active {
+        background: #1f6feb;
+        border-color: #1f6feb;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    st.markdown('<hr>', unsafe_allow_html=True)
-
-    # Menú lateral
-    menu = st.radio(
-        "Navegación:",
-        ["🏠 Inicio", "🐕 Perros", "🐈 Gatos", "🔍 Búsqueda", "📋 Razas"],
-        horizontal=True,
-        label_visibility="collapsed"
+    menu = st.segmented_control(
+        "Navegación",
+        options=["Inicio", "Perros", "Gatos", "Razas", "Dueños"],
+        default="Inicio",
+        selection_mode="single"
     )
 
-    st.divider()
-
-    if menu == "🏠 Inicio":
+    if menu == "Inicio":
         render_inicio()
-    elif menu == "🐕 Perros":
+    elif menu == "Perros":
         render_perros()
-    elif menu == "🐈 Gatos":
+    elif menu == "Gatos":
         render_gatos()
-    elif menu == "🔍 Búsqueda":
-        render_buscar()
-    elif menu == "📋 Razas":
+    elif menu == "Razas":
         render_razas()
+    elif menu == "Dueños":
+        render_duenos()
 
 
 def render_inicio():
@@ -90,45 +101,37 @@ def render_inicio():
         todas = get_todas()
         perros = get_perros()
         gatos = get_gatos()
-        
+        duenos = get_contar_duenos()
+
         col_stats = st.columns(4)
         with col_stats[0]:
             st.markdown(f"""
             <div class="stat-card">
                 <div class="stat-number">{len(todas)}</div>
-                <div class="stat-label">🐾 Total Mascotas</div>
+                <div class="stat-label"><i class="bi bi-paw" style="color: #58a6ff;"></i> Total Mascotas</div>
             </div>
             """, unsafe_allow_html=True)
         with col_stats[1]:
             st.markdown(f"""
             <div class="stat-card">
                 <div class="stat-number">{len(perros)}</div>
-                <div class="stat-label">🐕 Perros</div>
+                <div class="stat-label"><i class="bi bi-paw" style="color: #f0883e;"></i> Perros</div>
             </div>
             """, unsafe_allow_html=True)
         with col_stats[2]:
             st.markdown(f"""
             <div class="stat-card">
                 <div class="stat-number">{len(gatos)}</div>
-                <div class="stat-label">🐈 Gatos</div>
+                <div class="stat-label"><i class="bi bi-paw" style="color: #a371f7;"></i> Gatos</div>
             </div>
             """, unsafe_allow_html=True)
         with col_stats[3]:
-            try:
-                razas = get_razas()
-                st.markdown(f"""
-                <div class="stat-card">
-                    <div class="stat-number">{len(razas)}</div>
-                    <div class="stat-label">🐶 Razas</div>
-                </div>
-                """, unsafe_allow_html=True)
-            except:
-                st.markdown("""
-                <div class="stat-card">
-                    <div class="stat-number">30</div>
-                    <div class="stat-label">🐶 Razas</div>
-                </div>
-                """, unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class="stat-card">
+                <div class="stat-number">{duenos}</div>
+                <div class="stat-label"><i class="bi bi-people" style="color: #8b949e;"></i> Dueños</div>
+            </div>
+            """, unsafe_allow_html=True)
     except Exception as e:
         st.markdown(f"""
         <div class="alert alert-danger-custom alert-custom">
@@ -136,12 +139,12 @@ def render_inicio():
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("### 🔍 Buscar Mascotas", unsafe_allow_html=True)
-    
+    st.markdown("### <i class=\"bi bi-search\" style=\"color: #58a6ff;\"></i> Buscar Mascotas", unsafe_allow_html=True)
+
     # Search
     busqueda = st.text_input(
         "Buscar:",
-        placeholder="🔍 Busca por nombre, raza, especie, dueño, alimento...",
+        placeholder="Busca por nombre, raza, especie, dueño, alimento...",
         label_visibility="collapsed",
         key="busqueda_inicio"
     )
@@ -171,9 +174,9 @@ def render_inicio():
 
 
 def render_perros():
-    st.markdown("## 🐕 Perros", unsafe_allow_html=True)
-    
-    tab1, tab2 = st.tabs(["📋 Lista de Perros", "📊 Información Completa"])
+    st.markdown("## <i class=\"bi bi-paw\" style=\"color: #f0883e;\"></i> Perros", unsafe_allow_html=True)
+
+    tab1, tab2 = st.tabs(["Lista de Perros", "Información Completa"])
     
     with tab1:
         try:
@@ -211,9 +214,9 @@ def render_perros():
 
 
 def render_gatos():
-    st.markdown("## 🐈 Gatos", unsafe_allow_html=True)
-    
-    tab1, tab2, tab3 = st.tabs(["📋 Lista de Gatos", "📊 Información Completa", "🐈 Sin Dueño"])
+    st.markdown('## <i class="bi bi-paw" style="color: #a371f7;"></i> Gatos', unsafe_allow_html=True)
+
+    tab1, tab2, tab3 = st.tabs(["Lista de Gatos", "Información Completa", "Sin Dueño"])
     
     with tab1:
         try:
@@ -269,22 +272,22 @@ def render_gatos():
 
 
 def render_buscar():
-    st.markdown("## 🔍 Búsqueda Avanzada", unsafe_allow_html=True)
+    st.markdown('## <i class="bi bi-search" style="color: #58a6ff;"></i> Búsqueda Avanzada', unsafe_allow_html=True)
     st.markdown("""
     <p class="text-muted">
-    Busca por: <span class="text-accent">nombre</span>, 
-    <span class="text-accent">raza</span>, 
-    <span class="text-accent">especie</span> (perro/gato), 
-    <span class="text-accent">nombre del dueño</span>, 
-    <span class="text-accent">marca de alimento</span>, 
-    <span class="text-accent">accesorio</span>, 
+    Busca por: <span class="text-accent">nombre</span>,
+    <span class="text-accent">raza</span>,
+    <span class="text-accent">especie</span> (perro/gato),
+    <span class="text-accent">nombre del dueño</span>,
+    <span class="text-accent">marca de alimento</span>,
+    <span class="text-accent">accesorio</span>,
     <span class="text-accent">tipo de pelaje</span>
     </p>
     """, unsafe_allow_html=True)
-    
+
     busqueda = st.text_input(
         "Buscar:",
-        placeholder="🔍 Ej: Bobby, Labrador, Perro, Gato, Carlos, Purina, Collar...",
+        placeholder="Ej: Bobby, Labrador, Perro, Gato, Carlos, Purina, Collar...",
         label_visibility="collapsed",
         key="busqueda_avanzada"
     )
@@ -320,7 +323,7 @@ def render_buscar():
 
 
 def render_razas():
-    st.markdown("## 📋 Razas", unsafe_allow_html=True)
+    st.markdown('## <i class="bi bi-collection" style="color: #8b949e;"></i> Razas', unsafe_allow_html=True)
     
     try:
         resultados = get_razas()
@@ -331,6 +334,30 @@ def render_razas():
         """, unsafe_allow_html=True)
         if resultados:
             render_results_raza(resultados)
+    except Exception as e:
+        st.markdown(f"""
+        <div class="alert alert-danger-custom alert-custom">
+            <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
+        </div>
+        """, unsafe_allow_html=True)
+
+
+def render_duenos():
+    st.markdown('## <i class="bi bi-people" style="color: #8b949e;"></i> Dueños', unsafe_allow_html=True)
+
+    try:
+        from backend.consultas.mascotas import get_mascotas_con_dueno
+        resultados = get_mascotas_con_dueno()
+
+        if resultados:
+            st.markdown(f"""
+            <div class="alert alert-success-custom alert-custom">
+                <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} mascotas con dueño
+            </div>
+            """, unsafe_allow_html=True)
+            render_results(resultados, "dueños")
+        else:
+            st.info("No se encontraron resultados")
     except Exception as e:
         st.markdown(f"""
         <div class="alert alert-danger-custom alert-custom">
