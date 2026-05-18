@@ -1,4 +1,4 @@
-# 🐾 Buscador Semántico de Mascotas
+#  Buscador Semántico de Mascotas
 
 Aplicación web de búsqueda semántica basada en ontología OWL para gestionar información de mascotas.
 
@@ -120,7 +120,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## ▶ Ejecución
+##  Ejecución
 
 ```bash
 streamlit run main.py
