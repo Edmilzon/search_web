@@ -1,58 +1,46 @@
 # AGENTS.md
 
-## Project Overview
-
-Semantic web search application using RDF/OWL ontology with a Streamlit web interface.
-
-## Tech Stack
-
-| Capa | Tecnología |
-|------|------------|
-| Frontend | Streamlit + pandas |
-| Backend | Python + rdflib |
-| Datos | OWL ontology (RDF/XML) |
+Semantic web search app using RDF/OWL ontology with Streamlit UI.
 
 ## Commands
 
 ```bash
-# Install dependencies
+# Install
 pip install -r requirements.txt
+python -m venv .venv && .venv\Scripts\activate
 
-# Create virtual environment
-python -m venv .venv
-.venv\Scripts\activate  # Windows
-
-# Run the app
+# Run (NOT python main.py)
 streamlit run main.py
 ```
+
+## Key Architecture
+
+- **Entry chain**: `main.py` → imports → `frontend/app.py:main()` (NOT `app.py` directly)
+- **Backend layers**: `logic.py` (search orchestration) → `consultas/` (SPARQL execution)
+- **Search pattern**: `logic.buscar()` runs 5 parallel queries then deduplicates by `Nombre+Raza`
+- **Ontology**: Globally cached in `backend/consultas/base.py:cargar_ontologia()`
+
+## SPARQL Convention
+
+- Prefix: `: <http://www.semanticweb.org/mascotas#>`
+- Properties use full Spanish names: `nombreMascota`, `nombreRaza`, `nombreEspecie`, `nombreDueño`, `nombreAlimento`
+- Ontology format: RDF/XML at `database/mascotas.owl`
 
 ## Project Structure
 
 ```
-search_web/
-├── main.py                    # Entry point (NOT app.py)
-├── database/
-│   └── mascotas.owl          # Ontology (RDF/XML)
-├── backend/
-│   ├── logic.py             # Main search logic
-│   └── consultas/           # SPARQL queries by category
-│       ├── base.py          # Ontology connection
-│       ├── mascotas.py      # General queries
-│       ├── perros.py       # Dog-specific queries
-│       └── gatos.py        # Cat-specific queries
-└── frontend/
-    ├── app.py              # Main Streamlit app
-    ├── components/         # UI components
-    │   ├── input.py        # Search input
-    │   └── display.py     # Table rendering
-    └── pages/              # Additional pages
+main.py                 → Entry point
+frontend/app.py         → Streamlit UI (pages: inicio, perros, gatos, búsqueda, razas)
+backend/logic.py        → Search orchestration
+backend/consultas/
+├── base.py            → Graph() singleton + ejecutar_query()
+├── mascotas.py        → General queries
+├── perros.py          → Dog-specific
+└── gatos.py           → Cat-specific
+database/mascotas.owl  → OWL ontology (110 pets, 30 breeds, 60 owners)
 ```
 
-## Development Notes
+## Notes
 
-- Entry point is `main.py`, NOT `app.py`
-- Ontology at `database/mascotas.owl` (RDF/XML format)
-- SPARQL prefix: `: <http://www.semanticweb.org/mascotas#>`
-- Properties use full names: `nombreMascota`, `nombreRaza`, `nombreEspecie`
-- Ontology cached globally in `backend/consultas/base.py`
-- Run with `streamlit run main.py` (NOT `python main.py`)
+- No test framework configured
+- No lint/typecheck configured
