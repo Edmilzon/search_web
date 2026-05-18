@@ -1,123 +1,107 @@
-#  Buscador Semántico de Mascotas
+# Buscador Semántico de Mascotas
 
-Aplicación web de búsqueda semántica basada en ontología OWL para gestionar información de mascotas.
+Aplicación web de búsqueda semántica basada en ontología RDF para gestionar información de mascotas.
 
-##  Stack Tecnológico
+## Stack Tecnológico
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        FRONTEND                                  │
-│  Streamlit (Python)                                             │
-│  - Interfaz de usuario tipo "Google"                           │
-│  - Tablas interactivas con pandas                               │
+│  Streamlit + Bootstrap 5 + pandas                               │
+│  - Interfaz moderna con tema oscuro GitHub Dark                 │
+│  - Navegación con st.segmented_control                          │
+│  - Tablas interactivas con st.dataframe                        │
 └──────────────────────────┬──────────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                        BACKEND                                   │
-│  Python + rdflib                                                │
+│  Python 3 + rdflib                                              │
 │  - Consultas SPARQL sobre ontología                            │
-│  - Lógica de búsqueda semántica                                 │
+│  - Lógica de búsqueda semántica con caching (@lru_cache)       │
 └──────────────────────────┬──────────────────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                        DATOS                                     │
-│  mascotas.owl (RDF/XML)                                        │
-│  - Ontología OWL con Protégé                                   │
-│  - 110 mascotas, 30 razas, 60 dueños                           │
+│  mascotas.rdf (RDF/XML)                                        │
+│  - Ontología exportada desde Protégé                           │
+│  - 110 mascotas, 52 perros, 58 gatos, 30 razas, 60 dueños     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Tecnologías Used
+### Tecnologías
 
 | Capa | Tecnología | Descripción |
 |------|-------------|-------------|
 | **Frontend** | Streamlit | Framework web Python para UI |
 | **Backend** | Python 3 | Lenguaje principal |
-| **RDF** | rdflib | Librería para parsear OWL y ejecutar SPARQL |
-| **Datos** | OWL/RDF | Formato de ontología semántica |
-| **UI** | pandas | Renderizado de tablas |
+| **RDF** | rdflib | Librería para parsear RDF y ejecutar SPARQL |
+| **Datos** | RDF/XML | Formato de ontología semántica |
+| **UI** | pandas/st.dataframe | Renderizado interactivo de tablas |
 
 ### Flujo de Trabajo
 
 ```
 Usuario → Streamlit (busca "Perro")
     → Python/rdflib (ejecuta SPARQL)
-    → Consulta mascotas.owl
+    → Consulta mascotas.rdf
     → Devuelve resultados
-    → Streamlit (muestra tabla)
+    → Streamlit (muestra tabla interactiva)
 ```
 
-##  Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 search_web/
 ├── main.py                    # Entry point
 ├── README.md                  # Este archivo
 ├── AGENTS.md                  # Guía para agentes IA
-├── requirements.txt           # Dependencias
+├── requirements.txt           # Dependencias (rdflib, streamlit, pandas)
 │
 ├── database/
-│   ├── mascotas.owl           # Ontología (RDF/XML, ~10,965 líneas)
+│   ├── mascotas.rdf           # Ontología RDF/XML (2370 triples)
 │   └── ONTOLOGIA.md          # Documentación de la ontología
 │
 ├── backend/
-│   ├── logic.py               # Lógica principal de búsqueda
-│   ├── consultas_doc.txt      # Consultas SPARQL documentadas
-│   └── consultas/            # Módulo de consultas
+│   ├── logic.py               # Lógica principal de búsqueda (@lru_cache)
+│   └── consultas/            # Módulo de consultas SPARQL
 │       ├── __init__.py        # Expone 33 funciones
 │       ├── base.py           # Graph() singleton + ejecutar_query()
 │       ├── mascotas.py       # Consultas generales
-│       ├── perros.py          # Consultas de perros
+│       ├── perros.py         # Consultas de perros
 │       └── gatos.py          # Consultas de gatos
 │
 └── frontend/
-    ├── app.py                # Aplicación Streamlit (single-page)
+    ├── app.py                # Aplicación Streamlit (st.segmented_control)
     ├── styles/
-    │   └── main.css          # Estilos CSS personalizados
-    └── components/           # Componentes UI (usados)
+    │   └── main.css          # Tema oscuro GitHub Dark
+    └── components/
         ├── __init__.py
-        ├── input.py          # Entrada de búsqueda
-        ├── display.py        # Renderizado de resultados
-        └── search.py         # Utilidades de búsqueda
-    └── pages/                # NO USADO (código legacy)
+        ├── display.py        # render_results() con st.dataframe
+        └── input.py          # Componente de búsqueda
 ```
 
-##  Instalación
-
-### 1. Clonar el repositorio
+## Instalación
 
 ```bash
-git clone <repositorio>
+# Clonar y entrar al directorio
 cd search_web
-```
 
-### 2. Crear entorno virtual
-
-```bash
+# Crear entorno virtual
 python -m venv .venv
-```
 
-### 3. Activar entorno virtual
-
-**Windows:**
-```bash
+# Activar (Windows)
 .venv\Scripts\activate
-```
 
-**Linux/Mac:**
-```bash
+# Activar (Linux/Mac)
 source .venv/bin/activate
-```
 
-### 4. Instalar dependencias
-
-```bash
+# Instalar dependencias
 pip install -r requirements.txt
 ```
 
-##  Ejecución
+## Ejecución
 
 ```bash
 streamlit run main.py
@@ -125,7 +109,17 @@ streamlit run main.py
 
 La aplicación se abrirá en: **http://localhost:8501**
 
-##  Base de Datos (Ontología)
+## Navegación
+
+| Sección | Descripción |
+|---------|-------------|
+| **Inicio** | Stats (110 mascotas, 52 perros, 58 gatos, 60 dueños) + búsqueda |
+| **Perros** | Lista de perros + Información completa |
+| **Gatos** | Lista de gatos + Información completa + Sin Dueño |
+| **Razas** | Listado de las 30 razas |
+| **Dueños** | Mascotas con sus respectivos dueños |
+
+## Ontología
 
 | Entidad | Cantidad | Ejemplos |
 |---------|----------|----------|
@@ -137,32 +131,24 @@ La aplicación se abrirá en: **http://localhost:8501**
 | **Accesorios** | 20 | Collar, Correa... |
 | **Cuidados** | 15 | Baño, Vacunación... |
 
-##  Consultas SPARQL
+## Funcionalidades
 
-El proyecto incluye consultas predefinidas en `backend/consultas_doc.txt`:
-
-- Buscar mascotas por nombre
-- Buscar por raza
+- Búsqueda semántica por nombre de mascota
+- Búsqueda por raza
 - Filtrar por especie (Perro/Gato)
-- Ver mascotas porDueño
-- Ver alimentos por tipo
-- Ver información completa de mascotas
+- Búsqueda por nombre del dueño
+- Búsqueda por marca de alimento
+- Ver todas las mascotas
+- Ver solo perros
+- Ver solo gatos
+- Ver todas las razas
+- Ver mascotas por dueño
+- Información completa de cada mascota
 
-##  Funcionalidades
+## Notas
 
--  Búsqueda semántica por nombre de mascota
--  Búsqueda por raza
--  Filtrar por especie (Perro/Gato)
--  Búsqueda por nombre deldueño
--  Búsqueda por marca dealimento
--  Ver todas las mascotas
--  Ver solo perros
--  Ver solo gatos
--  Ver todas las razas
--  Información completade cada mascota
-
-##  Notas
-
-- La ontología se encuentra en `database/mascotas.owl`
+- La ontología se encuentra en `database/mascotas.rdf`
 - rdflib requiere el formato RDF/XML para parsear
 - Las consultas SPARQL usan el prefijo: `: <http://www.semanticweb.org/mascotas#>`
+- La relación `perteneceAEspecie` está en la Raza, no en la Mascota:
+  - `Mascota → tieneRaza → Raza → perteneceAEspecie → Especie`
