@@ -1,0 +1,260 @@
+/* ============================================
+   ESTILOS MODO NOCHE - BUSCADOR DE MASCOTAS
+   ============================================ */
+
+/* Base - Modo Noche GitHub Dark */
+.stApp {
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+/* Navbar */
+.navbar-custom {
+    background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+    border-bottom: 1px solid #30363d;
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+    border-radius: 0 0 16px 16px;
+}
+
+.navbar-brand {
+    color: #f0f6fc !important;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.navbar-text {
+    color: #8b949e;
+    font-size: 0.875rem;
+}
+
+/* Menu Buttons */
+.menu-btn {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.menu-btn:hover {
+    background: #21262d;
+    border-color: #58a6ff;
+    color: #58a6ff;
+}
+
+.menu-btn.active {
+    background: linear-gradient(135deg, #1f6feb 0%, #1158c7 100%);
+    border-color: #1f6feb;
+    color: white;
+}
+
+/* Search */
+.search-container {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    background: #0d1117;
+    border: 2px solid #30363d;
+    border-radius: 12px;
+    color: #c9d1d9;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.1);
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6e7681;
+}
+
+/* Cards */
+.card-custom {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.card-custom:hover {
+    border-color: #58a6ff;
+    box-shadow: 0 8px 24px rgba(88, 166, 255, 0.15);
+}
+
+/* Stats Cards */
+.stat-card {
+    background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #58a6ff;
+}
+
+.stat-label {
+    color: #8b949e;
+    font-size: 0.875rem;
+}
+
+/* Table */
+.table-custom {
+    background: #161b22;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-custom thead {
+    background: linear-gradient(135deg, #1a1f36 0%, #21262d 100%);
+}
+
+.table-custom th {
+    border: none;
+    padding: 1rem;
+    color: #8b949e;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+.table-custom td {
+    border-bottom: 1px solid #30363d;
+    padding: 0.875rem 1rem;
+    color: #c9d1d9;
+    vertical-align: middle;
+}
+
+.table-custom tbody tr:hover {
+    background: #21262d;
+}
+
+/* Badges */
+.badge-perro {
+    background: linear-gradient(135deg, #f0883e 0%, #d29922 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-gato {
+    background: linear-gradient(135deg, #a371f7 0%, #8957e5 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Alerts */
+.alert-custom {
+    border-radius: 12px;
+    border: none;
+    padding: 1rem 1.25rem;
+}
+
+.alert-success-custom {
+    background: rgba(46, 160, 67, 0.15);
+    border-left: 4px solid #2ea043;
+    color: #3fb950;
+}
+
+.alert-warning-custom {
+    background: rgba(187, 128, 9, 0.15);
+    border-left: 4px solid #d29922;
+    color: #d29922;
+}
+
+.alert-danger-custom {
+    background: rgba(218, 54, 51, 0.15);
+    border-left: 4px solid #da3633;
+    color: #f85149;
+}
+
+/* Typography */
+h1, h2, h3 {
+    color: #f0f6fc;
+    font-weight: 700;
+}
+
+.text-muted {
+    color: #8b949e !important;
+}
+
+.text-accent {
+    color: #58a6ff;
+}
+
+/* Divider */
+hr {
+    border-color: #30363d;
+    margin: 2rem 0;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 0.5rem;
+}
+
+.stTabs [data-baseweb="tab"] {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Radio buttons */
+.stRadio > div {
+    gap: 0.5rem;
+}
+
+/* Input fields */
+.stTextInput > div > div > input {
+    background-color: #0d1117;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    color: #c9d1d9;
+}
+
+.stTextInput > div > div > input:focus {
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+}
+
+/* Placeholder */
+::placeholder {
+    color: #6e7681;
+}
+
+/* Select box */
+.stSelectbox > div > div {
+    background-color: #0d1117;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+}
