@@ -1,0 +1,71 @@
+from .base import cargar_ontologia
+from .mascotas import (
+    get_todas_las_mascotas,
+    buscar_por_nombre_mascota,
+    buscar_por_raza,
+    get_mascotas_con_dueno,
+    get_mascotas_sin_dueno,
+    get_mascotas_por_edad,
+    get_mascotas_por_peso,
+    get_mascotas_sin_bozal,
+    get_mascotas_por_cuidado,
+    get_mascotas_por_alimento,
+    get_mascotas_por_tipo_alimento,
+    get_mascotas_por_accesorio,
+    get_mascotas_por_pelaje,
+    get_mascotas_por_especie_y_edad,
+    get_info_completa_mascota,
+    get_todas_las_raza,
+    get_razas_con_mas_de_una_mascota
+)
+from .perros import (
+    get_todos_los_perros,
+    get_perros_por_raza,
+    get_perros_por_edad,
+    get_perros_por_alimento,
+    get_perros_por_cuidado,
+    get_info_completa_perros
+)
+from .gatos import (
+    get_todos_los_gatos,
+    get_gatos_por_raza,
+    get_gatos_por_edad,
+    get_gatos_por_alimento,
+    get_gatos_por_cuidado,
+    get_info_completa_gatos,
+    get_gatos_sin_dueno
+)
+
+__all__ = [
+    'cargar_ontologia',
+    'get_todas_las_mascotas',
+    'buscar_por_nombre_mascota',
+    'buscar_por_raza',
+    'get_mascotas_con_dueno',
+    'get_mascotas_sin_dueno',
+    'get_mascotas_por_edad',
+    'get_mascotas_por_peso',
+    'get_mascotas_sin_bozal',
+    'get_mascotas_por_cuidado',
+    'get_mascotas_por_alimento',
+    'get_mascotas_por_tipo_alimento',
+    'get_mascotas_por_accesorio',
+    'get_mascotas_por_pelaje',
+    'get_mascotas_por_especie_y_edad',
+    'get_info_completa_mascota',
+    'get_todas_las_raza',
+    'get_razas_con_mas_de_una_mascota',
+    'get_todos_los_perros',
+    'get_perros_por_raza',
+    'get_perros_por_edad',
+    'get_perros_por_alimento',
+    'get_perros_por_cuidado',
+    'get_info_completa_perros',
+    'get_todos_los_gatos',
+    'get_gatos_por_raza',
+    'get_gatos_por_edad',
+    'get_gatos_por_alimento',
+    'get_gatos_por_cuidado',
+    'get_info_completa_gatos',
+    'get_gatos_sin_dueno'
+]
