@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from backend.logic import buscar, buscar_avanzado, enriquecer_con_dbpedia, get_todas, get_perros, get_gatos, get_razas, get_contar_duenos
-from backend.sparql import get_info_completa_perros, get_info_completa_gatos
+
 from frontend.components import render_results, render_results_raza
 from backend.i18n import t
 
@@ -37,7 +37,7 @@ def main():
     col_lang, _ = st.columns([1, 11])
     with col_lang:
         lang = st.selectbox(
-            "",
+            "Language",
             options=["es", "en"],
             format_func=lambda x: "🇪🇸 Español" if x == "es" else "🇬🇧 English",
             key="lang",
@@ -64,10 +64,9 @@ def main():
         "Perros": t("Perros", lang),
         "Gatos": t("Gatos", lang),
         "Razas": t("Razas", lang),
-        "Dueños": t("Dueños", lang),
     }
     menu = st.segmented_control(
-        "",
+        "Navigation",
         options=list(opciones_menu.keys()),
         format_func=lambda x: opciones_menu[x],
         default="Inicio",
@@ -83,8 +82,6 @@ def main():
         render_gatos()
     elif menu == "Razas":
         render_razas()
-    elif menu == "Dueños":
-        render_duenos()
 
 
 def render_inicio():
@@ -139,7 +136,7 @@ def render_inicio():
 
     busqueda = st.text_input(
         "Buscar:",
-        placeholder="Ej: mostrar perros que comen Purina, gatos de 3 años sin dueño...",
+        placeholder="",
         label_visibility="collapsed",
         key="busqueda_inicio"
     )
@@ -192,99 +189,41 @@ def render_inicio():
 def render_perros():
     st.markdown("## <i class=\"bi bi-paw\" style=\"color: #f0883e;\"></i> Perros", unsafe_allow_html=True)
 
-    tab1, tab2 = st.tabs(["Lista de Perros", "Información Completa"])
-
-    with tab1:
-        try:
-            resultados = get_perros()
-            st.markdown(f"""
-            <div class="alert alert-success-custom alert-custom">
-                <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} perros
-            </div>
-            """, unsafe_allow_html=True)
-            if resultados:
-                render_results(resultados, "perros")
-        except Exception as e:
-            st.markdown(f"""
-            <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-            </div>
-            """, unsafe_allow_html=True)
-
-    with tab2:
-        try:
-            resultados = get_info_completa_perros()
-            st.markdown(f"""
-            <div class="alert alert-success-custom alert-custom">
-                <i class="bi bi-check-circle-fill"></i> Información completa de {len(resultados)} perros
-            </div>
-            """, unsafe_allow_html=True)
-            if resultados:
-                render_results(resultados, "info_perros")
-        except Exception as e:
-            st.markdown(f"""
-            <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-            </div>
-            """, unsafe_allow_html=True)
+    try:
+        resultados = get_perros()
+        st.markdown(f"""
+        <div class="alert alert-success-custom alert-custom">
+            <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} perros
+        </div>
+        """, unsafe_allow_html=True)
+        if resultados:
+            render_results(resultados, "perros")
+    except Exception as e:
+        st.markdown(f"""
+        <div class="alert alert-danger-custom alert-custom">
+            <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
+        </div>
+        """, unsafe_allow_html=True)
 
 
 def render_gatos():
     st.markdown('## <i class="bi bi-paw" style="color: #a371f7;"></i> Gatos', unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["Lista de Gatos", "Información Completa", "Sin Dueño"])
-
-    with tab1:
-        try:
-            resultados = get_gatos()
-            st.markdown(f"""
-            <div class="alert alert-success-custom alert-custom">
-                <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} gatos
-            </div>
-            """, unsafe_allow_html=True)
-            if resultados:
-                render_results(resultados, "gatos")
-        except Exception as e:
-            st.markdown(f"""
-            <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-            </div>
-            """, unsafe_allow_html=True)
-
-    with tab2:
-        try:
-            resultados = get_info_completa_gatos()
-            st.markdown(f"""
-            <div class="alert alert-success-custom alert-custom">
-                <i class="bi bi-check-circle-fill"></i> Información completa de {len(resultados)} gatos
-            </div>
-            """, unsafe_allow_html=True)
-            if resultados:
-                render_results(resultados, "info_gatos")
-        except Exception as e:
-            st.markdown(f"""
-            <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-            </div>
-            """, unsafe_allow_html=True)
-
-    with tab3:
-        from backend.sparql import get_gatos_sin_dueno
-        try:
-            resultados = get_gatos_sin_dueno()
-            st.markdown(f"""
-            <div class="alert alert-warning-custom alert-custom">
-                <i class="bi bi-exclamation-circle-fill"></i> Se encontraron {len(resultados)} gatos sin dueño
-            </div>
-            """, unsafe_allow_html=True)
-            if resultados:
-                render_results(resultados, "sin_dueño")
-        except Exception as e:
-            st.markdown(f"""
-            <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-            </div>
-            """, unsafe_allow_html=True)
+    try:
+        resultados = get_gatos()
+        st.markdown(f"""
+        <div class="alert alert-success-custom alert-custom">
+            <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} gatos
+        </div>
+        """, unsafe_allow_html=True)
+        if resultados:
+            render_results(resultados, "gatos")
+    except Exception as e:
+        st.markdown(f"""
+        <div class="alert alert-danger-custom alert-custom">
+            <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
+        </div>
+        """, unsafe_allow_html=True)
 
 
 def render_razas():
@@ -299,30 +238,6 @@ def render_razas():
         """, unsafe_allow_html=True)
         if resultados:
             render_results_raza(resultados)
-    except Exception as e:
-        st.markdown(f"""
-        <div class="alert alert-danger-custom alert-custom">
-            <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-        </div>
-        """, unsafe_allow_html=True)
-
-
-def render_duenos():
-    st.markdown('## <i class="bi bi-people" style="color: #8b949e;"></i> Dueños', unsafe_allow_html=True)
-
-    try:
-        from backend.sparql import get_mascotas_con_dueno
-        resultados = get_mascotas_con_dueno()
-
-        if resultados:
-            st.markdown(f"""
-            <div class="alert alert-success-custom alert-custom">
-                <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} mascotas con dueño
-            </div>
-            """, unsafe_allow_html=True)
-            render_results(resultados, "dueños")
-        else:
-            st.info("No se encontraron resultados")
     except Exception as e:
         st.markdown(f"""
         <div class="alert alert-danger-custom alert-custom">

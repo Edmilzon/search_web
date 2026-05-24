@@ -3,35 +3,57 @@ import urllib.parse
 from xml.etree import ElementTree as ET
 
 
-DBPEDIA_ENDPOINT = "https://dbpedia.org/sparql"
+DBPEDIA_ENDPOINT = "https://es.dbpedia.org/sparql"
 
 _MAPA_RAZA = {
-    "labrador": "Labrador_Retriever",
-    "golden": "Golden_Retriever",
+    # Perros
+    "labrador": "Labrador_retriever",
+    "golden": "Golden_retriever",
     "bulldog": "Bulldog",
-    "pastor alemán": "German_Shepherd",
-    "poodle": "Poodle",
-    "chihuahua": "Chihuahua_(dog)",
+    "pastor alemán": "Pastor_alemán",
+    "pastor aleman": "Pastor_alemán",
+    "poodle": "Caniche",
+    "chihuahua": "Chihuahua_(perro)",
     "beagle": "Beagle",
     "rottweiler": "Rottweiler",
-    "yorkshire": "Yorkshire_Terrier",
-    "boxer": "Boxer_(dog)",
-    "doberman": "Doberman",
-    "husky": "Siberian_Husky",
+    "yorkshire": "Yorkshire_terrier",
+    "boxer": "Boxer_(perro)",
+    "doberman": "Dóberman",
+    "husky": "Husky_siberiano",
     "shih tzu": "Shih_Tzu",
-    "border collie": "Border_Collie",
+    "border collie": "Border_collie",
     "collie": "Collie",
-    "persa": "Persian_cat",
-    "siames": "Siamese_cat",
-    "siamés": "Siamese_cat",
+    # Gatos
+    "persa": "Gato_persa",
+    "siames": "Siamés_(gato)",
+    "siamés": "Siamés_(gato)",
     "maine coon": "Maine_Coon",
-    "bengala": "Bengal_cat",
+    "bengala": "Bengala_(gato)",
     "ragdoll": "Ragdoll",
+    "british shorthair": "British_Shorthair",
     "british": "British_Shorthair",
-    "esfinge": "Sphynx_cat",
-    "azul ruso": "Russian_Blue",
-    "abisinio": "Abyssinian_cat",
-    "angora": "Turkish_Angora",
+    "esfinge": "Sphynx_(gato)",
+    "azul ruso": "Azul_ruso",
+    "abisinio": "Abisinio_(gato)",
+    "angora": "Angora_turco",
+}
+
+# Map Spanish DBpedia property keys to output keys the frontend expects
+MAPA_PROPIEDADES = {
+    "origen": "origin",
+    "peso": "weight",
+    "esperanzaDeVida": "lifeSpan",
+    "vida": "lifeSpan",
+    "tamaño": "size",
+    "tamano": "size",
+    "altura": "height",
+    "pelaje": "fur",
+    "país": "origin",
+    "pais": "origin",
+    "región": "origin",
+    "region": "origin",
+    "difusión": "origin",
+    "difusion": "origin",
 }
 
 
@@ -40,7 +62,10 @@ def _ejecutar_sparql(query: str) -> list:
     url = f"{DBPEDIA_ENDPOINT}?{params}"
 
     try:
-        req = urllib.request.Request(url, headers={"Accept": "application/sparql-results+xml"})
+        req = urllib.request.Request(url, headers={
+            "Accept": "application/sparql-results+xml",
+            "User-Agent": "Mozilla/5.0 (compatible; PetSearchBot/1.0)"
+        })
         with urllib.request.urlopen(req, timeout=15) as resp:
             xml_bytes = resp.read()
         return _parse_sparql_results(xml_bytes)
@@ -73,29 +98,44 @@ def consultar_raza(raza: str) -> list:
     nombre_dbpedia = _MAPA_RAZA.get(raza.lower().strip())
     if not nombre_dbpedia:
         return []
+    uri = f"http://es.dbpedia.org/resource/{nombre_dbpedia}"
 
     query = f"""
-    PREFIX dbo: <http://dbpedia.org/ontology/>
-    PREFIX dbp: <http://dbpedia.org/property/>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-    SELECT DISTINCT ?label ?abstract ?origin ?weight ?lifeSpan
+    SELECT DISTINCT ?prop ?val
     WHERE {{
-        <http://dbpedia.org/resource/{nombre_dbpedia}> rdfs:label ?label .
-        OPTIONAL {{ <http://dbpedia.org/resource/{nombre_dbpedia}> dbo:abstract ?abstract . }}
-        OPTIONAL {{ <http://dbpedia.org/resource/{nombre_dbpedia}> dbp:origin ?origin . }}
-        OPTIONAL {{ <http://dbpedia.org/resource/{nombre_dbpedia}> dbo:averageWeight ?weight . }}
-        OPTIONAL {{ <http://dbpedia.org/resource/{nombre_dbpedia}> dbo:lifeSpan ?lifeSpan . }}
-        FILTER(LANG(?label) = "en")
+        <{uri}> ?prop ?val .
+        FILTER(STRSTARTS(STR(?prop), "http://es.dbpedia.org/property/"))
     }}
-    LIMIT 5
+    LIMIT 60
     """
 
     raw = _ejecutar_sparql(query)
-    for d in raw:
-        d["raza"] = raza
-        d["dbpedia_url"] = f"http://dbpedia.org/resource/{nombre_dbpedia}"
-    return raw
+
+    if not raw:
+        return []
+
+    result = {"raza": raza,
+              "dbpedia_url": uri.replace("http://es.dbpedia.org/resource/",
+                                         "https://es.wikipedia.org/wiki/")}
+    propiedades_vistas = set()
+
+    for row in raw:
+        prop_uri = row.get("prop", "")
+        val = row.get("val", "").strip()
+        if not val:
+            continue
+        key = prop_uri.rsplit("/", 1)[-1]
+        if key in propiedades_vistas:
+            continue
+        propiedades_vistas.add(key)
+        out_key = MAPA_PROPIEDADES.get(key)
+        if out_key:
+            # Extract readable label from DBpedia URIs
+            if val.startswith("http://") or val.startswith("https://"):
+                val = val.rstrip("/").rsplit("/", 1)[-1].replace("_", " ")
+            result[out_key] = val
+
+    return [result]
 
 
 def consultar_varias_razas(razas: list) -> list:
