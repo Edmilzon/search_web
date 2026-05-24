@@ -1,5 +1,5 @@
 TRADUCCIONES = {
-    "Perro": {"en": "Dog", "es": "Perro"},
+    "Perro": {"en": "Dog", "es": "Perro", "port": "cão"},
     "Gato": {"en": "Cat", "es": "Gato"},
     "Nombre": {"en": "Name", "es": "Nombre"},
     "Raza": {"en": "Breed", "es": "Raza"},
@@ -35,6 +35,17 @@ TRADUCCIONES = {
     "Esperanza de vida": {"en": "Life expectancy", "es": "Esperanza de vida"},
     "Ver en DBpedia": {"en": "View on DBpedia", "es": "Ver en DBpedia"},
     "No disponible": {"en": "Not available", "es": "No disponible"},
+    "Búsqueda Inteligente": {"en": "Intelligent Search", "es": "Búsqueda Inteligente"},
+    "Escribe una frase completa para buscar mascotas": {"en": "Write a complete sentence to search for pets", "es": "Escribe una frase completa para buscar mascotas"},
+    "Buscador Semántico de Mascotas": {"en": "Semantic Pet Search", "es": "Buscador Semántico de Mascotas"},
+    "Total Mascotas": {"en": "Total Pets", "es": "Total Mascotas"},
+    "Buscar por nombre, raza, especie...": {"en": "Search by name, breed, species...", "es": "Buscar por nombre, raza, especie..."},
+    "Se encontraron": {"en": "Found", "es": "Se encontraron"},
+    "resultado(s)": {"en": "result(s)", "es": "resultado(s)"},
+    "Datos enriquecidos desde DBpedia (Linked Open Data)": {"en": "Enriched data from DBpedia (Linked Open Data)", "es": "Datos enriquecidos desde DBpedia (Linked Open Data)"},
+    "Más información aquí": {"en": "More information here", "es": "Más información aquí"},
+    "No se encontraron datos adicionales en DBpedia para estas razas.": {"en": "No additional data found in DBpedia for these breeds.", "es": "No se encontraron datos adicionales en DBpedia para estas razas."},
+    "Error": {"en": "Error", "es": "Error"},
 }
 
 TRADUCCIONES_RAZA = {

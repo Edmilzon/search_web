@@ -760,7 +760,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/mascotas#Cuidado1">
         <rdf:type rdf:resource="http://www.semanticweb.org/mascotas#Cuidado"/>
-        <requiereCuidado rdf:resource="http://www.semanticweb.org/mascotas#Cuidado1"/>
         <frecuenciaCuidado>Mensual</frecuenciaCuidado>
         <tipoCuidado>Baño</tipoCuidado>
     </owl:NamedIndividual>
@@ -2006,7 +2005,6 @@
         <colorMascota>Dorado</colorMascota>
         <edadMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</edadMascota>
         <esterilizado rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</esterilizado>
-        <nombreDueño>Asia</nombreDueño>
         <nombreMascota>Maya</nombreMascota>
         <pesoMascota rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.85</pesoMascota>
         <requiereBozal rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</requiereBozal>
@@ -4023,7 +4021,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/mascotas#Raza24">
         <rdf:type rdf:resource="http://www.semanticweb.org/mascotas#Raza"/>
-        <perteneceAEspecie rdf:resource="http://www.semanticweb.org/mascotas#Especie1"/>
+        <perteneceAEspecie rdf:resource="http://www.semanticweb.org/mascotas#Especie2"/>
         <nombreRaza>Akita</nombreRaza>
         <temperamento>Activo</temperamento>
     </owl:NamedIndividual>
@@ -4078,7 +4076,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/mascotas#Raza29">
         <rdf:type rdf:resource="http://www.semanticweb.org/mascotas#Raza"/>
-        <perteneceAEspecie rdf:resource="http://www.semanticweb.org/mascotas#Especie2"/>
+        <perteneceAEspecie rdf:resource="http://www.semanticweb.org/mascotas#Especie1"/>
         <nombreRaza>Noruego del Bosque</nombreRaza>
         <temperamento>Activo</temperamento>
     </owl:NamedIndividual>
@@ -4112,7 +4110,6 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/mascotas#Raza4">
         <rdf:type rdf:resource="http://www.semanticweb.org/mascotas#Raza"/>
         <perteneceAEspecie rdf:resource="http://www.semanticweb.org/mascotas#Especie2"/>
-        <tieneDueño rdf:resource="http://www.semanticweb.org/mascotas#Dueño4"/>
         <nombreRaza>Golden Retriever</nombreRaza>
         <temperamento>Amigable</temperamento>
     </owl:NamedIndividual>

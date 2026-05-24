@@ -4,9 +4,9 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from backend.logic import buscar, buscar_avanzado, enriquecer_con_dbpedia, get_todas, get_perros, get_gatos, get_razas, get_contar_duenos
+from backend.logic import buscar, buscar_avanzado, enriquecer_con_dbpedia, get_todas, get_perros, get_gatos, get_contar_duenos, get_todos_duenos, info_perros, info_gatos
 
-from frontend.components import render_results, render_results_raza
+from frontend.components import render_results, clasificar_tipo
 from backend.i18n import t
 
 
@@ -23,13 +23,13 @@ def inject_bootstrap():
 
 
 def main():
-    inject_bootstrap()
-
     st.set_page_config(
         page_title="Buscador de Mascotas",
         page_icon=":dog:",
         layout="wide"
     )
+
+    inject_bootstrap()
 
     if "lang" not in st.session_state:
         st.session_state.lang = "es"
@@ -49,7 +49,7 @@ def main():
         <div class="container">
             <div class="d-flex align-items-center justify-content-between w-100">
                 <span class="navbar-brand">
-                    <i class="bi bi-paw" style="color: #58a6ff;"></i> Buscador Semántico de Mascotas
+                    <i class="bi bi-paw" style="color: #58a6ff;"></i> {t("Buscador Semántico de Mascotas", lang)}
                 </span>
                 <span class="navbar-text">
                     <i class="bi bi-diagram-3" style="color: #8b949e;"></i> {t("Búsqueda Inteligente", lang)}
@@ -63,7 +63,7 @@ def main():
         "Inicio": t("Inicio", lang),
         "Perros": t("Perros", lang),
         "Gatos": t("Gatos", lang),
-        "Razas": t("Razas", lang),
+        "Dueños": t("Dueños", lang),
     }
     menu = st.segmented_control(
         "Navigation",
@@ -80,11 +80,12 @@ def main():
         render_perros()
     elif menu == "Gatos":
         render_gatos()
-    elif menu == "Razas":
-        render_razas()
+    elif menu == "Dueños":
+        render_duenos()
 
 
 def render_inicio():
+    lang = st.session_state.lang
     try:
         todas = get_todas()
         perros = get_perros()
@@ -96,28 +97,28 @@ def render_inicio():
             st.markdown(f"""
             <div class="stat-card">
                 <div class="stat-number">{len(todas)}</div>
-                <div class="stat-label"><i class="bi bi-paw" style="color: #58a6ff;"></i> Total Mascotas</div>
+                <div class="stat-label"><i class="bi bi-paw" style="color: #58a6ff;"></i> {t("Total Mascotas", lang)}</div>
             </div>
             """, unsafe_allow_html=True)
         with col_stats[1]:
             st.markdown(f"""
             <div class="stat-card">
                 <div class="stat-number">{len(perros)}</div>
-                <div class="stat-label"><i class="bi bi-paw" style="color: #f0883e;"></i> Perros</div>
+                <div class="stat-label"><i class="bi bi-paw" style="color: #f0883e;"></i> {t("Perros", lang)}</div>
             </div>
             """, unsafe_allow_html=True)
         with col_stats[2]:
             st.markdown(f"""
             <div class="stat-card">
                 <div class="stat-number">{len(gatos)}</div>
-                <div class="stat-label"><i class="bi bi-paw" style="color: #a371f7;"></i> Gatos</div>
+                <div class="stat-label"><i class="bi bi-paw" style="color: #a371f7;"></i> {t("Gatos", lang)}</div>
             </div>
             """, unsafe_allow_html=True)
         with col_stats[3]:
             st.markdown(f"""
             <div class="stat-card">
                 <div class="stat-number">{duenos}</div>
-                <div class="stat-label"><i class="bi bi-people" style="color: #8b949e;"></i> Dueños</div>
+                <div class="stat-label"><i class="bi bi-people" style="color: #8b949e;"></i> {t("Dueños", lang)}</div>
             </div>
             """, unsafe_allow_html=True)
     except Exception as e:
@@ -126,17 +127,16 @@ def render_inicio():
             <i class="bi bi-exclamation-triangle-fill"></i> Error al cargar estadísticas: {e}
         </div>
         """, unsafe_allow_html=True)
-
-    st.markdown("""
+    st.markdown(f"""
     <div style="text-align:center; margin: 2rem 0 1rem 0;">
-        <h3><i class="bi bi-search" style="color: #58a6ff;"></i> Búsqueda Inteligente</h3>
-        <p class="text-muted">Escribe una frase completa para buscar mascotas</p>
+        <h3><i class="bi bi-search" style="color: #58a6ff;"></i> {t("Búsqueda Inteligente", lang)}</h3>
+        <p class="text-muted">{t("Escribe una frase completa para buscar mascotas", lang)}</p>
     </div>
     """, unsafe_allow_html=True)
 
     busqueda = st.text_input(
         "Buscar:",
-        placeholder="",
+        placeholder=t("Buscar por nombre, raza, especie...", lang),
         label_visibility="collapsed",
         key="busqueda_inicio"
     )
@@ -147,15 +147,15 @@ def render_inicio():
             if resultados:
                 st.markdown(f"""
                 <div class="alert alert-success-custom alert-custom">
-                    <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} resultado(s) para "{busqueda}"
+                    <i class="bi bi-check-circle-fill"></i> {t("Se encontraron", lang)} {len(resultados)} {t("resultado(s)", lang)} "{busqueda}"
                 </div>
                 """, unsafe_allow_html=True)
-                render_results(resultados, busqueda)
+                render_results(resultados)
 
-                with st.expander("Información desde DBpedia"):
-                    st.markdown("""
+                with st.expander(t("Información desde DBpedia", lang)):
+                    st.markdown(f"""
                     <p class="text-muted">
-                        <i class="bi bi-database"></i> Datos enriquecidos desde DBpedia (Linked Open Data)
+                        <i class="bi bi-database"></i> {t("Datos enriquecidos desde DBpedia (Linked Open Data)", lang)}
                     </p>
                     """, unsafe_allow_html=True)
                     dbpedia_data = enriquecer_con_dbpedia(resultados)
@@ -164,83 +164,100 @@ def render_inicio():
                             st.markdown(f"""
                             <div class="card-custom" style="margin-bottom: 1rem;">
                                 <h5><i class="bi bi-bookmark"></i> {item.get('raza', '')}</h5>
-                                <p><small><a href="{item.get('dbpedia_url', '#')}" target="_blank">Más información aquí <i class="bi bi-box-arrow-up-right"></i></a></small></p>
+                                <p><small><a href="{item.get('dbpedia_url', '#')}" target="_blank">{t("Más información aquí", lang)} <i class="bi bi-box-arrow-up-right"></i></a></small></p>
                             </div>
                             """, unsafe_allow_html=True)
                     else:
-                        st.info("No se encontraron datos adicionales en DBpedia para estas razas.")
+                        st.info(t("No se encontraron datos adicionales en DBpedia para estas razas.", lang))
             else:
                 st.markdown(f"""
                 <div class="alert alert-warning-custom alert-custom">
-                    <i class="bi bi-exclamation-circle-fill"></i> No se encontraron resultados para "{busqueda}"
+                    <i class="bi bi-exclamation-circle-fill"></i> {t("No se encontraron resultados", lang)} "{busqueda}"
                 </div>
                 """, unsafe_allow_html=True)
         except Exception as e:
             st.markdown(f"""
             <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
+                <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {e}
             </div>
             """, unsafe_allow_html=True)
 
 
-def render_perros():
-    st.markdown("## <i class=\"bi bi-paw\" style=\"color: #f0883e;\"></i> Perros", unsafe_allow_html=True)
+def render_duenos():
+    import pandas as pd
+    lang = st.session_state.lang
+    st.markdown(f'## <i class="bi bi-people" style="color: #8b949e;"></i> {t("Dueños", lang)}', unsafe_allow_html=True)
 
     try:
-        resultados = get_perros()
+        duenos_data = get_todos_duenos()
+        df = pd.DataFrame(duenos_data)
+
         st.markdown(f"""
         <div class="alert alert-success-custom alert-custom">
-            <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} perros
+            <i class="bi bi-check-circle-fill"></i> {t("Se encontraron", lang)} {df['Due\u00f1o'].nunique()} {t("Dueños", lang).lower()}
         </div>
         """, unsafe_allow_html=True)
-        if resultados:
-            render_results(resultados, "perros")
+
+        if 'Dueño' in df.columns:
+            for dueño, grupo in df.groupby('Dueño'):
+                with st.expander(f"👤 {dueño} ({len(grupo)} {t('Mascotas', lang).lower()})"):
+                    grupo['Tipo'] = grupo['Raza'].apply(clasificar_tipo)
+                    st.dataframe(
+                        grupo[['Nombre', 'Raza', 'Tipo']].reset_index(drop=True),
+                        column_config={
+                            "Tipo": st.column_config.TextColumn(t("Tipo", lang), width="small")
+                        },
+                        width="stretch",
+                        hide_index=True
+                    )
     except Exception as e:
         st.markdown(f"""
         <div class="alert alert-danger-custom alert-custom">
-            <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
+            <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {e}
         </div>
         """, unsafe_allow_html=True)
+
+
+def _render_especie_detallada(titulo: str, color: str, info_fn, lang: str):
+    import pandas as pd
+    st.markdown(f'## <i class="bi bi-paw" style="color: {color};"></i> {titulo}', unsafe_allow_html=True)
+    try:
+        resultados = info_fn()
+        df = pd.DataFrame(resultados)
+        razas = df['Raza'].nunique() if 'Raza' in df.columns else 0
+        st.markdown(f"""
+        <div class="alert alert-success-custom alert-custom">
+            <i class="bi bi-check-circle-fill"></i> {t("Se encontraron", lang)} {len(df)} {t("resultado(s)", lang)} ({razas} {t("Razas", lang).lower()})
+        </div>
+        """, unsafe_allow_html=True)
+        if not resultados:
+            return
+        df['Tipo'] = df['Raza'].apply(clasificar_tipo)
+        cols = [c for c in ['Nombre', 'Edad', 'Peso', 'Color', 'Raza', 'Tipo', 'Due\u00f1o', 'Alimento'] if c in df.columns]
+        for raza, grupo in df.groupby('Raza'):
+            with st.expander(f"🐾 {raza} ({len(grupo)} {t('Mascotas', lang).lower()})"):
+                st.dataframe(
+                    grupo[cols].reset_index(drop=True),
+                    column_config={
+                        "Tipo": st.column_config.TextColumn(t("Tipo", lang), width="small")
+                    },
+                    width="stretch",
+                    hide_index=True
+                )
+    except Exception as e:
+        st.markdown(f"""
+        <div class="alert alert-danger-custom alert-custom">
+            <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {e}
+        </div>
+        """, unsafe_allow_html=True)
+
+
+def render_perros():
+    _render_especie_detallada(t("Perros", st.session_state.lang), "#f0883e", info_perros, st.session_state.lang)
 
 
 def render_gatos():
-    st.markdown('## <i class="bi bi-paw" style="color: #a371f7;"></i> Gatos', unsafe_allow_html=True)
-
-    try:
-        resultados = get_gatos()
-        st.markdown(f"""
-        <div class="alert alert-success-custom alert-custom">
-            <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} gatos
-        </div>
-        """, unsafe_allow_html=True)
-        if resultados:
-            render_results(resultados, "gatos")
-    except Exception as e:
-        st.markdown(f"""
-        <div class="alert alert-danger-custom alert-custom">
-            <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-        </div>
-        """, unsafe_allow_html=True)
-
-
-def render_razas():
-    st.markdown('## <i class="bi bi-collection" style="color: #8b949e;"></i> Razas', unsafe_allow_html=True)
-
-    try:
-        resultados = get_razas()
-        st.markdown(f"""
-        <div class="alert alert-success-custom alert-custom">
-            <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} razas
-        </div>
-        """, unsafe_allow_html=True)
-        if resultados:
-            render_results_raza(resultados)
-    except Exception as e:
-        st.markdown(f"""
-        <div class="alert alert-danger-custom alert-custom">
-            <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-        </div>
-        """, unsafe_allow_html=True)
+    _render_especie_detallada(t("Gatos", st.session_state.lang), "#a371f7", info_gatos, st.session_state.lang)
 
 
 if __name__ == "__main__":

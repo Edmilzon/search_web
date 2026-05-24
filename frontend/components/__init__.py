@@ -1,12 +1,6 @@
-from .input import render_search_input
-from .display import render_results, render_results_raza, render_error, render_warning, render_success, render_column_config
+from .display import render_results, clasificar_tipo
 
 __all__ = [
-    'render_search_input',
     'render_results',
-    'render_results_raza',
-    'render_error',
-    'render_warning',
-    'render_success',
-    'render_column_config'
+    'clasificar_tipo',
 ]

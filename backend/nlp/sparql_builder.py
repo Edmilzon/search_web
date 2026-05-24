@@ -1,13 +1,20 @@
 from backend.sparql import (
     get_todas_las_mascotas,
-    get_todos_los_perros,
-    get_todos_los_gatos,
+    get_mascotas_por_especie,
     get_mascotas_con_dueno,
     get_mascotas_sin_dueno,
     get_mascotas_por_edad,
     get_mascotas_por_alimento,
     get_mascotas_por_pelaje,
     get_mascotas_por_accesorio,
+    get_mascotas_por_color,
+    get_mascotas_por_sexo,
+    get_mascotas_por_esterilizado,
+    get_mascotas_por_requiere_bozal,
+    get_mascotas_por_temperamento,
+    get_mascotas_por_tipo_alimento,
+    get_mascotas_por_cuidado,
+    get_mascotas_por_frecuencia_cuidado,
     buscar_por_raza,
     buscar_por_nombre_mascota,
 )
@@ -62,6 +69,13 @@ def _contar(intent: Intent) -> list:
     return [{"Total": total}]
 
 
+_CONTEXT_WORDS = {"sin", "no", "color", "pelaje", "esterilizado", "castrado", "bozal",
+                  "macho", "hembra", "seco", "humedo", "húmedo",
+                  "diario", "diaria", "semanal", "mensual", "anual",
+                  "come", "comer", "consume", "consumir", "alimento", "alimenta",
+                  "necesita", "necesitar", "requiere", "requerir", "cuidado"}
+
+
 def _limpiar_terminos(intent: Intent):
     valores_usados = set()
     if intent.especie:
@@ -76,9 +90,22 @@ def _limpiar_terminos(intent: Intent):
         valores_usados.add(intent.accesorio.lower())
     if intent.pelaje:
         valores_usados.add(intent.pelaje.lower())
+    if intent.color:
+        valores_usados.add(intent.color.lower())
+    if intent.sexo:
+        valores_usados.add(intent.sexo.lower())
+    if intent.temperamento:
+        valores_usados.add(intent.temperamento.lower())
+    if intent.tipo_alimento:
+        valores_usados.add(intent.tipo_alimento.lower())
+    if intent.cuidado:
+        valores_usados.add(intent.cuidado.lower())
+    if intent.frecuencia_cuidado:
+        valores_usados.add(intent.frecuencia_cuidado.lower())
+
     intent.terminos_libres = [
         t for t in intent.terminos_libres
-        if t.lower() not in valores_usados
+        if t.lower() not in valores_usados and t.lower() not in _CONTEXT_WORDS
     ]
 
 
@@ -86,16 +113,20 @@ def _build(intent: Intent) -> list:
     conjuntos = []
 
     if intent.accion == "listar" and not intent.especie and not intent.raza \
-            and not intent.alimento and not intent.dueno and not intent.sin_dueno:
+            and not intent.alimento and not intent.dueno and not intent.sin_dueno \
+            and intent.edad is None and not intent.accesorio and not intent.pelaje \
+            and not intent.color and not intent.sexo and not intent.temperamento \
+            and not intent.tipo_alimento and not intent.cuidado and not intent.frecuencia_cuidado \
+            and intent.esterilizado is None and intent.requiere_bozal is None:
         todas = get_todas_las_mascotas()
         if intent.terminos_libres:
             todas = _filtro_por_terminos_libres(todas, intent.terminos_libres)
         return todas
 
     if intent.especie == "Perro":
-        conjuntos.append(get_todos_los_perros())
+        conjuntos.append(get_mascotas_por_especie("Perro"))
     elif intent.especie == "Gato":
-        conjuntos.append(get_todos_los_gatos())
+        conjuntos.append(get_mascotas_por_especie("Gato"))
     else:
         conjuntos.append(get_todas_las_mascotas())
 
@@ -119,6 +150,30 @@ def _build(intent: Intent) -> list:
 
     if intent.pelaje:
         conjuntos.append(get_mascotas_por_pelaje(intent.pelaje))
+
+    if intent.color:
+        conjuntos.append(get_mascotas_por_color(intent.color))
+
+    if intent.sexo:
+        conjuntos.append(get_mascotas_por_sexo(intent.sexo))
+
+    if intent.esterilizado is not None:
+        conjuntos.append(get_mascotas_por_esterilizado(intent.esterilizado))
+
+    if intent.requiere_bozal is not None:
+        conjuntos.append(get_mascotas_por_requiere_bozal(intent.requiere_bozal))
+
+    if intent.temperamento:
+        conjuntos.append(get_mascotas_por_temperamento(intent.temperamento))
+
+    if intent.tipo_alimento:
+        conjuntos.append(get_mascotas_por_tipo_alimento(intent.tipo_alimento))
+
+    if intent.cuidado:
+        conjuntos.append(get_mascotas_por_cuidado(intent.cuidado))
+
+    if intent.frecuencia_cuidado:
+        conjuntos.append(get_mascotas_por_frecuencia_cuidado(intent.frecuencia_cuidado))
 
     if intent.sin_dueno:
         conjuntos.append(get_mascotas_sin_dueno())

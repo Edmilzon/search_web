@@ -95,6 +95,7 @@
 - Raza21: Doberman
 - Raza22: Husky Siberiano
 - Raza23: Shih Tzu
+- Raza24: Akita
 - Raza25: Border Collie
 
 ### Razas de Gato (pertenece a Especie1)
@@ -108,6 +109,11 @@
 - Raza18: Azul Ruso
 - Raza19: Abisinio
 - Raza20: Scottish Fold
+- Raza26: Angora
+- Raza27: Savannah
+- Raza28: Bombay
+- Raza29: Noruego del Bosque
+- Raza30: Birmano
 
 ---
 
@@ -161,8 +167,8 @@ Especie (2)
   └── Especie2 (Perro)
 
 Raza (30) ──perteneceAEspecie──> Especie
-  ├── Raza1-Raza10, Raza21-Raza25 ──> Especie2 (Perro)
-  └── Raza11-Raza20, Raza26-Raza30 ──> Especie1 (Gato)
+  ├── Raza1-Raza10, Raza21-Raza25 ──> Especie2 (Perro)     # 15 razas de perro
+  └── Raza11-Raza20, Raza26-Raza30 ──> Especie1 (Gato)     # 15 razas de gato
 
 Mascota (110) ──tieneRaza──> Raza
               ──tieneDueño──> Dueño
