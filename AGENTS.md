@@ -1,220 +1,41 @@
 # AGENTS.md - Buscador Semántico de Mascotas
 
-## Descripción
-
-Aplicación web de búsqueda semántica basada en ontología RDF/OWL para gestionar información de mascotas (perros, gatos, razas, dueños, alimentos, accesorios y cuidados).
-
----
+Búsqueda semántica vía SPARQL sobre ontología RDF/OWL de mascotas (perros, gatos, razas, dueños).
 
 ## Commands
 
 ```bash
-# Install
-pip install -r requirements.txt
-python -m venv .venv && .venv\Scripts\activate
-
-# Run
-streamlit run main.py
-# App disponible en: http://localhost:8501
+pip install -r requirements.txt               # rdflib, streamlit, pandas, spacy, owlrl
+python -m spacy download es_core_news_sm       # modelo spaCy español (post-install)
+streamlit run main.py                          # http://localhost:8501
 ```
 
----
+## Entrypoint
 
-## Stack Tecnológico
+`main.py` → `frontend.app:main()` → `st.segmented_control` (6 secciones: Inicio, Perros, Gatos, Razas, Dueños, Búsqueda Avanzada)
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        FRONTEND                                  │
-│  Streamlit + Bootstrap 5 + pandas                               │
-│  - Interfaz moderna con tema oscuro GitHub Dark                 │
-│  - Navegación con st.segmented_control                          │
-│  - Tablas interactivas con st.dataframe                        │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                        BACKEND                                   │
-│  Python 3 + rdflib                                              │
-│  - Consultas SPARQL sobre ontología                            │
-│  - Lógica de búsqueda semántica con caching (@lru_cache)       │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                        DATOS                                     │
-│  mascotas.rdf (RDF/XML)                                       │
-│  - Ontología exportada desde Protégé                           │
-│  - 110 mascotas, 52 perros, 58 gatos, 30 razas, 60 dueños     │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Flujo de Trabajo
+## Architecture
 
 ```
-Usuario
-   │
-   ▼
-┌─────────────────────────────────────────┐
-│  Streamlit UI (frontend/app.py)        │
-│  - Navegación: Inicio/Perros/Gatos/     │
-│    Razas/Dueños                         │
-│  - Búsqueda con filtros                 │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│  backend/logic.py                      │
-│  - buscar() → 5 queries secuenciales    │
-│  - get_todas(), get_perros(), etc.     │
-│  - @lru_cache para optimizar           │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│  backend/consultas/                     │
-│  - SPARQL queries                       │
-│  - 33 funciones de consulta             │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│  backend/consultas/base.py              │
-│  - cargar_ontologia() → Graph global   │
-│  - ejecutar_query() → SPARQL            │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│  database/mascotas.rdf                 │
-│  - rdflib parsea RDF/XML               │
-│  - 2370 triples                         │
-└─────────────────────────────────────────┘
+frontend/app.py                  # Streamlit UI + Bootstrap 5 dark theme + selector idioma
+frontend/components/             # display.py, input.py
+backend/logic.py                 # Orquestador, @lru_cache, buscar_avanzado(), enriquecer_con_dbpedia()
+backend/nlp/                     # NL → SPARQL: intent_parser.py (spaCy) + sparql_builder.py
+backend/i18n.py                  # Traducciones ES/EN
+backend/consultas/               # SPARQL (31 funciones exportadas)
+  ├── base.py                    # cargar_ontologia() + razonador OWL-RL (owlrl)
+  ├── dbpedia.py                 # Consultas a DBpedia vía SPARQL endpoint XML
+  ├── mascotas.py, perros.py, gatos.py
+database/mascotas.rdf            # Ontología RDF/XML, 4111 triples post-razonamiento
 ```
 
----
+## Quick Quirks
 
-## Navegación (st.segmented_control)
-
-| Sección | Descripción |
-|---------|-------------|
-| **Inicio** | Stats (Total:110, Perros:52, Gatos:58, Dueños:60) + búsqueda |
-| **Perros** | Lista de perros + Información completa |
-| **Gatos** | Lista de gatos + Información completa + Sin Dueño |
-| **Razas** | Listado de las 30 razas |
-| **Dueños** | Mascotas con sus respectivos dueño |
-
----
-
-## Arquitectura del Backend
-
-### lógica de búsqueda (`logic.buscar()`)
-
-```python
-# 1. Busca por nombre de mascota
-resultados += buscar_por_nombre_mascota(q)
-
-# 2. Busca por raza
-resultados += buscar_por_raza(q)
-
-# 3. Busca por especie (perro/gato)
-resultados += buscar_por_especie(q)
-
-# 4. Busca por nombre del dueño
-resultados += buscar_por_nombre_dueño(q)
-
-# 5. Busca por alimento
-resultados += buscar_por_alimento(q)
-
-# 6. Deduplicar por Nombre+Raza
-seen = set()
-unique = [r for r in resultados if (r["Nombre"]+r["Raza"]) not in seen]
-```
-
-### Funciones con caché (`@lru_cache`)
-
-- `get_todas()` → 110 mascotas
-- `get_perros()` → 52 perros
-- `get_gatos()` → 58 gatos
-- `get_razas()` → 30 razas
-- `get_contar_duenos()` → 60 dueñoss
-
-### Estructura de consultas SPARQL
-
-**Importante:** La relación `perteneceAEspecie` está en la **Raza**, no en la Mascota:
-```
-Mascota → tieneRaza → Raza → perteneceAEspecie → Especie
-```
-
-Ejemplo correcto:
-```sparql
-?mascota :tieneRaza ?raza .
-?raza :perteneceAEspecie :Especie2 .  # Especie2 = Perro
-```
-
----
-
-## SPARQL Convention
-
-- **Prefix:** `: <http://www.semanticweb.org/mascotas#>`
-- **IRI Base:** `http://www.semanticweb.org/mascotas`
-- **Propiedades (español):** `nombreMascota`, `nombreRaza`, `nombreEspecie`, `nombreDueño`, `edadMascota`, `pesoMascota`, `colorMascota`, `sexoMascota`, `esterilizado`, `tipoPelaje`
-
-### Propiedades Objeto
-
-| Propiedad | Dominio | Rango |
-|-----------|---------|-------|
-| `tieneRaza` | Mascota | Raza |
-| `perteneceAEspecie` | Raza | Especie |
-| `tieneDueño` | Mascota | Dueño |
-| `consume` | Mascota | Alimento |
-| `usa` | Mascota | Accesorio |
-| `requiereCuidado` | Mascota | Cuidado |
-
----
-
-## Estructura del Proyecto
-
-```
-main.py                     → Entry point (importa frontend.app:main)
-
-frontend/
-├── app.py                  → Streamlit UI (st.segmented_control)
-│                           → 5 secciones: Inicio, Perros, Gatos, Razas, Dueños
-├── styles/
-│   └── main.css            → Tema oscuro GitHub Dark
-└── components/
-    ├── __init__.py         → Exports
-    ├── display.py          → st.dataframe + render_results()
-    └── input.py            → Search input
-
-backend/
-├── logic.py                → Orquestador con @lru_cache
-│                           → buscar(), get_todas(), get_perros(), etc.
-└── consultas/
-    ├── __init__.py         → 33 funciones exportadas
-    ├── base.py             → cargar_ontologia() + ejecutar_query()
-    ├── mascotas.py         → Consultas generales
-    ├── perros.py           → Consultas de perros (usa Raza.perteneceAEspecie)
-    └── gatos.py            → Consultas de gatos
-
-database/
-├── mascotas.rdf            → Ontología RDF/XML (2370 triples)
-└── ONTOLOGIA.md           → Documentación de la ontología
-```
-
----
-
-## Ontología (mascotas.rdf)
-
-| Entidad | Cantidad | Notas |
-|---------|----------|-------|
-| **Mascotas** | 110 | 52 perros, 58 gatos |
-| **Razas** | 30 | Labrador, Poodle, Siamés, etc. |
-| **Especies** | 2 | Especie1=Gato, Especie2=Perro |
-| **Dueños** | 60 | Dueño1 - Dueño60 |
-| **Alimentos** | 20 | Purina, Royal Canin, etc. |
-| **Accesorios** | 20 | Collar, Correa, etc. |
-| **Cuidados** | 15 | Baño, Vacunación, etc. |
-
+- **SPARQL:** `perteneceAEspecie` está en `Raza`, no en `Mascota`. Ruta: `Mascota → tieneRaza → Raza → perteneceAEspecie → Especie`. `:Especie1` = Gato, `:Especie2` = Perro
+- **Búsqueda Avanzada (NL):** Usa spaCy (`es_core_news_sm`) para parsear oraciones completas. `backend/nlp/intent_parser.py` extrae intenciones (especie, raza, alimento, edad, dueño, sin_dueño) y `sparql_builder.py` intersecta resultados combinando múltiples filtros
+- **OWL Reasoner:** `cargar_ontologia()` aplica razonamiento OWL-RL (vía `owlrl`) en primera carga, expandiendo triples de ~2370 a ~4111
+- **DBpedia:** `backend/consultas/dbpedia.py` consulta endpoint SPARQL de DBpedia, parsea XML nativo (sin JSON/TTL/parsers externos). Se muestra en expander separado en Búsqueda Avanzada
+- **i18n:** Selector ES/EN en sidebar. Traducciones en `backend/i18n.py` para UI y resultados
+- **Graph singleton:** `cargar_ontologia()` cachea en `_grafo_cache` global
+- **No hay tests** — sin pytest, CI, o fixtures
+- **No hay linter/formatter/typecheck** configurados

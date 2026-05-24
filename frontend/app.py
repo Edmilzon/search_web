@@ -4,9 +4,10 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from backend.logic import buscar, get_todas, get_perros, get_gatos, get_razas, get_contar_duenos
-from backend.consultas import get_info_completa_perros, get_info_completa_gatos
+from backend.logic import buscar, buscar_avanzado, enriquecer_con_dbpedia, get_todas, get_perros, get_gatos, get_razas, get_contar_duenos
+from backend.sparql import get_info_completa_perros, get_info_completa_gatos
 from frontend.components import render_results, render_results_raza
+from backend.i18n import t
 
 
 def inject_bootstrap():
@@ -30,8 +31,20 @@ def main():
         layout="wide"
     )
 
-    # Header
-    st.markdown("""
+    if "lang" not in st.session_state:
+        st.session_state.lang = "es"
+
+    col_lang, _ = st.columns([1, 11])
+    with col_lang:
+        lang = st.selectbox(
+            "",
+            options=["es", "en"],
+            format_func=lambda x: "🇪🇸 Español" if x == "es" else "🇬🇧 English",
+            key="lang",
+            label_visibility="collapsed"
+        )
+
+    st.markdown(f"""
     <nav class="navbar-custom">
         <div class="container">
             <div class="d-flex align-items-center justify-content-between w-100">
@@ -39,48 +52,27 @@ def main():
                     <i class="bi bi-paw" style="color: #58a6ff;"></i> Buscador Semántico de Mascotas
                 </span>
                 <span class="navbar-text">
-                    <i class="bi bi-diagram-3" style="color: #8b949e;"></i> Búsqueda Inteligente
+                    <i class="bi bi-diagram-3" style="color: #8b949e;"></i> {t("Búsqueda Inteligente", lang)}
                 </span>
             </div>
         </div>
     </nav>
     """, unsafe_allow_html=True)
 
-    # Navigation with segmented control
-    st.markdown("""
-    <style>
-    .nav-container {
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
+    opciones_menu = {
+        "Inicio": t("Inicio", lang),
+        "Perros": t("Perros", lang),
+        "Gatos": t("Gatos", lang),
+        "Razas": t("Razas", lang),
+        "Dueños": t("Dueños", lang),
     }
-    .nav-btn {
-        background: #21262d;
-        border: 1px solid #30363d;
-        color: #8b949e;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-decoration: none;
-    }
-    .nav-btn:hover {
-        background: #30363d;
-        color: #c9d1d9;
-    }
-    .nav-btn.active {
-        background: #1f6feb;
-        border-color: #1f6feb;
-        color: white;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
     menu = st.segmented_control(
-        "Navegación",
-        options=["Inicio", "Perros", "Gatos", "Razas", "Dueños"],
+        "",
+        options=list(opciones_menu.keys()),
+        format_func=lambda x: opciones_menu[x],
         default="Inicio",
-        selection_mode="single"
+        selection_mode="single",
+        label_visibility="collapsed"
     )
 
     if menu == "Inicio":
@@ -96,7 +88,6 @@ def main():
 
 
 def render_inicio():
-    # Stats
     try:
         todas = get_todas()
         perros = get_perros()
@@ -139,19 +130,23 @@ def render_inicio():
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("### <i class=\"bi bi-search\" style=\"color: #58a6ff;\"></i> Buscar Mascotas", unsafe_allow_html=True)
+    st.markdown("""
+    <div style="text-align:center; margin: 2rem 0 1rem 0;">
+        <h3><i class="bi bi-search" style="color: #58a6ff;"></i> Búsqueda Inteligente</h3>
+        <p class="text-muted">Escribe una frase completa para buscar mascotas</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    # Search
     busqueda = st.text_input(
         "Buscar:",
-        placeholder="Busca por nombre, raza, especie, dueño, alimento...",
+        placeholder="Ej: mostrar perros que comen Purina, gatos de 3 años sin dueño...",
         label_visibility="collapsed",
         key="busqueda_inicio"
     )
 
     if busqueda:
         try:
-            resultados = buscar(busqueda)
+            resultados = buscar_avanzado(busqueda)
             if resultados:
                 st.markdown(f"""
                 <div class="alert alert-success-custom alert-custom">
@@ -159,6 +154,27 @@ def render_inicio():
                 </div>
                 """, unsafe_allow_html=True)
                 render_results(resultados, busqueda)
+
+                with st.expander("Información desde DBpedia"):
+                    st.markdown("""
+                    <p class="text-muted">
+                        <i class="bi bi-database"></i> Datos enriquecidos desde DBpedia (Linked Open Data)
+                    </p>
+                    """, unsafe_allow_html=True)
+                    dbpedia_data = enriquecer_con_dbpedia(resultados)
+                    if dbpedia_data:
+                        for item in dbpedia_data:
+                            st.markdown(f"""
+                            <div class="card-custom" style="margin-bottom: 1rem;">
+                                <h5><i class="bi bi-bookmark"></i> {item.get('raza', '')}</h5>
+                                <p><strong>Origen:</strong> {item.get('origin', 'No disponible')}</p>
+                                <p><strong>Peso promedio:</strong> {item.get('weight', 'No disponible')}</p>
+                                <p><strong>Esperanza de vida:</strong> {item.get('lifeSpan', 'No disponible')}</p>
+                                <p><small><a href="{item.get('dbpedia_url', '#')}" target="_blank">Ver en DBpedia <i class="bi bi-box-arrow-up-right"></i></a></small></p>
+                            </div>
+                            """, unsafe_allow_html=True)
+                    else:
+                        st.info("No se encontraron datos adicionales en DBpedia para estas razas.")
             else:
                 st.markdown(f"""
                 <div class="alert alert-warning-custom alert-custom">
@@ -177,7 +193,7 @@ def render_perros():
     st.markdown("## <i class=\"bi bi-paw\" style=\"color: #f0883e;\"></i> Perros", unsafe_allow_html=True)
 
     tab1, tab2 = st.tabs(["Lista de Perros", "Información Completa"])
-    
+
     with tab1:
         try:
             resultados = get_perros()
@@ -194,7 +210,7 @@ def render_perros():
                 <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
             </div>
             """, unsafe_allow_html=True)
-    
+
     with tab2:
         try:
             resultados = get_info_completa_perros()
@@ -217,7 +233,7 @@ def render_gatos():
     st.markdown('## <i class="bi bi-paw" style="color: #a371f7;"></i> Gatos', unsafe_allow_html=True)
 
     tab1, tab2, tab3 = st.tabs(["Lista de Gatos", "Información Completa", "Sin Dueño"])
-    
+
     with tab1:
         try:
             resultados = get_gatos()
@@ -234,7 +250,7 @@ def render_gatos():
                 <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
             </div>
             """, unsafe_allow_html=True)
-    
+
     with tab2:
         try:
             resultados = get_info_completa_gatos()
@@ -251,9 +267,9 @@ def render_gatos():
                 <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
             </div>
             """, unsafe_allow_html=True)
-    
+
     with tab3:
-        from backend.consultas.gatos import get_gatos_sin_dueno
+        from backend.sparql import get_gatos_sin_dueno
         try:
             resultados = get_gatos_sin_dueno()
             st.markdown(f"""
@@ -271,60 +287,9 @@ def render_gatos():
             """, unsafe_allow_html=True)
 
 
-def render_buscar():
-    st.markdown('## <i class="bi bi-search" style="color: #58a6ff;"></i> Búsqueda Avanzada', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="text-muted">
-    Busca por: <span class="text-accent">nombre</span>,
-    <span class="text-accent">raza</span>,
-    <span class="text-accent">especie</span> (perro/gato),
-    <span class="text-accent">nombre del dueño</span>,
-    <span class="text-accent">marca de alimento</span>,
-    <span class="text-accent">accesorio</span>,
-    <span class="text-accent">tipo de pelaje</span>
-    </p>
-    """, unsafe_allow_html=True)
-
-    busqueda = st.text_input(
-        "Buscar:",
-        placeholder="Ej: Bobby, Labrador, Perro, Gato, Carlos, Purina, Collar...",
-        label_visibility="collapsed",
-        key="busqueda_avanzada"
-    )
-    
-    if busqueda:
-        try:
-            resultados = buscar(busqueda)
-            if resultados:
-                st.markdown(f"""
-                <div class="alert alert-success-custom alert-custom">
-                    <i class="bi bi-check-circle-fill"></i> Se encontraron {len(resultados)} resultado(s) para "{busqueda}"
-                </div>
-                """, unsafe_allow_html=True)
-                render_results(resultados, busqueda)
-            else:
-                st.markdown(f"""
-                <div class="alert alert-warning-custom alert-custom">
-                    <i class="bi bi-exclamation-circle-fill"></i> No se encontraron resultados para "{busqueda}"
-                </div>
-                """, unsafe_allow_html=True)
-        except Exception as e:
-            st.markdown(f"""
-            <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> Error: {e}
-            </div>
-            """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div class="alert alert-warning-custom alert-custom">
-            <i class="bi bi-info-circle-fill"></i> Escribe un término de búsqueda
-        </div>
-        """, unsafe_allow_html=True)
-
-
 def render_razas():
     st.markdown('## <i class="bi bi-collection" style="color: #8b949e;"></i> Razas', unsafe_allow_html=True)
-    
+
     try:
         resultados = get_razas()
         st.markdown(f"""
@@ -346,7 +311,7 @@ def render_duenos():
     st.markdown('## <i class="bi bi-people" style="color: #8b949e;"></i> Dueños', unsafe_allow_html=True)
 
     try:
-        from backend.consultas.mascotas import get_mascotas_con_dueno
+        from backend.sparql import get_mascotas_con_dueno
         resultados = get_mascotas_con_dueno()
 
         if resultados:

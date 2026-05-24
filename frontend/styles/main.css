@@ -12,8 +12,8 @@
 .navbar-custom {
     background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
     border-bottom: 1px solid #30363d;
-    padding: 1.5rem 0;
-    margin-bottom: 2rem;
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
     border-radius: 0 0 16px 16px;
 }
 
@@ -26,6 +26,11 @@
 .navbar-text {
     color: #8b949e;
     font-size: 0.875rem;
+}
+
+/* Language selector */
+.stSelectbox > div {
+    margin-bottom: 0 !important;
 }
 
 /* Menu Buttons */

@@ -1,0 +1,4 @@
+Busqueda simeple ( se requiere q sea avanzado anidado a el buscador soporte de todo oraciones largas)
+NO TTL
+NO USAR PASADORES
+NO USAR JSON 

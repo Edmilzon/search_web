@@ -35,7 +35,7 @@ def render_results(resultados, titulo: str = "Resultados"):
     # Usar dataframe nativo de Streamlit
     st.dataframe(
         df,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         column_config={
             "Tipo": st.column_config.TextColumn("Tipo", width="small")
@@ -60,7 +60,7 @@ def render_results_raza(resultados):
 
     st.dataframe(
         df,
-        use_container_width=True,
+        width="stretch",
         hide_index=True
     )
 
