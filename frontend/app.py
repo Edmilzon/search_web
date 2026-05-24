@@ -164,10 +164,7 @@ def render_inicio():
                             st.markdown(f"""
                             <div class="card-custom" style="margin-bottom: 1rem;">
                                 <h5><i class="bi bi-bookmark"></i> {item.get('raza', '')}</h5>
-                                <p><strong>Origen:</strong> {item.get('origin', 'No disponible')}</p>
-                                <p><strong>Peso promedio:</strong> {item.get('weight', 'No disponible')}</p>
-                                <p><strong>Esperanza de vida:</strong> {item.get('lifeSpan', 'No disponible')}</p>
-                                <p><small><a href="{item.get('dbpedia_url', '#')}" target="_blank">Ver en DBpedia <i class="bi bi-box-arrow-up-right"></i></a></small></p>
+                                <p><small><a href="{item.get('dbpedia_url', '#')}" target="_blank">Más información aquí <i class="bi bi-box-arrow-up-right"></i></a></small></p>
                             </div>
                             """, unsafe_allow_html=True)
                     else:
