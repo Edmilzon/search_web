@@ -6,7 +6,6 @@ from .sparql import (
     buscar_por_raza,
     get_mascotas_con_dueno,
     get_mascotas_por_alimento,
-    get_info_completa_mascota,
     get_mascotas_por_especie,
     get_info_completa_por_especie,
 )
@@ -106,10 +105,6 @@ def enriquecer_con_dbpedia(resultados: list) -> list:
     if not razas:
         return []
     return consultar_varias_razas(list(razas))
-
-
-def info_mascota(nombre: str):
-    return get_info_completa_mascota(nombre)
 
 
 @lru_cache(maxsize=1)

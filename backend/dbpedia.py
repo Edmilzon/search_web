@@ -3,6 +3,7 @@ import urllib.parse
 from xml.etree import ElementTree as ET
 
 
+
 DBPEDIA_ENDPOINT = "https://es.dbpedia.org/sparql"
 
 _MAPA_RAZA = {
@@ -78,7 +79,6 @@ def _parse_sparql_results(xml_bytes: bytes) -> list:
     root = ET.fromstring(xml_bytes)
     ns = {"sparql": "http://www.w3.org/2005/sparql-results#"}
 
-    variables = [v.get("name") for v in root.findall(".//sparql:head/sparql:variable", ns)]
     resultados = []
 
     for result_elem in root.findall(".//sparql:results/sparql:result", ns):

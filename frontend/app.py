@@ -1,13 +1,15 @@
 import streamlit as st
 import sys
 import os
+import html
+import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from backend.logic import buscar, buscar_avanzado, enriquecer_con_dbpedia, get_todas, get_perros, get_gatos, get_contar_duenos, get_todos_duenos, info_perros, info_gatos
 
 from frontend.components import render_results, clasificar_tipo
-from backend.i18n import t
+from backend.sparql import t
 
 
 def inject_bootstrap():
@@ -34,14 +36,23 @@ def main():
     if "lang" not in st.session_state:
         st.session_state.lang = "es"
 
-    col_lang, _ = st.columns([1, 11])
-    with col_lang:
-        lang = st.selectbox(
-            "Language",
-            options=["es", "en"],
-            format_func=lambda x: "🇪🇸 Español" if x == "es" else "🇬🇧 English",
+    col_flag, col_select = st.columns([1, 6])
+    with col_flag:
+        flag_code = {"es": "es", "en": "gb", "fr": "fr", "de": "de", "pt": "pt"}[st.session_state.lang]
+        st.markdown(
+            f'<img src="https://flagcdn.com/24x18/{flag_code}.png" width="24" height="18" '
+            f'style="margin-top:2px;border-radius:2px;display:block">',
+            unsafe_allow_html=True
+        )
+    _LANG_NAMES = {"es": "Español", "en": "English", "fr": "Français", "de": "Deutsch", "pt": "Português"}
+    with col_select:
+        lang = st.pills(
+            "Idioma",
+            options=["es", "en", "fr", "de", "pt"],
+            format_func=lambda x: _LANG_NAMES.get(x, x.upper()),
             key="lang",
-            label_visibility="collapsed"
+            label_visibility="collapsed",
+            selection_mode="single",
         )
 
     st.markdown(f"""
@@ -124,7 +135,7 @@ def render_inicio():
     except Exception as e:
         st.markdown(f"""
         <div class="alert alert-danger-custom alert-custom">
-            <i class="bi bi-exclamation-triangle-fill"></i> Error al cargar estadísticas: {e}
+            <i class="bi bi-exclamation-triangle-fill"></i> {t("Error al cargar estadísticas", lang)}: {html.escape(str(e))}
         </div>
         """, unsafe_allow_html=True)
     st.markdown(f"""
@@ -136,7 +147,7 @@ def render_inicio():
 
     busqueda = st.text_input(
         "Buscar:",
-        placeholder=t("Buscar por nombre, raza, especie...", lang),
+        placeholder=t("Buscar por nombre, raza, especie, color, dueño, edad, peso, accesorio, cuidado...", lang),
         label_visibility="collapsed",
         key="busqueda_inicio"
     )
@@ -147,10 +158,14 @@ def render_inicio():
             if resultados:
                 st.markdown(f"""
                 <div class="alert alert-success-custom alert-custom">
-                    <i class="bi bi-check-circle-fill"></i> {t("Se encontraron", lang)} {len(resultados)} {t("resultado(s)", lang)} "{busqueda}"
+                    <i class="bi bi-check-circle-fill"></i> {t("Se encontraron", lang)} {len(resultados)} {t("resultado(s)", lang)} "{html.escape(busqueda)}"
                 </div>
                 """, unsafe_allow_html=True)
-                render_results(resultados)
+                render_results(resultados, lang)
+
+                _dbpedia_key = f"_dbpedia_{busqueda}"
+                if _dbpedia_key not in st.session_state:
+                    st.session_state[_dbpedia_key] = None
 
                 with st.expander(t("Información desde DBpedia", lang)):
                     st.markdown(f"""
@@ -158,13 +173,15 @@ def render_inicio():
                         <i class="bi bi-database"></i> {t("Datos enriquecidos desde DBpedia (Linked Open Data)", lang)}
                     </p>
                     """, unsafe_allow_html=True)
-                    dbpedia_data = enriquecer_con_dbpedia(resultados)
+                    if st.session_state[_dbpedia_key] is None:
+                        st.session_state[_dbpedia_key] = enriquecer_con_dbpedia(resultados)
+                    dbpedia_data = st.session_state[_dbpedia_key]
                     if dbpedia_data:
                         for item in dbpedia_data:
                             st.markdown(f"""
                             <div class="card-custom" style="margin-bottom: 1rem;">
-                                <h5><i class="bi bi-bookmark"></i> {item.get('raza', '')}</h5>
-                                <p><small><a href="{item.get('dbpedia_url', '#')}" target="_blank">{t("Más información aquí", lang)} <i class="bi bi-box-arrow-up-right"></i></a></small></p>
+                                <h5><i class="bi bi-bookmark"></i> {html.escape(str(item.get('raza', '')))}</h5>
+                                <p><small><a href="{html.escape(str(item.get('dbpedia_url', '#')))}" target="_blank">{t("Más información aquí", lang)} <i class="bi bi-box-arrow-up-right"></i></a></small></p>
                             </div>
                             """, unsafe_allow_html=True)
                     else:
@@ -172,19 +189,18 @@ def render_inicio():
             else:
                 st.markdown(f"""
                 <div class="alert alert-warning-custom alert-custom">
-                    <i class="bi bi-exclamation-circle-fill"></i> {t("No se encontraron resultados", lang)} "{busqueda}"
+                    <i class="bi bi-exclamation-circle-fill"></i> {t("No se encontraron resultados", lang)} "{html.escape(busqueda)}"
                 </div>
                 """, unsafe_allow_html=True)
         except Exception as e:
             st.markdown(f"""
             <div class="alert alert-danger-custom alert-custom">
-                <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {e}
+                <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {html.escape(str(e))}
             </div>
             """, unsafe_allow_html=True)
 
 
 def render_duenos():
-    import pandas as pd
     lang = st.session_state.lang
     st.markdown(f'## <i class="bi bi-people" style="color: #8b949e;"></i> {t("Dueños", lang)}', unsafe_allow_html=True)
 
@@ -192,9 +208,10 @@ def render_duenos():
         duenos_data = get_todos_duenos()
         df = pd.DataFrame(duenos_data)
 
+        num_duenos = df['Due\u00f1o'].nunique() if 'Due\u00f1o' in df.columns else 0
         st.markdown(f"""
         <div class="alert alert-success-custom alert-custom">
-            <i class="bi bi-check-circle-fill"></i> {t("Se encontraron", lang)} {df['Due\u00f1o'].nunique()} {t("Dueños", lang).lower()}
+            <i class="bi bi-check-circle-fill"></i> {t("Se encontraron", lang)} {num_duenos} {t("Dueños", lang).lower()}
         </div>
         """, unsafe_allow_html=True)
 
@@ -213,13 +230,12 @@ def render_duenos():
     except Exception as e:
         st.markdown(f"""
         <div class="alert alert-danger-custom alert-custom">
-            <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {e}
+            <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {html.escape(str(e))}
         </div>
         """, unsafe_allow_html=True)
 
 
 def _render_especie_detallada(titulo: str, color: str, info_fn, lang: str):
-    import pandas as pd
     st.markdown(f'## <i class="bi bi-paw" style="color: {color};"></i> {titulo}', unsafe_allow_html=True)
     try:
         resultados = info_fn()
@@ -247,7 +263,7 @@ def _render_especie_detallada(titulo: str, color: str, info_fn, lang: str):
     except Exception as e:
         st.markdown(f"""
         <div class="alert alert-danger-custom alert-custom">
-            <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {e}
+            <i class="bi bi-exclamation-triangle-fill"></i> {t("Error", lang)}: {html.escape(str(e))}
         </div>
         """, unsafe_allow_html=True)
 

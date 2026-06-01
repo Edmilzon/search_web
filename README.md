@@ -123,6 +123,14 @@ El buscador entiende **lenguaje natural** usando spaCy. Detecta automáticamente
 Si ninguna intención es detectada (ej: `"akita"`, `"Bobby"`), el sistema cae automáticamente a `buscar()` que busca por keyword en nombre de mascota, raza, especie, dueño y alimento.
 
 ---
+Ontologia en 4 idiomas 
+Inglés (en): Pet
+
+Francés (fr): Animal de compagnie
+
+Alemán (de): Haustier
+
+Portugués (pt): Animal de estimação
 
 ## Estructura del Proyecto
 

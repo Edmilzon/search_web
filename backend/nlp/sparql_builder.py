@@ -1,4 +1,4 @@
-from backend.sparql import (
+from ..sparql import (
     get_todas_las_mascotas,
     get_mascotas_por_especie,
     get_mascotas_con_dueno,
@@ -17,15 +17,22 @@ from backend.sparql import (
     get_mascotas_por_frecuencia_cuidado,
     buscar_por_raza,
     buscar_por_nombre_mascota,
+    buscar_por_nombre_raza_exacto,
+    buscar_por_nombre_dueno,
+    get_mascotas_por_rango_edad,
+    get_mascotas_por_rango_peso,
+    get_mascotas_por_marca_accesorio,
+    get_busqueda_universal,
 )
-from functools import lru_cache
-from backend.nlp.intent_parser import Intent
+from .intent_parser import Intent
 
 
 def _filtro_por_terminos_libres(resultados: list, terminos: list) -> list:
+    _skip = _DUENO_WORDS | _ACC_WORDS
+    terminos = [t for t in terminos if t.lower() not in _skip
+                and not any(sw.startswith(t.lower()) for sw in _skip)]
     if not terminos:
         return resultados
-    # collect all (Nombre, Raza) pairs that match ANY term, per term build a set
     term_sets = []
     for termino in terminos:
         termino = termino.lower()
@@ -35,9 +42,10 @@ def _filtro_por_terminos_libres(resultados: list, terminos: list) -> list:
         for r in por_nombre + por_raza:
             s.add((r.get("Nombre", "").lower(), r.get("Raza", "").lower()))
         if not s:
-            return []
+            continue
         term_sets.append(s)
-    # intersect all term sets
+    if not term_sets:
+        return resultados
     final = term_sets[0]
     for s in term_sets[1:]:
         final = final & s
@@ -48,81 +56,91 @@ def _filtro_por_terminos_libres(resultados: list, terminos: list) -> list:
 
 
 def build_sparql(intent: Intent) -> list:
+    """Parse intent into SPARQL intersection, return matching mascotas."""
     _limpiar_terminos(intent)
     if intent.accion == "contar":
         return _contar(intent)
-
-    resultados = _build(intent)
-    seen = set()
-    unique = []
-    for r in resultados:
-        key = str(r.get("Nombre", "")) + str(r.get("Raza", ""))
-        if key not in seen:
-            seen.add(key)
-            unique.append(r)
-    return unique
+    return _build(intent)
 
 
 def _contar(intent: Intent) -> list:
+    """Execute _build and return a single-row result with total count."""
     resultados = _build(intent)
-    total = len(resultados)
-    return [{"Total": total}]
+    return [{"Total": len(resultados)}]
 
 
 _CONTEXT_WORDS = {"sin", "no", "color", "pelaje", "esterilizado", "castrado", "bozal",
                   "macho", "hembra", "seco", "humedo", "húmedo",
                   "diario", "diaria", "semanal", "mensual", "anual",
                   "come", "comer", "consume", "consumir", "alimento", "alimenta",
-                  "necesita", "necesitar", "requiere", "requerir", "cuidado"}
+                  "necesita", "necesitar", "requiere", "requerir", "cuidado",
+                  "marca", "entre", "mayor", "menor", "más", "mas", "de", "del",
+                  "años", "año", "kilos", "kilo", "kg", "peso", "edad",
+                  "mascotas", "mascota", "perros", "perro", "gatos", "gato",
+                  "animal", "animales", "buscar", "busca", "dame", "lista",
+                  "listar", "mostrar", "ver", "quiero", "todos", "todas"}
+
+_DUENO_WORDS = {"dueño", "dueña", "dueno", "duena", "dueños", "dueñas",
+                "propietario", "propietaria", "propietarios", "propietarias"}
+_ACC_WORDS = {"accesorios", "accesorio", "accesorios de mascotas"}
+
+_DUENO_WORDS = {"dueño", "dueña", "dueno", "duena", "dueños", "dueñas",
+                "propietario", "propietaria", "propietarios", "propietarias"}
 
 
 def _limpiar_terminos(intent: Intent):
     valores_usados = set()
-    if intent.especie:
-        valores_usados.add(intent.especie.lower())
-    if intent.raza:
-        valores_usados.add(intent.raza.lower())
-    if intent.alimento:
-        valores_usados.add(intent.alimento.lower())
-    if intent.dueno:
-        valores_usados.add(intent.dueno.lower())
-    if intent.accesorio:
-        valores_usados.add(intent.accesorio.lower())
-    if intent.pelaje:
-        valores_usados.add(intent.pelaje.lower())
-    if intent.color:
-        valores_usados.add(intent.color.lower())
-    if intent.sexo:
-        valores_usados.add(intent.sexo.lower())
-    if intent.temperamento:
-        valores_usados.add(intent.temperamento.lower())
-    if intent.tipo_alimento:
-        valores_usados.add(intent.tipo_alimento.lower())
-    if intent.cuidado:
-        valores_usados.add(intent.cuidado.lower())
-    if intent.frecuencia_cuidado:
-        valores_usados.add(intent.frecuencia_cuidado.lower())
+    for attr in ("especie", "raza", "raza_exacta", "alimento", "dueno",
+                 "accesorio", "marca_accesorio", "pelaje", "color", "sexo",
+                 "temperamento", "tipo_alimento", "cuidado", "frecuencia_cuidado"):
+        val = getattr(intent, attr, None)
+        if val:
+            valores_usados.add(val.lower())
 
     intent.terminos_libres = [
         t for t in intent.terminos_libres
-        if t.lower() not in valores_usados and t.lower() not in _CONTEXT_WORDS
+        if len(t) >= 3
+        and t.lower() not in valores_usados
+        and t.lower() not in _CONTEXT_WORDS
+        and not any(cw.startswith(t.lower()) for cw in _CONTEXT_WORDS)
     ]
 
 
 def _build(intent: Intent) -> list:
+    """Build SPARQL result sets per filter, intersect by (Nombre, Raza)."""
     conjuntos = []
+    _sc = lambda v: v is not None
+    has_filters = any([
+        intent.especie, intent.raza, intent.raza_exacta,
+        intent.alimento, intent.dueno, intent.sin_dueno,
+        _sc(intent.edad), _sc(intent.edad_min), _sc(intent.peso), _sc(intent.peso_min),
+        intent.accesorio, intent.marca_accesorio,
+        intent.pelaje, intent.color, intent.sexo,
+        intent.temperamento, intent.tipo_alimento,
+        intent.cuidado, intent.frecuencia_cuidado,
+        _sc(intent.esterilizado), _sc(intent.requiere_bozal),
+    ])
 
-    if intent.accion == "listar" and not intent.especie and not intent.raza \
-            and not intent.alimento and not intent.dueno and not intent.sin_dueno \
-            and intent.edad is None and not intent.accesorio and not intent.pelaje \
-            and not intent.color and not intent.sexo and not intent.temperamento \
-            and not intent.tipo_alimento and not intent.cuidado and not intent.frecuencia_cuidado \
-            and intent.esterilizado is None and intent.requiere_bozal is None:
-        todas = get_todas_las_mascotas()
+    if not has_filters:
         if intent.terminos_libres:
-            todas = _filtro_por_terminos_libres(todas, intent.terminos_libres)
-        return todas
+            if any(t.lower() in _DUENO_WORDS for t in intent.terminos_libres):
+                return get_mascotas_con_dueno()
+            if any(t.lower() in _ACC_WORDS for t in intent.terminos_libres):
+                return get_busqueda_universal("")
+            universal = get_busqueda_universal(intent.terminos_libres[0])
+            for t in intent.terminos_libres[1:]:
+                partial = get_busqueda_universal(t)
+                univ_keys = {(r.get("Nombre",""), r.get("Raza","")) for r in universal}
+                universal = [r for r in partial
+                             if (r.get("Nombre",""), r.get("Raza","")) in univ_keys]
+            return universal
+        return get_todas_las_mascotas()
 
+    _generic_terms = _DUENO_WORDS | _ACC_WORDS
+    if not intent.accesorio and not intent.cuidado and not intent.alimento:
+        if any(t.lower() in _generic_terms for t in intent.terminos_libres):
+            q = intent.especie.lower() if intent.especie else ""
+            return get_busqueda_universal(q)
     if intent.especie == "Perro":
         conjuntos.append(get_mascotas_por_especie("Perro"))
     elif intent.especie == "Gato":
@@ -130,23 +148,39 @@ def _build(intent: Intent) -> list:
     else:
         conjuntos.append(get_todas_las_mascotas())
 
-    if intent.raza:
+    if intent.raza_exacta:
+        conjuntos.append(buscar_por_raza(intent.raza_exacta))
+
+    if intent.raza and intent.raza != intent.raza_exacta:
         conjuntos.append(buscar_por_raza(intent.raza))
 
     if intent.alimento:
         conjuntos.append(get_mascotas_por_alimento(intent.alimento))
 
     if intent.dueno:
-        dueno_q = intent.dueno.lower()
-        todas_con_dueno = get_mascotas_con_dueno()
-        filtradas = [r for r in todas_con_dueno if dueno_q in str(r.get("Dueño", "")).lower()]
-        conjuntos.append(filtradas)
+        conjuntos.append(buscar_por_nombre_dueno(intent.dueno))
 
     if intent.edad is not None:
         conjuntos.append(get_mascotas_por_edad(intent.edad))
 
+    if intent.edad_min is not None or intent.edad_max is not None:
+        emin = intent.edad_min if intent.edad_min is not None else 0
+        emax = intent.edad_max if intent.edad_max is not None else 999
+        conjuntos.append(get_mascotas_por_rango_edad(emin, emax))
+
+    if intent.peso is not None:
+        conjuntos.append(get_mascotas_por_rango_peso(intent.peso, intent.peso))
+
+    if intent.peso_min is not None or intent.peso_max is not None:
+        pmin = intent.peso_min if intent.peso_min is not None else 0.0
+        pmax = intent.peso_max if intent.peso_max is not None else 999.0
+        conjuntos.append(get_mascotas_por_rango_peso(pmin, pmax))
+
     if intent.accesorio:
         conjuntos.append(get_mascotas_por_accesorio(intent.accesorio))
+
+    if intent.marca_accesorio:
+        conjuntos.append(get_mascotas_por_marca_accesorio(intent.marca_accesorio))
 
     if intent.pelaje:
         conjuntos.append(get_mascotas_por_pelaje(intent.pelaje))
@@ -186,12 +220,15 @@ def _build(intent: Intent) -> list:
         base_keyed = {}
         for r in resultado_base:
             key = (r.get("Nombre", "").lower(), r.get("Raza", "").lower())
-            base_keyed[key] = r
+            if key not in base_keyed:
+                base_keyed[key] = []
+            base_keyed[key].append(r)
         interseccion = []
         for r in otro:
             key = (r.get("Nombre", "").lower(), r.get("Raza", "").lower())
-            if key in base_keyed:
-                combinado = dict(base_keyed[key])
+            if key in base_keyed and base_keyed[key]:
+                base_r = base_keyed[key].pop(0)
+                combinado = dict(base_r)
                 combinado.update(r)
                 interseccion.append(combinado)
         resultado_base = interseccion

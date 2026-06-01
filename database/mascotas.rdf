@@ -289,31 +289,61 @@
 
     <!-- http://www.semanticweb.org/mascotas#Accesorio -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Accesorio"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Accesorio">
+        <rdfs:label xml:lang="es">Accesorio</rdfs:label>
+        <rdfs:label xml:lang="fr">Accessoire</rdfs:label>
+        <rdfs:label xml:lang="en">Accessory</rdfs:label>
+        <rdfs:label xml:lang="pt">Acessório</rdfs:label>
+        <rdfs:label xml:lang="de">Zubehör</rdfs:label>
+    </owl:Class>
     
 
 
     <!-- http://www.semanticweb.org/mascotas#Alimento -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Alimento"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Alimento">
+        <rdfs:label xml:lang="es">Alimento</rdfs:label>
+        <rdfs:label xml:lang="pt">Alimento</rdfs:label>
+        <rdfs:label xml:lang="en">Food</rdfs:label>
+        <rdfs:label xml:lang="de">Futter</rdfs:label>
+        <rdfs:label xml:lang="fr">Nourriture</rdfs:label>
+    </owl:Class>
     
 
 
     <!-- http://www.semanticweb.org/mascotas#Cuidado -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Cuidado"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Cuidado">
+        <rdfs:label xml:lang="en">Care</rdfs:label>
+        <rdfs:label xml:lang="es">Cuidado</rdfs:label>
+        <rdfs:label xml:lang="pt">Cuidado</rdfs:label>
+        <rdfs:label xml:lang="de">Pflege</rdfs:label>
+        <rdfs:label xml:lang="fr">Soin</rdfs:label>
+    </owl:Class>
     
 
 
     <!-- http://www.semanticweb.org/mascotas#Dueño -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Dueño"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Dueño">
+        <rdfs:label xml:lang="de">Besitzer</rdfs:label>
+        <rdfs:label xml:lang="pt">Dono</rdfs:label>
+        <rdfs:label xml:lang="es">Dueño</rdfs:label>
+        <rdfs:label xml:lang="en">Owner</rdfs:label>
+        <rdfs:label xml:lang="fr">Propriétaire</rdfs:label>
+    </owl:Class>
     
 
 
     <!-- http://www.semanticweb.org/mascotas#Especie -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Especie"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Especie">
+        <rdfs:label xml:lang="es">Especie</rdfs:label>
+        <rdfs:label xml:lang="fr">Espèce</rdfs:label>
+        <rdfs:label xml:lang="pt">Espécie</rdfs:label>
+        <rdfs:label xml:lang="en">Species</rdfs:label>
+        <rdfs:label xml:lang="de">Spezies</rdfs:label>
+    </owl:Class>
     
 
 
@@ -321,13 +351,24 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Gato">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/mascotas#Especie"/>
+        <rdfs:label xml:lang="en">Cat</rdfs:label>
+        <rdfs:label xml:lang="fr">Chat</rdfs:label>
+        <rdfs:label xml:lang="es">Gato</rdfs:label>
+        <rdfs:label xml:lang="pt">Gato</rdfs:label>
+        <rdfs:label xml:lang="de">Katze</rdfs:label>
     </owl:Class>
     
 
 
     <!-- http://www.semanticweb.org/mascotas#Mascota -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Mascota"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Mascota">
+        <rdfs:label xml:lang="fr">Animal de compagnie</rdfs:label>
+        <rdfs:label xml:lang="pt">Animal de estimação</rdfs:label>
+        <rdfs:label xml:lang="de">Haustier</rdfs:label>
+        <rdfs:label xml:lang="es">Mascota</rdfs:label>
+        <rdfs:label xml:lang="en">Pet</rdfs:label>
+    </owl:Class>
     
 
 
@@ -335,13 +376,24 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Perro">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/mascotas#Especie"/>
+        <rdfs:label xml:lang="pt">Cachorro</rdfs:label>
+        <rdfs:label xml:lang="fr">Chien</rdfs:label>
+        <rdfs:label xml:lang="en">Dog</rdfs:label>
+        <rdfs:label xml:lang="de">Hund</rdfs:label>
+        <rdfs:label xml:lang="es">Perro</rdfs:label>
     </owl:Class>
     
 
 
     <!-- http://www.semanticweb.org/mascotas#Raza -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Raza"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/mascotas#Raza">
+        <rdfs:label xml:lang="en">Breed</rdfs:label>
+        <rdfs:label xml:lang="fr">Race</rdfs:label>
+        <rdfs:label xml:lang="de">Rasse</rdfs:label>
+        <rdfs:label xml:lang="es">Raza</rdfs:label>
+        <rdfs:label xml:lang="pt">Raça</rdfs:label>
+    </owl:Class>
     
 
 

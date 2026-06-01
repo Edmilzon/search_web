@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+from backend.sparql import t
+
 
 _PERRO_BREEDS = ['labrador', 'bulldog', 'pastor', 'golden', 'poodle', 'chihuahua', 'beagle', 'rottweiler', 'yorkshire', 'boxer', 'doberman', 'husky', 'shih tzu', 'border', 'collie', 'akita']
 _GATO_BREEDS = ['persa', 'siamés', 'maine', 'bengala', 'ragdoll', 'british', 'esfinge', 'azul', 'abisinio', 'scottish', 'angora', 'savannah', 'bombay', 'noruego', 'birmano']
@@ -15,10 +17,15 @@ def clasificar_tipo(raza: str) -> str:
     return ""
 
 
-def render_results(resultados):
+_COL_ORDER = ["Nombre", "Edad", "Peso", "Color", "Sexo", "Raza", "Especie", "Tipo",
+              "Dueño", "Alimento", "Accesorio", "Tipo de Pelaje", "Temperamento",
+              "Cuidado", "Frecuencia", "Tipo de Alimento"]
+
+
+def render_results(resultados, lang="es"):
 
     if not resultados:
-        st.info("No se encontraron resultados")
+        st.info(t("No se encontraron resultados", lang))
         return
 
     df = pd.DataFrame(resultados)
@@ -26,36 +33,18 @@ def render_results(resultados):
     if 'Raza' in df.columns:
         df['Tipo'] = df['Raza'].apply(clasificar_tipo)
 
+    ordered = [c for c in _COL_ORDER if c in df.columns]
+    remaining = [c for c in df.columns if c not in _COL_ORDER]
+    df = df[ordered + remaining]
+
+    column_config = {}
+    for col in df.columns:
+        column_config[col] = st.column_config.TextColumn(t(col, lang))
+
     st.dataframe(
         df,
+        column_config=column_config,
         width="stretch",
         hide_index=True,
-        column_config={
-            "Tipo": st.column_config.TextColumn("Tipo", width="small")
-        }
     )
-
-
-def render_error(mensaje: str):
-    st.markdown(f"""
-    <div class="alert alert-danger alert-custom" role="alert">
-        <i class="bi bi-exclamation-triangle-fill"></i> {mensaje}
-    </div>
-    """, unsafe_allow_html=True)
-
-
-def render_warning(mensaje: str):
-    st.markdown(f"""
-    <div class="alert alert-warning alert-custom" role="alert">
-        <i class="bi bi-exclamation-circle-fill"></i> {mensaje}
-    </div>
-    """, unsafe_allow_html=True)
-
-
-def render_success(mensaje: str):
-    st.markdown(f"""
-    <div class="alert alert-success alert-custom" role="alert">
-        <i class="bi bi-check-circle-fill"></i> {mensaje}
-    </div>
-    """, unsafe_allow_html=True)
 
