@@ -73,9 +73,9 @@ _CONTEXT_WORDS = {"sin", "no", "color", "pelaje", "esterilizado", "castrado", "b
                   "macho", "hembra", "seco", "humedo", "húmedo",
                   "diario", "diaria", "semanal", "mensual", "anual",
                   "come", "comer", "consume", "consumir", "alimento", "alimenta",
-                  "necesita", "necesitar", "requiere", "requerir", "cuidado",
-                  "marca", "entre", "mayor", "menor", "más", "mas", "de", "del",
-                  "años", "año", "kilos", "kilo", "kg", "peso", "edad",
+                   "necesita", "necesitar", "requiere", "requerir",
+                   "marca", "entre", "mayor", "menor", "más", "mas", "de", "del",
+                   "años", "año", "kilos", "kilo", "kg", "peso", "edad",
                   "mascotas", "mascota", "perros", "perro", "gatos", "gato",
                   "animal", "animales", "buscar", "busca", "dame", "lista",
                   "listar", "mostrar", "ver", "quiero", "todos", "todas"}
@@ -83,6 +83,7 @@ _CONTEXT_WORDS = {"sin", "no", "color", "pelaje", "esterilizado", "castrado", "b
 _DUENO_WORDS = {"dueño", "dueña", "dueno", "duena", "dueños", "dueñas",
                 "propietario", "propietaria", "propietarios", "propietarias"}
 _ACC_WORDS = {"accesorios", "accesorio", "accesorios de mascotas"}
+_CARE_WORDS = {"cuidado", "cuidados", "metodo de cuidado", "metodos de cuidado"}
 
 _DUENO_WORDS = {"dueño", "dueña", "dueno", "duena", "dueños", "dueñas",
                 "propietario", "propietaria", "propietarios", "propietarias"}
@@ -126,6 +127,14 @@ def _build(intent: Intent) -> list:
             if any(t.lower() in _DUENO_WORDS for t in intent.terminos_libres):
                 return get_mascotas_con_dueno()
             if any(t.lower() in _ACC_WORDS for t in intent.terminos_libres):
+                otros = [t for t in intent.terminos_libres if t.lower() not in _ACC_WORDS]
+                if otros:
+                    return get_busqueda_universal(" ".join(otros))
+                return get_busqueda_universal("")
+            if any(t.lower() in _CARE_WORDS for t in intent.terminos_libres):
+                otros = [t for t in intent.terminos_libres if t.lower() not in _CARE_WORDS]
+                if otros:
+                    return get_busqueda_universal(" ".join(otros))
                 return get_busqueda_universal("")
             universal = get_busqueda_universal(intent.terminos_libres[0])
             for t in intent.terminos_libres[1:]:
@@ -136,17 +145,11 @@ def _build(intent: Intent) -> list:
             return universal
         return get_todas_las_mascotas()
 
-    _generic_terms = _DUENO_WORDS | _ACC_WORDS
-    if not intent.accesorio and not intent.cuidado and not intent.alimento:
-        if any(t.lower() in _generic_terms for t in intent.terminos_libres):
-            q = intent.especie.lower() if intent.especie else ""
-            return get_busqueda_universal(q)
+    conjuntos.append(get_busqueda_universal(""))
     if intent.especie == "Perro":
         conjuntos.append(get_mascotas_por_especie("Perro"))
     elif intent.especie == "Gato":
         conjuntos.append(get_mascotas_por_especie("Gato"))
-    else:
-        conjuntos.append(get_todas_las_mascotas())
 
     if intent.raza_exacta:
         conjuntos.append(buscar_por_raza(intent.raza_exacta))

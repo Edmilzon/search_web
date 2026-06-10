@@ -44,7 +44,7 @@ def main():
             f'style="margin-top:2px;border-radius:2px;display:block">',
             unsafe_allow_html=True
         )
-    _LANG_NAMES = {"es": "Español", "en": "English", "fr": "Français", "de": "Deutsch", "pt": "Português"}
+    _LANG_NAMES = {"es": "Español", "en": "Inglés", "fr": "Francés", "de": "Alemán", "pt": "Portugués"}
     with col_select:
         lang = st.pills(
             "Idioma",

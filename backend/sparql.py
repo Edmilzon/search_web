@@ -1,11 +1,36 @@
 from rdflib import Graph, URIRef, Literal, RDFS
 import os
 import re
+import unicodedata
 from owlrl import DeductiveClosure, OWLRL_Semantics
 
 
+def _sin_acentos(texto: str) -> str:
+    """Strip combining diacritics (accents) from text and normalize ñ."""
+    result = ''.join(c for c in unicodedata.normalize('NFKD', texto) if not unicodedata.combining(c))
+    return result.replace('ñ', 'n').replace('Ñ', 'N')
+
+
 def _sanitizar(valor):
-    return re.sub(r'["\\]', '', str(valor))
+    return _sin_acentos(re.sub(r'["\\]', '', str(valor)))
+
+# Spanish accent replacements for SPARQL REPLACE chain
+_ACCENT_MAP = [('á','a'), ('é','e'), ('í','i'), ('ó','o'), ('ú','u'), ('ü','u'),
+               ('ñ','n'), ('Á','A'), ('É','E'), ('Í','I'), ('Ó','O'), ('Ú','U'),
+               ('Ü','U'), ('Ñ','N')]
+
+
+def _col_sin_acentos(columna: str) -> str:
+    """Wrap a SPARQL column expression in REPLACE calls to strip accents."""
+    for orig, repl in _ACCENT_MAP:
+        columna = f"REPLACE({columna}, '{orig}', '{repl}')"
+    return columna
+
+
+def _filtro_contains(columna: str, termino: str) -> str:
+    """Generate an accent-insensitive CONTAINS FILTER in SPARQL."""
+    q = _sanitizar(termino)
+    return f'FILTER(CONTAINS({_col_sin_acentos(f"LCASE({columna})")}, LCASE("{q}")))'
 
 _ONTOLOGY_PATH = os.path.join(
     os.path.dirname(__file__),
@@ -84,14 +109,14 @@ def get_todas_las_mascotas():
 def buscar_por_nombre_mascota(termino: str):
     return _salida(["Nombre", "Raza"],
                    _base_mascota(
-                       filtro=f'FILTER(CONTAINS(LCASE(?nombreMascota), LCASE("{_sanitizar(termino)}")))'
+                       filtro=_filtro_contains("?nombreMascota", termino)
                    ))
 
 
 def buscar_por_raza(termino: str):
     return _salida(["Nombre", "Raza"],
                    _base_mascota(
-                       filtro=f'FILTER(CONTAINS(LCASE(?nombreRaza), LCASE("{_sanitizar(termino)}")))'
+                       filtro=_filtro_contains("?nombreRaza", termino)
                    ))
 
 
@@ -132,7 +157,7 @@ def get_mascotas_por_alimento(marca: str):
                    _base_mascota(
                        select_extras='(STR(?marcaAli) AS ?alimento)',
                        triples_extra="?mascota :consume ?alimento . ?alimento :marcaAlimento ?marcaAli .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?marcaAli), LCASE("{_sanitizar(marca)}")))'
+                       filtro=_filtro_contains("?marcaAli", marca)
                    ))
 
 
@@ -141,7 +166,7 @@ def get_mascotas_por_accesorio(accesorio: str):
                    _base_mascota(
                        select_extras="(STR(?nombreAccesorio) AS ?accesorio)",
                        triples_extra="?mascota :usa ?accesorioObj . ?accesorioObj :nombreAccesorio ?nombreAccesorio .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?nombreAccesorio), LCASE("{_sanitizar(accesorio)}")))'
+                       filtro=_filtro_contains("?nombreAccesorio", accesorio)
                    ))
 
 
@@ -150,7 +175,7 @@ def get_mascotas_por_pelaje(tipo_pelaje: str):
                    _base_mascota(
                        select_extras="(STR(?pelaje) AS ?tipo_pelaje)",
                        triples_extra="?mascota :tipoPelaje ?pelaje .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?pelaje), LCASE("{_sanitizar(tipo_pelaje)}")))'
+                       filtro=_filtro_contains("?pelaje", tipo_pelaje)
                    ))
 
 
@@ -159,7 +184,7 @@ def get_mascotas_por_color(color: str):
                    _base_mascota(
                        select_extras="(STR(?colorMascota) AS ?color)",
                        triples_extra="?mascota :colorMascota ?colorMascota .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?colorMascota), LCASE("{_sanitizar(color)}")))'
+                       filtro=_filtro_contains("?colorMascota", color)
                    ))
 
 
@@ -168,7 +193,7 @@ def get_mascotas_por_sexo(sexo: str):
                    _base_mascota(
                        select_extras="(STR(?sexoMascota) AS ?sexo)",
                        triples_extra="?mascota :sexoMascota ?sexoMascota .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?sexoMascota), LCASE("{_sanitizar(sexo)}")))'
+                       filtro=_filtro_contains("?sexoMascota", sexo)
                    ))
 
 
@@ -195,7 +220,7 @@ def get_mascotas_por_temperamento(temperamento: str):
                    _base_mascota(
                        select_extras="(STR(?temperamento) AS ?temperamento)",
                        triples_extra="?razaObj :temperamento ?temperamento .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?temperamento), LCASE("{_sanitizar(temperamento)}")))'
+                       filtro=_filtro_contains("?temperamento", temperamento)
                    ))
 
 
@@ -204,7 +229,7 @@ def get_mascotas_por_tipo_alimento(tipo: str):
                    _base_mascota(
                        select_extras="(STR(?tipoAlimento) AS ?tipo_alimento)",
                        triples_extra="?mascota :consume ?alimento . ?alimento :tipoAlimento ?tipoAlimento .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?tipoAlimento), LCASE("{_sanitizar(tipo)}")))'
+                       filtro=_filtro_contains("?tipoAlimento", tipo)
                    ))
 
 
@@ -213,7 +238,7 @@ def get_mascotas_por_cuidado(tipo_cuidado: str):
                    _base_mascota(
                        select_extras="(STR(?tipoCuidado) AS ?cuidado)",
                        triples_extra="?mascota :requiereCuidado ?cuidadoObj . ?cuidadoObj :tipoCuidado ?tipoCuidado .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?tipoCuidado), LCASE("{_sanitizar(tipo_cuidado)}")))'
+                       filtro=_filtro_contains("?tipoCuidado", tipo_cuidado)
                    ))
 
 
@@ -222,11 +247,12 @@ def get_mascotas_por_frecuencia_cuidado(frecuencia: str):
                    _base_mascota(
                        select_extras="(STR(?frecuenciaCuidado) AS ?frecuencia)",
                        triples_extra="?mascota :requiereCuidado ?cuidadoObj . ?cuidadoObj :frecuenciaCuidado ?frecuenciaCuidado .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?frecuenciaCuidado), LCASE("{_sanitizar(frecuencia)}")))'
+                       filtro=_filtro_contains("?frecuenciaCuidado", frecuencia)
                    ))
 
 
 def get_info_completa_mascota(nombre: str):
+    q = _sanitizar(nombre)
     return _salida(
         ["Nombre", "Edad", "Peso", "Color", "Sexo", "Raza", "Especie", "Due\u00f1o", "Alimento"],
         f"""
@@ -254,7 +280,7 @@ def get_info_completa_mascota(nombre: str):
       }}
       OPTIONAL {{ ?mascota :tieneDue\u00f1o ?due\u00f1oObj . ?due\u00f1oObj :nombreDue\u00f1o ?nombreDue\u00f1o . }}
       OPTIONAL {{ ?mascota :consume ?alimentoObj . ?alimentoObj :marcaAlimento ?marcaAlimento . }}
-      FILTER(CONTAINS(LCASE(?nombreMascota), LCASE("{_sanitizar(nombre)}")))
+      {_filtro_contains("?nombreMascota", nombre)}
     }}
     """)
 
@@ -328,6 +354,7 @@ def buscar_por_nombre_raza_exacto(nombre: str) -> list:
 
 
 def buscar_por_nombre_dueno(nombre: str) -> list:
+    q = _sanitizar(nombre)
     return _salida(["Nombre", "Raza", "Dueño"],
                    f"""
     {_PREF}
@@ -339,7 +366,7 @@ def buscar_por_nombre_dueno(nombre: str) -> list:
       ?razaObj :nombreRaza ?nombreRaza .
       ?mascota :tieneDueño ?dueñoObj .
       ?dueñoObj :nombreDueño ?nombreDueño .
-      FILTER(CONTAINS(LCASE(?nombreDueño), LCASE("{_sanitizar(nombre)}")))
+      {_filtro_contains("?nombreDueño", nombre)}
     }}
     """)
 
@@ -367,12 +394,18 @@ def get_mascotas_por_marca_accesorio(marca: str) -> list:
                    _base_mascota(
                        select_extras="(STR(?nombreAccesorio) AS ?accesorio)",
                        triples_extra="?mascota :usa ?accesorioObj . ?accesorioObj :nombreAccesorio ?nombreAccesorio . ?accesorioObj :marcaAccesorio ?marcaAccesorio .",
-                       filtro=f'FILTER(CONTAINS(LCASE(?marcaAccesorio), LCASE("{_sanitizar(marca)}")))'
+                       filtro=_filtro_contains("?marcaAccesorio", marca)
                    ))
 
 
 def get_busqueda_universal(termino: str) -> list:
     q = _sanitizar(termino)
+    cols = ["?nombreMascota", "?nombreRaza", "?nombreEspecie", "?nombreDueño",
+            "?marcaAlimento", "?nombreAccesorio", "?tipoPelaje", "?tipoCuidado",
+            "?frecuenciaCuidado"]
+    filter_parts = " ||\n        ".join(
+        f"CONTAINS({_col_sin_acentos(f'LCASE({c})')}, LCASE(\"{q}\"))" for c in cols
+    )
     return _salida(
         ["Nombre", "Edad", "Peso", "Color", "Sexo", "Raza", "Especie", "Dueño", "Alimento",
          "Accesorio", "Tipo de Pelaje", "Temperamento", "Cuidado", "Frecuencia"],
@@ -412,15 +445,7 @@ def get_busqueda_universal(termino: str) -> list:
       OPTIONAL {{ ?mascota :requiereCuidado ?cuidadoObj . ?cuidadoObj :tipoCuidado ?tipoCuidado . }}
       OPTIONAL {{ ?cuidadoObj :frecuenciaCuidado ?frecuenciaCuidado . }}
       FILTER(
-        CONTAINS(LCASE(?nombreMascota), LCASE("{q}")) ||
-        CONTAINS(LCASE(?nombreRaza), LCASE("{q}")) ||
-        CONTAINS(LCASE(?nombreEspecie), LCASE("{q}")) ||
-        CONTAINS(LCASE(?nombreDueño), LCASE("{q}")) ||
-        CONTAINS(LCASE(?marcaAlimento), LCASE("{q}")) ||
-        CONTAINS(LCASE(?nombreAccesorio), LCASE("{q}")) ||
-        CONTAINS(LCASE(?tipoPelaje), LCASE("{q}")) ||
-        CONTAINS(LCASE(?tipoCuidado), LCASE("{q}")) ||
-        CONTAINS(LCASE(?frecuenciaCuidado), LCASE("{q}"))
+        {filter_parts}
       )
     }}
     ORDER BY ?nombre

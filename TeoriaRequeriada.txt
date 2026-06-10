@@ -1,0 +1,501 @@
+TEMA 1 
+
+Diapositiva 1
+Título: Lenguajes para Web Semántica
+Presenta el tema central: los lenguajes utilizados en la Web Semántica.
+
+Diapositiva 2
+Origen de la Web
+*1989: Tim Berners-Lee propone "HyperText and CERN", el inicio de la World Wide Web.*
+
+Diapositiva 3
+La Web como Web de datos
+Lista de metáforas: base de datos distribuida, red de comunicaciones, biblioteca infinita, foro virtual, cerebro artificial, grafo complejo, oportunidad de negocio, paraíso del ocio, buena aplicación computacional.
+
+Diapositiva 4
+Fragmento de HTML y comentario
+Muestra código HTML de una bibliografía y luego un comentario irónico: "¡lenguaje de terror!... pero todos tenemos alguna virtud".
+
+Diapositiva 5
+Web de datos: HTML
+Destaca que HTML es fácil de usar (lo repite tres veces) y robusto.
+
+Diapositiva 6
+Limitaciones de HTML
+Orientado a visualización de datos, no permite describir datos, no es extensible (congela un conjunto fijo de etiquetas), no describe el contenido (objetos).
+
+Diapositiva 7
+Web de datos: XML
+Ejemplo de código XML con etiquetas como <curso>, <profesor>, <semestre>, mostrando su estructura jerárquica.
+
+Diapositiva 8
+Ventajas de XML
+Permite crear nuevos vocabularios, universalidad mediante espacios de nombres, modularidad, versatilidad por ser semi-estructurado, fundamentos sólidos (SGML), amplio soporte y estándar de interoperabilidad documental.
+
+Diapositiva 9
+Consulta en la Web de datos
+Ejemplo de búsqueda: "Pediatras de Santiago que atiendan por Fonasa" (Fonasa es el sistema de salud público chileno).
+
+Diapositiva 10
+Interfaz de Google Chile (2005)
+Muestra la página de búsqueda de Google con opciones y publicidad.
+
+Diapositiva 11
+Resultados de búsqueda
+Lista de resultados de la consulta "Pediatras Santiago Fonasa" con enlaces a páginas como SciELO, colegios médicos, etc.
+
+Diapositiva 12
+Crítica a la búsqueda actual
+"Seamos serios: nos merecemos algo más..." – insatisfacción con los resultados basados solo en palabras clave.
+
+Diapositiva 13
+Web de Datos vs. Información
+Introduce la comparación entre datos (sintaxis) e información (semántica).
+
+Diapositiva 14
+Web de Información
+Título que precede a la explicación del modelo semántico.
+
+Diapositiva 15
+Todo es un recurso
+Idea fundamental de la Web Semántica: páginas web, bases de datos, etc., son recursos identificables (URIs). Luego aparece una larga lista numérica (posible artefacto de la diapositiva).
+
+Diapositiva 16
+Ejemplo de XML con vocabulario mapuche
+Muestra etiquetas como <rukangma>, <chaw>, <nguke>, ilustrando la libertad de crear etiquetas propias.
+
+Diapositiva 17
+XML no es suficiente
+Limitaciones del modelo de datos XML: es un árbol (no un grafo), los hijos tienen orden, los esquemas no permiten extensibilidad distribuida. Conclusión: XML modela documentos, pero el mundo real es una red de relaciones.
+
+Diapositiva 18
+Solución: RDF (Resource Description Framework)
+Propone un modelo basado en grafos dirigidos etiquetados que modela relaciones entre objetos. Las oraciones tienen la forma (sujeto, predicado, objeto).
+
+Diapositiva 19
+Propiedades de RDF
+Expresividad: fragmento conjuntivo de lógica de primer orden (∃, ∧, predicados, constantes). Complejidad tratable bajo condiciones razonables. Soporte teórico: grafos en BD y redes semánticas.
+
+Diapositiva 20
+¿Cómo trabaja RDF?
+Recomendaciones de la W3C, parte de XML, las clases pueden ajustarse a esquemas o jerarquías, los esquemas evitan repeticiones.
+
+Diapositiva 21
+Características de RDF
+Independencia, intercambio, escalabilidad. Las propiedades, valores y declaraciones también pueden ser recursos.
+
+Diapositiva 22
+Modelo de declaraciones
+Un modelo es un conjunto de declaraciones (predicado, sujeto, objeto). El predicado es la propiedad, el sujeto el recurso, el objeto el valor. Se lee: Objeto = Predicado(Sujeto).
+
+Diapositiva 23
+Tabla de ejemplos de declaraciones RDF
+Ejemplos: ("War and Peace", Autor, "Leo Tolstoy"), (URL, Tipo MIME, "text/html"), etc.
+
+Diapositiva 24
+Ejemplo RDF
+Espacio para un ejemplo gráfico (probablemente un diagrama de nodos y arcos).
+
+Diapositiva 25
+Serialización XML de RDF
+Código RDF/XML con namespaces rdf, dc, os. Describe un recurso (una página web) con creador y título.
+
+Diapositiva 26
+Otra forma de declaración RDF
+Usa <rdf:Statement> para indicar explícitamente sujeto, predicado y objeto.
+
+Diapositiva 27
+Ejemplo de descripción
+Describe un recurso XSLT con autor y descripción usando propiedades de Dublín Core.
+
+Diapositiva 28
+RDF Schema (RDFS)
+Describe reglas para usar propiedades RDF, expresado en RDF, da interpretación a las declaraciones. No confundir con esquemas XML.
+
+Diapositiva 29
+Esquema simplificado
+Ejemplo: definir una clase Provider como subclase de Person.
+
+Diapositiva 30
+Consulta semántica
+Diagrama de la consulta "Pediatras de Santiago que atiendan por Fonasa" usando relaciones: especialidad, dirección (calle, ciudad), convenio, etc. La variable ?X representa al pediatra.
+
+Diapositiva 31
+Historia de lenguajes de consulta RDF
+2000: rdfDB, 2001: SquishQL (luego RDQL, InkLink), 2002: RQL, 2003: DQL.
+
+Diapositiva 32
+Diapositiva en blanco o con imagen no textual.
+
+Diapositiva 33
+Búsqueda con ontología (SHOE)
+*Pasos: 1) Seleccionar ontología "Fuentes naturales de agua", 2) Categoría "Río", 3) Restringir con propiedades "Longitud > 5000 km & desembocaEn = Lago", 4) Término "Yang".*
+
+Diapositiva 34
+Aplicaciones de ontologías colaborativas
+Open Directory Project (dmoz.org) – catálogo de editores distribuidos; Openguides.org – guía de editores distribuidos.
+
+Diapositiva 35
+Aplicación: Dublín Core
+Vocabulario ligero para metadatos. Elementos: Título, Contribuidor, Autor/Creador, Editor, Tema, Descripción, Fecha, Recurso, Formato, Identificador, Idioma, Fuente, Cobertura, Derechos.
+
+Diapositiva 36
+Ejemplo de propiedad en Dublín Core
+Definición de creator con etiqueta y comentario usando RDF Schema.
+
+Diapositiva 37
+Motivación para redes sociales
+Preguntas: ¿cómo encontrar personas con intereses similares, relacionadas, autoridades? Las redes sociales en la Web Semántica enlazan información personal.
+
+Diapositiva 38
+Aplicación: FOAF (Friend of a Friend)
+Presentado por Brickley & Miller, para describir personas y sus relaciones.
+
+Diapositiva 39
+Ejemplo FOAF
+Código XML con <foaf:Person> que incluye nombre, género, título, apellidos, homepage, weblog.
+
+Diapositiva 40
+Publicación de datos FOAF
+Métodos: ser "conocido" por alguien conocido (foaf:knows), publicar en un tablón FOAF, o incluir un enlace en el sitio web: <link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />.
+
+Diapositiva 41
+Herramientas FOAF
+FOAF Explorer (vista HTML), FOAFNaut (visualización de relaciones), Plink (sitio de redes sociales), FOAFBot y Whwhwhwh (interfaces IRC).
+
+Diapositiva 42
+Referencias
+*The Semantic Web (Berners-Lee, 2002), listas de W3C, entrevista a Aaron Swartz (2004), charla de Eric Miller (2004).*
+
+Diapositiva 43
+Herramientas generales
+Jena (navaja suiza de HP Labs), Protégé (creación de ontologías, Stanford), TAP (búsqueda semántica asistida).
+
+Diapositiva 44
+Diapositiva en blanco o final.
+
+TEMA 2
+
+Diapositiva 1
+Título: Web Ontology Language (OWL)
+Presenta el tema: OWL, el lenguaje de ontologías para la Web Semántica.
+
+Diapositiva 2
+Índice
+Contenidos: ¿Qué es OWL?, Sintaxis y herramientas, Semántica de OWL, Inferencia, Más sobre OWL.
+
+Diapositiva 3
+Sección: ¿Qué es OWL?
+Introducción al lenguaje.
+
+Diapositiva 4
+Página con caracteres corruptos (sin contenido legible).
+
+Diapositiva 5
+Una ontología nos permite:
+Explotar el conocimiento computacionalmente aplicando razonamiento automático (inferencia). Integrar información de diferentes recursos que se refieren al mismo dominio.
+
+Diapositiva 6
+Web Semántica:
+Una red de conocimiento (no solo documentos HTML). Permite llegar exactamente a la información deseada. Los agentes automáticos pueden gestionar la información aplicando inferencia (ej. organizar un viaje completo, razonar con conocimiento complejo y disperso).
+
+Diapositiva 7
+Página con símbolos sin contenido legible.
+
+Diapositiva 8
+¿Qué es OWL?
+Para que la Web Semántica funcione, debemos publicar la información de manera computable (semántica precisa) usando ontologías. Con OWL podemos crear ontologías para la Web Semántica. OWL es parte de la pila tecnológica de la Web Semántica.
+
+Diapositiva 9
+OWL es un estándar del W3C
+*Proporciona enlaces: documentos OWL 2, primer, tutorial de Manchester OWL + Protégé.*
+
+Diapositiva 10
+Tipos de OWL ("OWL 1")
+OWL Lite, OWL DL, OWL Full. (DL = Description Logic, Full es más expresivo pero sin garantías de decidibilidad).
+
+Diapositiva 11
+Sección: Sintaxis y herramientas
+Introducción a las formas de escribir OWL y las herramientas disponibles.
+
+Diapositiva 12
+Sintaxis y herramientas
+*Para ordenadores: RDF/XML, OWL/XML. Para humanos: Manchester OWL Syntax, sintaxis funcional. Herramientas: editores (Protégé 4, TopBraid Composer), APIs (OWL API), razonadores (Pellet, FaCT++).*
+
+Diapositiva 13
+Ejemplos de sintaxis
+RDF/XML: define clase brazo como subclase de una restricción (parte_de some cuerpo). Manchester OWL Syntax: brazo subClassOf parte_de some cuerpo. Se incluye un enlace a la referencia de Manchester.
+
+Diapositiva 14
+Diapositiva en blanco o con un ícono ().
+
+Diapositiva 15
+Protégé 4
+*Open source, muchos plugins, 100% compatible OWL 2. Razonadores: Pellet, FaCT++, Hermit, y cualquier razonador que implemente OWLlink.*
+
+Diapositiva 16
+Sección: Semántica de OWL
+Comienza la explicación formal.
+
+Diapositiva 17
+Componentes de una ontología OWL
+Entidades (identificadas por URIs), Axiomas (relacionan entidades usando vocabulario lógico). Una ontología puede importar otra (owl:import), haciendo disponibles sus entidades.
+
+Diapositiva 18
+OWL es "axioma-céntrico"
+Las entidades siempre existen como parte de axiomas. No se puede "crear" una clase A, sino expresar A subClassOf owl:Thing.
+
+Diapositiva 19
+Tres tipos de entidades
+Individuos, Propiedades, Clases.
+
+Diapositiva 20
+Individuos
+Los objetos del dominio a representar.
+
+Diapositiva 21
+Propiedades
+Enlazan individuos con otros individuos en pares (relaciones).
+
+Diapositiva 22
+Clases
+Conjuntos de individuos que tienen características en común.
+
+Diapositiva 23
+Base de Conocimiento (KB)
+Ontología con individuos, clases y propiedades = KB. Compuesta por TBox (esquema, clases) y ABox (datos, individuos).
+
+Diapositiva 24
+Advertencias importantes
+Antes de profundizar, dos aspectos clave.
+
+Diapositiva 25
+1) Open World Assumption (OWA)
+Base de datos: CWA (lo omitido es falso). Knowledge Base: OWA (lo omitido es desconocido, podría ser verdadero o falso).
+
+Diapositiva 26
+Ejemplo de OWA
+Si sabemos que Pedro tiene nacionalidad española, en CWA no tiene británica. En OWA no se sabe (podría tener doble nacionalidad). Ventaja: podemos añadir nuevo conocimiento fácilmente (ej. nuevas nacionalidades). En la Web Semántica debemos poder añadir conocimiento de otros recursos.
+
+Diapositiva 27
+2) No hay Unique Name Assumption (UNA)
+Que dos entidades tengan diferente URI no significa que sean diferentes. Hay que decir explícitamente que son diferentes si interesa. En la Web Semántica, diferentes recursos pueden hablar de la misma entidad.
+
+Diapositiva 28
+No UNA + OWA
+Crear una ontología en OWL es como "recortar" un mundo donde todo es posible y todas las entidades son iguales, añadiendo axiomas que limitan lo posible y diferencian entidades.
+
+Diapositiva 29
+Sección: Clases
+Profundización en el concepto de clase.
+
+Diapositiva 30
+Clases como conjuntos
+Conjuntos de individuos.
+
+Diapositiva 31
+Subclases
+Todos los individuos de la subclase son también individuos de la superclase (no viceversa).
+
+Diapositiva 32
+Clases equivalentes
+Todos los individuos de A son de B y viceversa.
+
+Diapositiva 33
+Taxonomía
+Con relaciones clase-subclase obtenemos una jerarquía de clases. Una clase puede tener varias superclases.
+
+Diapositiva 34
+Definición de clases mediante restricciones
+Para definir qué cualidades deben tener los individuos para ser miembros de una clase, se usan restricciones en número y tipo de relaciones.
+
+Diapositiva 35
+Condiciones necesarias vs. necesarias y suficientes
+Ejemplo: ser humano implica comer plantas (condición necesaria, pero no suficiente). Producir lenguaje es condición necesaria y suficiente (si un organismo produce lenguaje, es humano).
+
+Diapositiva 36
+Las condiciones son clases anónimas
+La clase definida puede ser subclase (condición necesaria) o equivalente (necesaria y suficiente) a una clase anónima.
+
+Diapositiva 37
+Ejemplo: condición necesaria
+Humano es subclase de la clase anónima "individuos que tienen al menos una relación come con algún individuo de la clase Planta".
+
+Diapositiva 38
+Ejemplo: condición necesaria y suficiente
+Humano es equivalente a la clase anónima "individuos que tienen al menos una relación produce con algún individuo de la clase Lenguaje".
+
+Diapositiva 39
+Clases definidas vs. primitivas
+Clases con condiciones necesarias y suficientes = clases definidas (se explotan en inferencia). Clases con solo condiciones necesarias = clases primitivas.
+
+Diapositiva 40
+Restricción existencial (owl:someValuesFrom)
+Clase anónima de individuos que tienen al menos una relación con individuos de una clase concreta. Ej: humano subClassOf come some Planta.
+
+Diapositiva 41
+Restricción universal (owl:allValuesFrom)
+Individuos que, si tienen una relación, esta debe ser a individuos de una clase concreta (o a ninguno). Ej: humano subClassOf come only Organismo.
+
+Diapositiva 42
+Restricción hasValue
+Individuos que tienen una relación a un individuo concreto. Ej: humano subClassOf come value este_tomate.
+
+Diapositiva 43
+Restricciones cardinales (sin calificar)
+Min: mínimo número de relaciones (come min 1). Max: máximo (come max 5). Exactly: número exacto (come exactly 3).
+
+Diapositiva 44
+Restricciones cardinales calificadas (QCR)
+Especifican la clase destino. Ej: humano subClassOf come min 1 Planta, come max 5 Planta, come exactly 3 Planta.
+
+Diapositiva 45
+Operadores lógicos
+not (negación): humano subClassOf not (come some electrodomestico). and (intersección): man equivalentTo human and male. or (unión): human equivalentTo woman or man.
+
+Diapositiva 46
+DisjointFrom y equivalentTo entre clases
+disjointFrom: clases no tienen ningún individuo en común. equivalentTo: misma extensión de individuos (ej. humano equivalentTo persona).
+
+Diapositiva 47
+Herencia de condiciones
+La subclase hereda las condiciones de la superclase. Puede añadir otras, pero no puede tener una condición que entre en conflicto con las de la superclase.
+
+Diapositiva 48
+Expresividad de OWL
+Las condiciones pueden ser todo lo complejas que queramos, explotando la expresividad de OWL.
+
+Diapositiva 49
+Ejercicio
+Enunciado para practicar: Los coches Audi son un tipo de coche. Cualquier coche fabricado por Audi es un coche Audi. Los coches Audi tienen un motor con al menos 4 cilindros y están fabricados por Skoda o Volkswagen. Los coches Audi tienen solo y al menos un componente fabricado por Audi, Skoda o Volkswagen.
+
+TEMA 3
+Diapositiva 1
+Título: Ontologías y Multilingualidad
+Presenta el tema: cómo abordar la multilingualidad (pluralidad de lenguas) en el contexto de ontologías.
+
+Diapositiva 2
+Índice de contenidos
+Multilingualidad: definición y finalidad, Localización vs. Internacionalización, De sistemas monolingües a multilingües, PLN multilingüe, Multilingualidad en SBC (Sistemas Basados en Conocimiento), en ontologías (información, realización, modelización).
+
+Diapositiva 3
+Necesidad de multilingualidad en PLN
+Aplicaciones que lo requieren: sistemas de búsqueda de respuestas, búsqueda de información multilingüe, recuperación de información, traducción automática. La compartición y reutilización de conocimientos conduce a ontologías y a la Web Semántica.
+
+Diapositiva 4
+Localización
+Definición LISA: adaptar un producto lingüística y culturalmente a un entorno local. En ontologías: Ontology Localization = adaptar una ontología a una lengua y cultura específicas.
+
+Diapositiva 5
+Internacionalización
+Proceso de generalizar un producto para manejar múltiples lenguas y convenciones culturales sin rediseño. Importante: separar texto del código fuente, no limitarse al software (incluye ayuda, documentación, sitios web).
+
+Diapositiva 6
+De la localización de software a la localización de ontologías
+Ilustración de un metamodelo y un modelo de ontología (sin texto adicional, solo un gráfico conceptual).
+
+Diapositiva 7
+Semejanzas entre localización de software y ontologías
+Internacionalización: contenido léxico (ASCII, UNICODE), gramatical (sintaxis RDF/OWL), paradigma de representación. Localización: contenido léxico-terminológico (términos), conceptual (granularidad, expresividad, perspectiva), pragmático (GUI, etc.).
+
+Diapositiva 8
+Multilingualidad en los SBC (Sistemas Basados en Conocimiento)
+Tres niveles: 1. Interfaz (a) mensajes, (b) contenido; 2. Datos; 3. Representación del conocimiento.
+
+Diapositiva 9
+Nivel Interfaz – visualización de mensajes
+Tres tipos: mensajes monolingües, multilingües simultáneos, multilingües no simultáneos (ej. mediante selección de idioma).
+
+Diapositiva 10
+Ventajas y desventajas de la opción (a)
+Simultánea: requiere modificar código de visualización para añadir lenguas. No simultánea: ampliar número de interfaces y modificar opciones de selección.
+
+Diapositiva 11
+Nivel Interfaz – visualización del contenido multilingüe
+Si la base de conocimiento (BC) es multilingüe, la aplicación consulta y muestra en el idioma seleccionado. Si es monolingüe, se usa un sistema de traducción (recurso multilingüe). El tiempo de respuesta varía.
+
+Diapositiva 12
+Ventajas y desventajas – opción (b)
+BC multilingüe: tiempo de respuesta (TR) es el de la BC; desambiguación en diseño. BC monolingüe: TR = TR(BC) + TR(recurso); traducción y desambiguación en ejecución (puede alargar el TR). (Página parcialmente corrupta pero se extrae el sentido).
+
+Diapositiva 13
+Multilingualidad en los datos de los SBC
+La información sobre individuos puede ser multilingüe, tratándose como una característica más del dominio. Diagrama: representación (ontología) → instancias (datos multilingües) con una característica "Language".
+
+Diapositiva 14
+Niveles: Datos, Modelo, Metamodelo, Mapping
+Datos: instancias (Mickey, Minnie...). Modelo: estructura de los datos (ontología de animales). Metamodelo: estructura del modelo (ontología de conceptos, relaciones). Mapping: relación entre elementos de conjuntos diferentes.
+
+Diapositiva 15
+Multilingualidad en Representación del Conocimiento: Ontologías
+Título de sección (sin texto adicional).
+
+Diapositiva 16
+Multilingualidad en ontologías – I. Información (Ejemplo)
+Estándar OMV (Ontology Metadata Vocabulary). Dos opciones: 1) multilingualidad mediante relación (añadir un enlace a información lingüística). 2) modificando los metadatos del concepto (ej. añadir etiquetas en varios idiomas directamente).
+
+Diapositiva 17
+Ventajas y desventajas – Opción I (mediante relación)
+Desventaja: dificultad para instanciar el concepto "language" con toda la información; pocos sistemas tienen relaciones con semántica asociada. Ventaja: riqueza de información lingüística.
+
+Diapositiva 18
+Ventajas y desventajas – Opción 2 (modificando metadatos)
+Desventaja: se pierde información lingüística. Ventaja: más sencilla y fácil de implementar.
+
+Diapositiva 19
+2. Realización
+Estrechamente ligada a la modelización. Dos opciones: información lingüística dentro de la ontología o fuera (BD relacional, base terminológica, lexicón multilingüe, tesauro multilingüe).
+
+Diapositiva 20
+Realización – Información lingüística dentro de la ontología (1)
+Multilingualidad en conceptos (no en atributos). Diagrama: metamodelo de ontología con conceptos multilingües.
+
+Diapositiva 21
+Realización – Información lingüística dentro de la ontología (2)
+Mismo metamodelo pero multilingualidad en atributos (las etiquetas o propiedades contienen información de idioma).
+
+Diapositiva 22
+Realización – Información lingüística fuera de la ontología
+Metamodelo de multilingualidad separado: metamodelo de ontología "alingüe" más un modelo de recurso lingüístico (ej. Genoma KB).
+
+Diapositiva 23
+3. Modelización – Tres opciones
+A) Ampliar el metamodelo de ontologías con información lingüística. B) Agregar un modelo de información lingüística y relacionarlo con el metamodelo. C) Usar mappings para relacionar ontologías monolingües.
+
+Diapositiva 24
+Modelización – Opción A (ampliación de metamodelo)
+Diagrama: se limita la información lingüística a un dato (ej. una etiqueta por idioma).
+
+Diapositiva 25
+Ventajas y desventajas – Opción A
+Ventaja: fácil ampliación a otras lenguas, adecuado para dominios especializados con comunidades lingüísticas compartidas. Desventaja: información limitada a etiquetas de clases; se asume sinonimia total aunque no sea cierta.
+
+Diapositiva 26
+Opción B – Metamodelo de ontología y modelo mapping
+Ilustración de cómo conectar ontologías monolingües mediante mappings (gráfico).
+
+Diapositiva 27
+Opción B – (I)
+Localización a nivel conceptual. Menos intuitivo desde el punto de vista de abstracción.
+
+Diapositiva 28
+Opción B – (2)
+Mappings binarios en grafo radial (diagrama de conexiones entre conceptos de diferentes lenguas).
+
+Diapositiva 29
+Ventajas y desventajas – Opción B
+Ventaja: se mantienen conceptualizaciones propias de cada lengua, adecuado para dominios muy dependientes de la lengua (ej. ámbito judicial). Desventaja: requiere mucho esfuerzo modelizar el mismo dominio en distintas lenguas; se necesita dominio lingüístico, de campo y ontológico.
+
+Diapositiva 30
+Opción C – Metamodelo de ontología y modelo de recurso lingüístico
+Localización terminológica y conceptual. Los elementos de la ontología se enlazan con datos multilingües almacenados fuera (BD, ontología, etc.). La conceptualización permite modificaciones (creación de módulos).
+
+Diapositiva 31
+Opción C – Ejemplo
+Metamodelo de multilingualidad para etiquetas de conceptos. Aumenta las posibilidades de incluir información sobre lengua y componentes de ontologías.
+
+Diapositiva 32
+Ventajas y desventajas – Opción C
+Ventajas: se puede incluir toda la información lingüística deseada, enlazar elementos dentro de una lengua y entre lenguas, formalizar diferencias terminológicas, preservar fuentes, no se requiere experto en ontologías para acceder al nivel terminológico. Desventaja: se pueden perder especificidades propias de una lengua a menos que se reflejen en módulos específicos.
+
+

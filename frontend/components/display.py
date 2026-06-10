@@ -11,14 +11,14 @@ _GATO_BREEDS = ['persa', 'siamés', 'maine', 'bengala', 'ragdoll', 'british', 'e
 def clasificar_tipo(raza: str) -> str:
     raza_lower = raza.lower()
     if any(p in raza_lower for p in _PERRO_BREEDS):
-        return "🐕 Perro"
+        return "\U0001f436"
     if any(g in raza_lower for g in _GATO_BREEDS):
-        return "🐈 Gato"
+        return "\U0001f431"
     return ""
 
 
-_COL_ORDER = ["Nombre", "Edad", "Peso", "Color", "Sexo", "Raza", "Especie", "Tipo",
-              "Dueño", "Alimento", "Accesorio", "Tipo de Pelaje", "Temperamento",
+_COL_ORDER = ["Nombre", "Dueño", "Edad", "Peso", "Color", "Sexo", "Raza", "Especie", "Tipo",
+              "Alimento", "Accesorio", "Tipo de Pelaje", "Temperamento",
               "Cuidado", "Frecuencia", "Tipo de Alimento"]
 
 

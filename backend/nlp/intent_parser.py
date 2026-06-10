@@ -44,6 +44,15 @@ def _obtener_nlp():
     return _nlp
 
 
+def _t(val, lang_map):
+    """Return the capitalized Spanish string value for a trigger word.
+    lang_map is a dict: word -> Spanish value (capitalized).
+    Checks both text and lemma as keys."""
+    if val in lang_map:
+        return lang_map[val]
+    return None
+
+
 STOP_WORDS = {"el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del",
               "que", "en", "por", "con", "y", "a", "al", "para", "es", "se", "su",
               "hay", "todos", "todas", "todo", "hay", "cual", "cuales", "como",
@@ -57,8 +66,15 @@ TRIGGER_ESPECIE_GATO = {"gato", "gatos", "gata", "gatas", "felino", "felina", "m
                          "chat", "chats"}
 TRIGGER_ESPECIE = TRIGGER_ESPECIE_PERRO | TRIGGER_ESPECIE_GATO
 
-TRIGGER_ALIMENTO = {"come", "comer", "consume", "consumir",
-                     "alimento", "alimenta", "alimentación", "marca", "comida"}
+TRIGGER_ALIMENTO = {
+    "come": "alimento", "comer": "alimento", "consume": "alimento", "consumir": "alimento",
+    "alimento": "alimento", "alimenta": "alimento", "alimentación": "alimento",
+    "marca": "alimento", "comida": "alimento",
+    "eat": "alimento", "eats": "alimento", "eating": "alimento", "food": "alimento",
+    "manger": "alimento", "nourriture": "alimento",
+    "essen": "alimento", "fressen": "alimento", "futter": "alimento",
+    "comer": "alimento", "comida": "alimento", "alimento": "alimento",
+}
 
 MARCAS_ALIMENTO = {"purina", "royal", "whiskas", "pedigree", "eukanuba", "pro plan", "hill's",
                    "acana", "orijen", "taste of the wild", "advance", "brit care", "diamond",
@@ -70,49 +86,296 @@ TRIGGER_ACCION = {"todo": "listar", "todas": "listar", "todos": "listar",
                   "dame": "listar",
                   "lista": "listar", "ver": "listar",
                   "cuántos": "contar", "cuantos": "contar",
-                  "cuantas": "contar", "cuanta": "contar"}
+                  "cuantas": "contar", "cuanta": "contar",
+                  # English
+                  "show": "listar", "list": "listar", "display": "listar",
+                  "all": "listar",
+                  "count": "contar", "how many": "contar",
+                  # French
+                  "montrer": "listar", "afficher": "listar", "lister": "listar",
+                  "tous": "listar", "toutes": "listar",
+                  "compter": "contar", "combien": "contar",
+                  # German
+                  "zeigen": "listar", "anzeigen": "listar", "auflisten": "listar",
+                  "alle": "listar",
+                  "zählen": "contar", "wie viele": "contar",
+                  # Portuguese
+                  "mostrar": "listar", "exibir": "listar", "listar": "listar",
+                  "todos": "listar", "todas": "listar",
+                  "contar": "contar", "quantos": "contar", "quantas": "contar",
+                  }
 
 TRIGGER_DUENO = {"dueño": "Dueño", "dueña": "Dueño", "dueno": "Dueño", "duena": "Dueño",
                  "propietario": "Dueño", "propietaria": "Dueño",
-                 "dueños": "Dueño", "dueñas": "Dueño"}
+                 "dueños": "Dueño", "dueñas": "Dueño",
+                 "owner": "Dueño", "owners": "Dueño",
+                 # French
+                 "propriétaire": "Dueño",
+                 # German
+                 "besitzer": "Dueño", "besitzerin": "Dueño",
+                 # Portuguese
+                 "dono": "Dueño", "dona": "Dueño", "proprietário": "Dueño", "proprietária": "Dueño",
+                 }
 
-TRIGGER_ACCESORIO = {"collar", "correa", "juguete", "cama", "comedero", "bebedero",
-                     "arnés", "arnes", "transportadora", "plato", "rascador", "pelota",
-                     "cepillo", "bozal", "manta", "casa", "jaula", "arenero",
-                     "correa retráctil", "correa retractil", "hueso de juguete", "ropa"}
+TRIGGER_ACCESORIO = {
+    # Spanish
+    "collar": "Collar", "correa": "Correa", "juguete": "Juguete",
+    "cama": "Cama", "comedero": "Comedero", "bebedero": "Bebedero",
+    "arnés": "Arnés", "arnes": "Arnés", "transportadora": "Transportadora",
+    "plato": "Plato", "rascador": "Rascador", "pelota": "Pelota",
+    "cepillo": "Cepillo", "bozal": "Bozal", "manta": "Manta",
+    "casa": "Casa", "jaula": "Jaula", "arenero": "Arenero",
+    "correa retráctil": "Correa retráctil", "correa retractil": "Correa retráctil",
+    "hueso de juguete": "Hueso de juguete", "ropa": "Ropa",
+    # English
+    "leash": "Correa", "toy": "Juguete", "bed": "Cama",
+    "feeder": "Comedero", "drinker": "Bebedero",
+    "harness": "Arnés", "carrier": "Transportadora",
+    "plate": "Plato", "scratcher": "Rascador", "ball": "Pelota",
+    "brush": "Cepillo", "muzzle": "Bozal", "blanket": "Manta",
+    "house": "Casa", "cage": "Jaula", "litter box": "Arenero",
+    "retractable leash": "Correa retráctil", "toy bone": "Hueso de juguete",
+    "clothes": "Ropa",
+    # French
+    "laisse": "Correa", "jouet": "Juguete", "lit": "Cama",
+    "mangeoire": "Comedero", "abreuvoir": "Bebedero",
+    "harnais": "Arnés", "transporteur": "Transportadora",
+    "assiette": "Plato", "grattoir": "Rascador", "balle": "Pelota",
+    "brosse": "Cepillo", "muselière": "Bozal", "couverture": "Manta",
+    "maison": "Casa", "cage": "Jaula", "bac à litière": "Arenero",
+    # German
+    "leine": "Correa", "spielzeug": "Juguete", "bett": "Cama",
+    "futterautomat": "Comedero", "tränke": "Bebedero",
+    "geschirr": "Arnés", "transportbox": "Transportadora",
+    "teller": "Plato", "kratzbaum": "Rascador", "ball": "Pelota",
+    "bürste": "Cepillo", "maulkorb": "Bozal", "decke": "Manta",
+    "haus": "Casa", "käfig": "Jaula", "katzenklo": "Arenero",
+    # Portuguese
+    "guia": "Correa", "brinquedo": "Juguete", "cama": "Cama",
+    "comedouro": "Comedero", "bebedouro": "Bebedero",
+    "arreio": "Arnés", "transportadora": "Transportadora",
+    "prato": "Plato", "arranhador": "Rascador", "bola": "Pelota",
+    "escova": "Cepillo", "focinheira": "Bozal", "cobertor": "Manta",
+    "casa": "Casa", "gaiola": "Jaula", "caixa de areia": "Arenero",
+}
 
-TRIGGER_PELAJE = {"corto", "largo", "rizado", "liso"}
+TRIGGER_PELAJE = {
+    "corto": "Corto", "largo": "Largo", "rizado": "Rizado", "liso": "Liso",
+    "short": "Corto", "long": "Largo", "curly": "Rizado", "straight": "Liso",
+    "court": "Corto", "long": "Largo", "bouclé": "Rizado", "lisse": "Liso",
+    "kurz": "Corto", "kurze": "Corto", "kurzer": "Corto", "kurzes": "Corto",
+    "lang": "Largo", "lange": "Largo", "langer": "Largo", "langes": "Largo",
+    "lockig": "Rizado", "lockige": "Rizado", "lockiger": "Rizado",
+    "glatt": "Liso", "glatte": "Liso", "glatter": "Liso",
+    "curto": "Corto", "comprido": "Largo", "crespo": "Rizado", "liso": "Liso",
+}
 
-TRIGGER_CUIDADO = {"baño", "bano", "vacunación", "vacunacion", "veterinario", "desparasitación",
-                   "desparasitacion", "peluquería", "peluqueria", "cepillado", "corte de uñas",
-                   "corte de unas", "limpieza dental", "revisión veterinaria", "revision",
-                   "ejercicio", "entrenamiento", "higiene ocular", "desinfección",
-                   "desinfeccion", "control de peso", "chequeo general", "vacuna anual",
-                   "baño medicado", "bano medicado"}
+TRIGGER_CUIDADO = {
+    # Spanish
+    "baño": "Baño", "bano": "Baño", "baño medicado": "Baño medicado", "bano medicado": "Baño medicado",
+    "vacunación": "Vacunación", "vacunacion": "Vacunación", "vacuna anual": "Vacuna anual",
+    "veterinario": "Revisión veterinaria",
+    "desparasitación": "Desparasitación", "desparasitacion": "Desparasitación",
+    "peluquería": "Peluquería", "peluqueria": "Peluquería",
+    "cepillado": "Cepillado",
+    "corte de uñas": "Corte de uñas", "corte de unas": "Corte de uñas",
+    "limpieza dental": "Limpieza dental",
+    "revisión veterinaria": "Revisión veterinaria", "revision": "Revisión veterinaria",
+    "ejercicio": "Ejercicio", "entrenamiento": "Entrenamiento",
+    "higiene ocular": "Higiene ocular",
+    "desinfección": "Desinfección", "desinfeccion": "Desinfección",
+    "control de peso": "Control de peso",
+    "chequeo general": "Chequeo general",
+    # English
+    "bath": "Baño", "medicated bath": "Baño medicado",
+    "vaccination": "Vacunación", "annual vaccine": "Vacuna anual",
+    "vet": "Revisión veterinaria", "veterinary": "Revisión veterinaria",
+    "deworming": "Desparasitación",
+    "grooming": "Peluquería",
+    "brushing": "Cepillado",
+    "nail cut": "Corte de uñas", "nail trimming": "Corte de uñas",
+    "dental cleaning": "Limpieza dental",
+    "checkup": "Revisión veterinaria", "check-up": "Revisión veterinaria",
+    "exercise": "Ejercicio", "training": "Entrenamiento",
+    "eye hygiene": "Higiene ocular",
+    "disinfection": "Desinfección",
+    "weight control": "Control de peso",
+    "general checkup": "Chequeo general",
+    # French
+    "bain": "Baño", "bain médicamente": "Baño medicado",
+    "vaccination": "Vacunación", "vaccin annuel": "Vacuna anual",
+    "vétérinaire": "Revisión veterinaria",
+    "vermifugation": "Desparasitación",
+    "toilettage": "Peluquería",
+    "brossage": "Cepillado",
+    "coupe des ongles": "Corte de uñas",
+    "nettoyage dentaire": "Limpieza dental",
+    "contrôle": "Revisión veterinaria",
+    "exercice": "Ejercicio",
+    "hygiène oculaire": "Higiene ocular",
+    "désinfection": "Desinfección",
+    "contrôle de poids": "Control de peso",
+    # German
+    "bad": "Baño", "medizinisches bad": "Baño medicado",
+    "impfung": "Vacunación", "jährliche impfung": "Vacuna anual",
+    "tierarzt": "Revisión veterinaria",
+    "entwurmung": "Desparasitación",
+    "pflege": "Peluquería",
+    "bürsten": "Cepillado",
+    "krallenschneiden": "Corte de uñas",
+    "zahnreinigung": "Limpieza dental",
+    "untersuchung": "Revisión veterinaria",
+    "bewegung": "Ejercicio", "training": "Entrenamiento",
+    "augenhygiene": "Higiene ocular",
+    "desinfektion": "Desinfección",
+    "gewichtskontrolle": "Control de peso",
+    # Portuguese
+    "banho": "Baño", "banho medicado": "Baño medicado",
+    "vacinação": "Vacunación", "vacina anual": "Vacuna anual",
+    "veterinário": "Revisión veterinaria",
+    "desparasitação": "Desparasitación",
+    "tosa": "Peluquería",
+    "escovação": "Cepillado",
+    "corte de unhas": "Corte de uñas",
+    "limpeza dental": "Limpieza dental",
+    "revisão": "Revisión veterinaria",
+    "exercício": "Ejercicio", "treinamento": "Entrenamiento",
+    "higiene ocular": "Higiene ocular",
+    "desinfecção": "Desinfección",
+    "controle de peso": "Control de peso",
+}
 
-TRIGGER_COLOR = {"blanco", "negro", "marron", "marrón", "gris", "dorado", "rojo",
-                 "azul", "verde", "naranja", "rosa", "violeta", "beige", "crema",
-                 "canela", "chocolate", "caramelo", "miel", "plateado", "cobrizo",
-                 "atigrado", "bicolor", "tricolor"}
+TRIGGER_COLOR = {
+    "blanco": "Blanco", "negro": "Negro", "marron": "Marrón", "marrón": "Marrón",
+    "gris": "Gris", "dorado": "Dorado", "rojo": "Rojo",
+    "azul": "Azul", "verde": "Verde", "naranja": "Naranja",
+    "rosa": "Rosa", "violeta": "Violeta", "beige": "Beige", "crema": "Crema",
+    "canela": "Canela", "chocolate": "Chocolate", "caramelo": "Caramelo",
+    "miel": "Miel", "plateado": "Plateado", "cobrizo": "Cobrizo",
+    "atigrado": "Atigrado", "bicolor": "Bicolor", "tricolor": "Tricolor",
+    # English
+    "white": "Blanco", "black": "Negro", "brown": "Marrón",
+    "gray": "Gris", "grey": "Gris", "golden": "Dorado", "red": "Rojo",
+    "blue": "Azul", "green": "Verde", "orange": "Naranja",
+    "pink": "Rosa", "purple": "Violeta",
+    "cream": "Crema", "cinnamon": "Canela",
+    "honey": "Miel", "silver": "Plateado", "copper": "Cobrizo",
+    "tabby": "Atigrado",
+    # French
+    "blanc": "Blanco", "noir": "Negro", "brun": "Marrón", "marron": "Marrón",
+    "gris": "Gris", "doré": "Dorado", "rouge": "Rojo",
+    "bleu": "Azul", "vert": "Verde",
+    "rose": "Rosa",
+    "crème": "Crema",
+    # German
+    "weiß": "Blanco", "schwarz": "Negro", "schwarze": "Negro", "schwarzer": "Negro", "schwarzes": "Negro",
+    "braun": "Marrón", "braune": "Marrón", "brauner": "Marrón",
+    "grau": "Gris", "golden": "Dorado", "rot": "Rojo",
+    "blau": "Azul", "grün": "Verde",
+    "pink": "Rosa",
+    "creme": "Crema",
+    # Portuguese
+    "branco": "Blanco", "preto": "Negro", "marrom": "Marrón",
+    "cinza": "Gris", "dourado": "Dorado", "vermelho": "Rojo",
+    "azul": "Azul", "verde": "Verde",
+    "laranja": "Naranja",
+    "rosa": "Rosa", "violeta": "Violeta",
+    "creme": "Crema",
+}
 
-TRIGGER_SEXO = {"macho", "hembra", "masculino", "femenino"}
+TRIGGER_SEXO = {
+    "macho": "Macho", "hembra": "Hembra", "masculino": "Macho", "femenino": "Hembra",
+    "male": "Macho", "female": "Hembra",
+    "mâle": "Macho", "femelle": "Hembra",
+    "männlich": "Macho", "weiblich": "Hembra",
+    "macho": "Macho", "fêmea": "Hembra", "feminino": "Hembra",
+}
 
-TRIGGER_ESTERILIZADO = {"esterilizado", "esterilizada", "esterilizar",
-                        "castrado", "castrada", "castrar"}
+TRIGGER_ESTERILIZADO = {
+    "esterilizado": "Esterilizado", "esterilizada": "Esterilizado",
+    "esterilizar": "Esterilizado",
+    "castrado": "Esterilizado", "castrada": "Esterilizado", "castrar": "Esterilizado",
+    "neutered": "Esterilizado", "spayed": "Esterilizado", "fixed": "Esterilizado",
+    "stérilisé": "Esterilizado",
+    "kastriert": "Esterilizado",
+    "esterilizado": "Esterilizado", "castrado": "Esterilizado",
+}
 
-TRIGGER_BOZAL = {"bozal"}
+TRIGGER_BOZAL = {
+    "bozal": "Bozal",
+    "muzzle": "Bozal",
+    "muselière": "Bozal",
+    "maulkorb": "Bozal",
+    "focinheira": "Bozal",
+}
 
-TRIGGER_TEMPERAMENTO = {"tranquilo", "tranquila", "agresivo", "agresiva",
-                        "jugueton", "juguetón", "juguetona", "activo", "activa",
-                        "perezoso", "perezosa", "docil", "dócil", "cariñoso",
-                        "cariñosa", "independiente", "valiente",
-                        "alerta", "nervioso", "nerviosa", "protector", "protectora",
-                        "amigable", "amigables", "amable", "amables",
-                        "sociable", "sociables", "tímido", "timido", "tímida", "timida"}
+TRIGGER_TEMPERAMENTO = {
+    "tranquilo": "Tranquilo", "tranquila": "Tranquilo",
+    "agresivo": "Agresivo", "agresiva": "Agresivo",
+    "jugueton": "Juguetón", "juguetón": "Juguetón", "juguetona": "Juguetón",
+    "activo": "Activo", "activa": "Activo",
+    "perezoso": "Perezoso", "perezosa": "Perezoso",
+    "docil": "Dócil", "dócil": "Dócil",
+    "cariñoso": "Cariñoso", "cariñosa": "Cariñoso",
+    "independiente": "Independiente",
+    "valiente": "Valiente",
+    "alerta": "Alerta",
+    "nervioso": "Nervioso", "nerviosa": "Nervioso",
+    "protector": "Protector", "protectora": "Protector",
+    "amigable": "Amigable", "amigables": "Amigable",
+    "amable": "Amable", "amables": "Amable",
+    "sociable": "Sociable", "sociables": "Sociable",
+    "tímido": "Tímido", "timido": "Tímido", "tímida": "Tímido", "timida": "Tímido",
+    # English
+    "calm": "Tranquilo", "quiet": "Tranquilo",
+    "aggressive": "Agresivo",
+    "playful": "Juguetón",
+    "active": "Activo", "energetic": "Activo",
+    "lazy": "Perezoso",
+    "docile": "Dócil", "gentle": "Dócil",
+    "affectionate": "Cariñoso", "loving": "Cariñoso",
+    "independent": "Independiente",
+    "brave": "Valiente", "courageous": "Valiente",
+    "alert": "Alerta",
+    "nervous": "Nervioso", "anxious": "Nervioso",
+    "protective": "Protector",
+    "friendly": "Amigable",
+    "kind": "Amable",
+    "social": "Sociable", "outgoing": "Sociable",
+    "shy": "Tímido", "timid": "Tímido",
+}
 
-TRIGGER_TIPO_ALIMENTO = {"seco", "humedo", "húmedo", "natural", "premium"}
+TRIGGER_TIPO_ALIMENTO = {
+    "seco": "Seco", "humedo": "Húmedo", "húmedo": "Húmedo",
+    "natural": "Natural", "premium": "Premium",
+    "dry": "Seco", "wet": "Húmedo",
+    "sec": "Seco", "humide": "Húmedo",
+    "trocken": "Seco", "nass": "Húmedo", "feucht": "Húmedo",
+    "seco": "Seco", "molhado": "Húmedo", "úmido": "Húmedo",
+}
 
-TRIGGER_FRECUENCIA = {"diario", "diaria", "semanal", "mensual", "anual"}
+TRIGGER_FRECUENCIA = {
+    "diario": "Diario", "diaria": "Diario",
+    "semanal": "Semanal",
+    "mensual": "Mensual",
+    "anual": "Anual",
+    "daily": "Diario",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "yearly": "Anual", "annual": "Anual",
+    "quotidien": "Diario", "journalier": "Diario",
+    "hebdomadaire": "Semanal",
+    "mensuel": "Mensual",
+    "annuel": "Anual",
+    "täglich": "Diario",
+    "wöchentlich": "Semanal",
+    "monatlich": "Mensual",
+    "jährlich": "Anual",
+    "diariamente": "Diario",
+    "semanalmente": "Semanal",
+    "mensalmente": "Mensual",
+    "anualmente": "Anual",
+}
 
 RAZA_MAP = {
     "labrador": "Labrador Retriever", "labrador retriever": "Labrador Retriever",
@@ -223,6 +486,9 @@ def parse_intent(texto: str) -> Intent:
                     break
 
     # "de [dueño]" pattern: "mascotas de Carlos", "perros de Ana"
+    # Avoid interpreting mascota names as dueño names
+    from ..sparql import get_todas_las_mascotas
+    _nombres_mascotas = {r.get("Nombre", "").lower() for r in get_todas_las_mascotas()}
     patron_de = r"(?:de|del)\s+([A-Za-záéíóúñÁÉÍÓÚÑ]+)"
     for m in re.finditer(patron_de, texto_lower):
         posible_nombre = m.group(1).strip()
@@ -233,28 +499,30 @@ def parse_intent(texto: str) -> Intent:
             continue
         nombre = posible_nombre.capitalize()
         if len(nombre) > 2 and nombre not in ("Del", "Los", "Las", "El", "La", "Un", "Una"):
+            if nombre.lower() in _nombres_mascotas:
+                continue
             if nombre.lower() not in {"perro", "perros", "gato", "gatos", "raza", "razas",
-                                            "color", "pelaje", "cuidado", "alimento", "edad",
-                                            "peso", "sexo", "macho", "hembra", "dueño", "dueños"}:
+                                             "color", "pelaje", "cuidado", "alimento", "edad",
+                                             "peso", "sexo", "macho", "hembra", "dueño", "dueños"}:
                 intent.dueno = nombre
                 for token in doc:
                     if token.text.lower() in (posible_nombre, "de", "del"):
                         tokens_usados.add(token.i)
                 break
 
-    # "dueño [nombre]" pattern (existing)
+    # "dueño/owner [nombre]" pattern
     if intent.dueno is None:
-        pat = r"(?:dueñ[oa]s?|duen[oa]s?|propietari[oa]s?)\s+(?:es\s+|se\s+llama\s+|llamad[ao]\s+)?([a-záéíóúñ]+(?:\s+[a-záéíóúñ]+)?)"
+        pat = r"(?:dueñ[oa]s?|duen[oa]s?|propietari[oa]s?|owners?)\s+(?:es\s+|se\s+llama\s+|llamad[ao]\s+)?([a-záéíóúñ]+)"
         m = re.search(pat, texto_lower)
         if m:
             candidate = m.group(1).strip()
             # Skip if candidate tokens are already used (e.g., by breed detection)
             candidate_tokens = {token.i for token in doc
-                               if candidate in token.text.lower()}
+                                if candidate in token.text.lower()}
             if not candidate_tokens & tokens_usados:
                 intent.dueno = candidate.capitalize()
             for token in doc:
-                if token.text.lower() in ("dueño", "dueña", "dueno", "duena", "propietario", "propietaria", "dueños", "dueñas"):
+                if token.text.lower() in TRIGGER_DUENO:
                     tokens_usados.add(token.i)
                     break
 
@@ -278,19 +546,19 @@ def parse_intent(texto: str) -> Intent:
 
     for token in doc:
         lemma = token.lemma_.lower()
-        if lemma in TRIGGER_ALIMENTO:
+        if lemma in TRIGGER_ALIMENTO or token.text.lower() in TRIGGER_ALIMENTO:
             tokens_usados.add(token.i)
 
     # Age/weight range detection: "mayor/menor de X años/kg"
     for token in doc:
         if token.like_num:
             try:
-                valor = int(token.text)
+                valor = int(token.text.replace(',', '.'))
                 if valor > 100:
                     continue
             except ValueError:
                 try:
-                    valor = float(token.text)
+                    valor = float(token.text.replace(',', '.'))
                 except ValueError:
                     continue
             idx = token.i
@@ -329,6 +597,11 @@ def parse_intent(texto: str) -> Intent:
                         intent.edad = valor
                         tokens_usados.add(idx - 1)
                         tokens_usados.add(idx)
+                elif idx > 0 and doc[idx - 1].lemma_ in {"pesar", "peso"}:
+                    if intent.peso is None and intent.peso_min is None:
+                        intent.peso = float(valor)
+                        tokens_usados.add(idx - 1)
+                        tokens_usados.add(idx)
                 elif idx + 1 < len(doc) and doc[idx + 1].lemma_ in {"peso", "kilo", "kilos", "kg"}:
                     if intent.peso is None and intent.peso_min is None:
                         intent.peso = float(token.text)
@@ -359,11 +632,14 @@ def parse_intent(texto: str) -> Intent:
 
     for token in doc:
         lemma = token.lemma_.lower()
-        if lemma in TRIGGER_ACCESORIO:
-            intent.accesorio = lemma.capitalize()
+        texto = token.text.lower()
+        v = _t(lemma, TRIGGER_ACCESORIO) or _t(texto, TRIGGER_ACCESORIO)
+        if v:
+            intent.accesorio = v
             tokens_usados.add(token.i)
-        if lemma in TRIGGER_PELAJE:
-            intent.pelaje = lemma.capitalize()
+        v = _t(lemma, TRIGGER_PELAJE) or _t(texto, TRIGGER_PELAJE)
+        if v:
+            intent.pelaje = v
             tokens_usados.add(token.i)
 
     if intent.pelaje and not intent.accesorio:
@@ -387,49 +663,55 @@ def parse_intent(texto: str) -> Intent:
 
     for token in doc:
         lemma = token.lemma_.lower()
-        if lemma in TRIGGER_COLOR:
-            intent.color = lemma.capitalize()
-            tokens_usados.add(token.i)
-            break
-
-    for token in doc:
-        lemma = token.lemma_.lower()
-        if lemma in TRIGGER_SEXO:
-            intent.sexo = lemma.capitalize()
-            tokens_usados.add(token.i)
-            break
-
-    for token in doc:
         texto = token.text.lower()
-        lemma = token.lemma_.lower()
-        key = None
-        if texto in TRIGGER_TEMPERAMENTO:
-            key = lemma if lemma in TRIGGER_TEMPERAMENTO else texto.rstrip('s')
-        elif lemma in TRIGGER_TEMPERAMENTO:
-            key = lemma
-        if key and intent.temperamento is None:
-            intent.temperamento = key.capitalize()
+        v = _t(lemma, TRIGGER_COLOR) or _t(texto, TRIGGER_COLOR)
+        if v:
+            intent.color = v
             tokens_usados.add(token.i)
             break
 
     for token in doc:
         lemma = token.lemma_.lower()
-        if lemma in TRIGGER_TIPO_ALIMENTO:
-            intent.tipo_alimento = lemma.capitalize()
+        texto = token.text.lower()
+        v = _t(lemma, TRIGGER_SEXO) or _t(texto, TRIGGER_SEXO)
+        if v:
+            intent.sexo = v
             tokens_usados.add(token.i)
             break
 
     for token in doc:
         lemma = token.lemma_.lower()
-        if lemma in TRIGGER_CUIDADO:
+        texto = token.text.lower().rstrip('s')
+        v = _t(lemma, TRIGGER_TEMPERAMENTO) or _t(texto, TRIGGER_TEMPERAMENTO)
+        if v and intent.temperamento is None:
+            intent.temperamento = v
+            tokens_usados.add(token.i)
+            break
+
+    for token in doc:
+        lemma = token.lemma_.lower()
+        texto = token.text.lower()
+        v = _t(lemma, TRIGGER_TIPO_ALIMENTO) or _t(texto, TRIGGER_TIPO_ALIMENTO)
+        if v:
+            intent.tipo_alimento = v
+            tokens_usados.add(token.i)
+            break
+
+    for token in doc:
+        lemma = token.lemma_.lower()
+        texto = token.text.lower()
+        v = _t(lemma, TRIGGER_CUIDADO) or _t(texto, TRIGGER_CUIDADO)
+        if v:
             if intent.cuidado is None:
-                intent.cuidado = lemma.capitalize()
+                intent.cuidado = v
                 tokens_usados.add(token.i)
 
     for token in doc:
         lemma = token.lemma_.lower()
-        if lemma in TRIGGER_FRECUENCIA:
-            intent.frecuencia_cuidado = lemma.capitalize()
+        texto = token.text.lower()
+        v = _t(lemma, TRIGGER_FRECUENCIA) or _t(texto, TRIGGER_FRECUENCIA)
+        if v:
+            intent.frecuencia_cuidado = v
             tokens_usados.add(token.i)
             break
 
@@ -449,7 +731,8 @@ def parse_intent(texto: str) -> Intent:
     if intent.esterilizado is None:
         for token in doc:
             lemma = token.lemma_.lower()
-            if lemma in TRIGGER_ESTERILIZADO:
+            texto = token.text.lower()
+            if _t(lemma, TRIGGER_ESTERILIZADO) or _t(texto, TRIGGER_ESTERILIZADO):
                 intent.esterilizado = True
                 tokens_usados.add(token.i)
                 break
@@ -457,7 +740,8 @@ def parse_intent(texto: str) -> Intent:
     if intent.requiere_bozal is None:
         for token in doc:
             lemma = token.lemma_.lower()
-            if lemma in TRIGGER_BOZAL:
+            texto = token.text.lower()
+            if _t(lemma, TRIGGER_BOZAL) or _t(texto, TRIGGER_BOZAL):
                 intent.requiere_bozal = True
                 tokens_usados.add(token.i)
                 break
